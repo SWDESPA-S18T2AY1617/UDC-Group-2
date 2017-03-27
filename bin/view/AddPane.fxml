@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.AddControl">
+   <children>
+      <AnchorPane layoutX="2.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="88.0" layoutY="157.0" text="Title:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="88.0" layoutY="200.0" text="Date:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <ColorPicker fx:id="colorInput" layoutX="204.0" layoutY="289.0" prefHeight="30.0" prefWidth="117.0" />
+            <Label layoutX="85.0" layoutY="246.0" text="Time:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="toLabel" layoutX="242.0" layoutY="246.0" text="to">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="timeStartCmbBox" layoutX="152.0" layoutY="247.0" prefHeight="25.0" prefWidth="71.0" />
+            <ComboBox fx:id="timeEndCmbBox" layoutX="279.0" layoutY="248.0" prefHeight="25.0" prefWidth="71.0" />
+            <Label layoutX="116.0" layoutY="290.0" text="Color:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="saveBtn" layoutX="374.0" layoutY="344.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="140.0" text="SAVE" />
+            <TextField fx:id="titleTxtField" layoutX="149.0" layoutY="155.0" prefHeight="34.0" prefWidth="206.0" />
+            <DatePicker fx:id="datePick" layoutX="149.0" layoutY="197.0" prefHeight="32.0" prefWidth="210.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4c4cf" height="35.0" layoutX="-2.0" layoutY="-4.0" opacity="0.51" stroke="#ffffff00" strokeType="INSIDE" width="600.0">
+               <effect>
+                  <Blend />
+               </effect>
+            </Rectangle>
+            <Label fx:id = "addLabel" alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="35.0" prefWidth="600.0" text="ADD">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
