@@ -12,7 +12,7 @@
    <children>
       <ImageView fx:id="bg" fitHeight="483.0" fitWidth="718.0" opacity="0.71" pickOnBounds="true">
          <image>
-            <Image url="@New%20folder/Hospital.jpg" />
+            <Image url="@../res/img/Hospital.jpg" />
          </image>
          <cursor>
             <Cursor fx:constant="NONE" />
@@ -23,7 +23,7 @@
          <graphic>
             <ImageView fx:id="secretaryIcon" fitHeight="129.0" fitWidth="104.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@New%20folder/Secretary1.png" />
+                  <Image url="@../res/img/Secretary1.png" />
                </image>
             </ImageView>
          </graphic>
@@ -32,7 +32,7 @@
          <graphic>
             <ImageView fx:id="doctorIcon" fitHeight="104.0" fitWidth="104.0" opacity="0.94" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@New%20folder/Doctorr.png" />
+                  <Image url="@../res/img/Doctorr.png" />
                </image>
             </ImageView>
          </graphic>
@@ -41,7 +41,7 @@
          <graphic>
             <ImageView fx:id="patientIcon" fitHeight="135.0" fitWidth="104.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@New%20folder/Patient.png" />
+                  <Image url="@../res/img/Patient.png" />
                </image>
             </ImageView>
          </graphic>

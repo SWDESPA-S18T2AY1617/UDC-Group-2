@@ -13,7 +13,7 @@
       <Rectangle fx:id="rectangleTop" arcHeight="5.0" arcWidth="5.0" fill="#5e9b9d" height="74.0" stroke="#5e9b9d" strokeType="INSIDE" width="359.0" />
       <ImageView fx:id="clientIcon" fitHeight="55.0" fitWidth="74.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@New%20folder/Patient.png" />
+            <Image url="@../res/img/Patient.png" />
          </image>
       </ImageView>
       <Label fx:id="registerLabel" layoutX="95.0" layoutY="18.0" prefHeight="39.0" prefWidth="172.0" text="REGISTER" textFill="WHITE">

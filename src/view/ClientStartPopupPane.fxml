@@ -13,7 +13,7 @@
       <Rectangle fx:id="rectangleTop" arcHeight="5.0" arcWidth="5.0" fill="#5e9b9d" height="74.0" stroke="#5e9b9d" strokeType="INSIDE" width="322.0" />
       <ImageView fx:id="clientIcon" fitHeight="55.0" fitWidth="74.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@New%20folder/Patient.png" />
+            <Image url="@../res/img/Patient.png" />
          </image>
       </ImageView>
       <Label fx:id="clientLabel" layoutX="99.0" layoutY="18.0" prefHeight="39.0" prefWidth="172.0" text="CLIENT LOGIN" textFill="WHITE">
@@ -28,7 +28,7 @@
          <graphic>
             <ImageView fx:id="registerIcon" fitHeight="39.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@New%20folder/registerbtn.png" />
+                  <Image url="@../res/img/registerbtn.png" />
                </image>
             </ImageView>
          </graphic>
@@ -45,7 +45,7 @@
          <graphic>
             <ImageView fx:id="signinIcon" fitHeight="39.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@New%20folder/signinbtn.png" />
+                  <Image url="@../res/img/signinbtn.png" />
                </image>
             </ImageView>
          </graphic>

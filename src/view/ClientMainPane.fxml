@@ -4,12 +4,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane fx:id="ClientMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="clientMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="1100.0" pickOnBounds="true">
+      <ImageView fx:id="bg" fitHeight="600.0" fitWidth="1100.0" pickOnBounds="true">
          <image>
-            <Image url="@New%20folder/Hospital.jpg" />
+            <Image url="@../res/img/Hospital.jpg" />
          </image>
       </ImageView>
       <fx:include source="ClientToolBar.fxml" />
