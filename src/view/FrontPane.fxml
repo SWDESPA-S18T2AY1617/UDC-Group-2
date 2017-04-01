@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="frontPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="bg" fitHeight="483.0" fitWidth="718.0" opacity="0.71" pickOnBounds="true">
+         <image>
+            <Image url="@New%20folder/Hospital.jpg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor>
+      </ImageView>
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#d7dce0" height="175.0" layoutX="35.0" layoutY="154.0" opacity="0.59" stroke="#d7dce0" strokeLineCap="ROUND" width="634.0" />
+      <Button fx:id="secretaryButton" layoutX="69.0" layoutY="186.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fx:id="secretaryIcon" fitHeight="129.0" fitWidth="104.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@New%20folder/Secretary1.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="doctorButton" layoutX="299.0" layoutY="186.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fx:id="doctorIcon" fitHeight="104.0" fitWidth="104.0" opacity="0.94" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@New%20folder/Doctorr.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="patientButton" layoutX="523.0" layoutY="186.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fx:id="patientIcon" fitHeight="135.0" fitWidth="104.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@New%20folder/Patient.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
