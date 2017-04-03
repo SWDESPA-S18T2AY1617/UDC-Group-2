@@ -234,7 +234,7 @@
                   </VBox>
                   <AnchorPane fx:id="schedule" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1436.0" prefWidth="561.0">
                      <children>
-                        <GridPane gridLinesVisible="true" layoutX="14.0" minWidth="-Infinity" prefHeight="1470.0" prefWidth="521.0">
+                        <GridPane layoutX="14.0" minWidth="-Infinity" prefHeight="1470.0" prefWidth="521.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="112.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="112.0" />
