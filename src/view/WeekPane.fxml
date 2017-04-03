@@ -17,7 +17,7 @@
       </Label>
       <AnchorPane fx:id="slots" layoutX="17.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <fx:include source="WeekInnerPane.fxml" />
+            <fx:include fx:id = "weekInnerView" source="WeekInnerPane.fxml" />
          </children>
       </AnchorPane>
       <Rectangle fx:id="days" arcHeight="5.0" arcWidth="5.0" fill="#e53251" height="30.0" layoutX="85.0" layoutY="62.0" stroke="#e53251" strokeType="INSIDE" width="521.0" />
