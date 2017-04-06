@@ -10,7 +10,12 @@ public class Secretary {
 	
 	private ArrayList<Doctor> doctors; 
 	
-	public Secretary() {
+	public Secretary(int sec_id, String password, String first_name, String middle_name, String last_name) {
+		setID(sec_id);
+		setPassword(password);
+		setFName(first_name);
+		setMName(middle_name);
+		setLName(last_name);
 		doctors = new ArrayList<Doctor>();
 	}
 	
