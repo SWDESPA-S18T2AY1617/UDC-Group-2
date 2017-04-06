@@ -47,8 +47,8 @@ public class AddControl {
         assert saveBtn != null : "fx:id=\"saveBtn\" was not injected: check your FXML file 'AddPane.fxml'.";
         assert addLabel != null : "fx:id=\"addLabel\" was not injected: check your FXML file 'AddPane.fxml'.";
         
-        ObservableList<LocalTime> timeStart = FXCollections.observableArrayList();
-        ObservableList<LocalTime> timeEnd = FXCollections.observableArrayList();
+        ObservableList <LocalTime> timeStart = FXCollections.observableArrayList();
+        ObservableList <LocalTime> timeEnd = FXCollections.observableArrayList();
         
         for (int i = 0; i < 24; i ++) {
         	timeStart.add(LocalTime.of(i, 0));

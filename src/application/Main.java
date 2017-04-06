@@ -1,14 +1,11 @@
 package application;
 	
-import control.MainControl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.calendar.ModelGregorianCalendar;
-import model.storage.EventCollection;
 
 
 public class Main extends Application {
@@ -16,19 +13,13 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/view/MainPane.fxml"));
+			loader.setLocation(getClass().getResource("/view/MainFrontPane.fxml"));
 			
 			Pane root = new Pane ();
 			Scene scene = new Scene(root, 1000, 700);
 			
 			root.getChildren().add(loader.load());
 			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
-			
-			MainControl mainController = loader.getController();
-			EventCollection collections = new EventCollection ();
-			
-			mainController.setCalendarData(new ModelGregorianCalendar());
-			mainController.initializeController(collections);
 			
 			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/event.png")));
 			primaryStage.setTitle("My Productivity Tool");
