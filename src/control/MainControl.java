@@ -2,9 +2,10 @@ package control;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
-import model.EventObserver;
-import model.ModelGregorianCalendar;
+import model.calendar.ModelGregorianCalendar;
+import model.storage.ClinicDB;
 import model.storage.EventCollection;
+import model.storage.EventObserver;
 
 public class MainControl extends EventObserver {
 	@FXML AnchorPane dayView;
@@ -59,7 +60,7 @@ public class MainControl extends EventObserver {
 
 	@Override
 	public void update() {
-		collections.openDB();
+		ClinicDB.openConnection();
 		
 		if (toolbarViewController.showEvents() && toolbarViewController.showTasks()) {
 			agendaViewController.setEvents(collections.getAllByDate(toolbarViewController.getDay()));
@@ -75,7 +76,7 @@ public class MainControl extends EventObserver {
 		dayViewController.initializeButtons(collections);
 		agendaViewController.initializeButtons(collections);
 		
-		collections.closeDB();
+		ClinicDB.closeConnection();
 	}
 
 	public void initializeController(EventCollection collections) {

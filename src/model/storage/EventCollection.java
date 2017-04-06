@@ -16,39 +16,34 @@ import java.util.Iterator;
 import java.util.List;
 
 import javafx.scene.paint.Color;
-import model.Details;
-import model.Event;
-import model.EventDetails;
-import model.EventObserver;
-import model.Status;
-import model.TaskDetails;
+import model.calendar.Details;
+import model.calendar.Event;
+import model.calendar.EventDetails;
+import model.calendar.Status;
+import model.calendar.TaskDetails;
 
-public class EventCollection {
-	
-	private EventDB connection;
+public class EventCollection extends AccessObject <Event> {
 	private List <EventObserver> observers;
 	private PreparedStatement statement;
 	
-	public EventCollection (EventDB connection) {
-		this.connection = connection;
+	public EventCollection () {
 		this.observers = new ArrayList <EventObserver> ();
 	}
 	
-	public void openDB () {
-		connection.openConnection();
+	public void register(EventObserver eventObserver) {
+		this.observers.add(eventObserver);
 	}
 	
-	public boolean isOpen () {
-		return connection.isOpen();
-	}
-	
-	public void closeDB () {
-		connection.closeConnection();
+	public void unregister (EventObserver eventObserver) {
+		this.observers.remove(eventObserver);
 	}
 	
 	public boolean update (Event e) {
+		if(!ClinicDB.isOpen())
+			return false;
+
 		try {
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			
 			String query = 	"UPDATE " +  Event.TABLE +
 							" SET " + Event.EVENT_TITLE + " = ?," +
@@ -88,8 +83,11 @@ public class EventCollection {
 	}
 	
 	public boolean add (Event e) {
+		if(!ClinicDB.isOpen())
+			return false;
+		
 		try {
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			
 			String query = 	"INSERT INTO " + 
 							Event.TABLE +
@@ -117,15 +115,17 @@ public class EventCollection {
 			System.out.println("[" + getClass().getName() + "] INSERT SUCCESS!");
 			return true;
 		} catch (SQLException ev) {
-			ev.printStackTrace();
 			System.out.println("[" + getClass().getName() + "] INSERT FAILED!");
 			return false;
 		}	
 	}
 	
-	public boolean remove (Event e) {
+	public boolean delete (Event e) {
+		if(!ClinicDB.isOpen())
+			return false;
+		
 		try {
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			String query = 	"DELETE FROM " + 
 							Event.TABLE +
 							" WHERE " + Event.EVENT_ID + " = ?";
@@ -144,10 +144,13 @@ public class EventCollection {
 	}
 	
 	public Event get (int id) {
+		if(!ClinicDB.isOpen())
+			return null;
+		
 		Event event = null;
 		
 		try {
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			ResultSet rs;
 			
 			String query = 	"SELECT * " +
@@ -172,8 +175,11 @@ public class EventCollection {
 	public Iterator <Event> getAllByColor (Color c) {
 		List <Event> events = new ArrayList <Event> ();
 		
+		if(!ClinicDB.isOpen())
+			return events.iterator();
+		
 		try {
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			ResultSet rs;
 			
 			String query = 	"SELECT * " +
@@ -201,8 +207,11 @@ public class EventCollection {
 	public Iterator <Event> getAllByDate (LocalDate date) {
 		List <Event> events = new ArrayList <Event> ();
 		
+		if(!ClinicDB.isOpen())
+			return events.iterator();
+		
 		try {
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			ResultSet rs;
 			
 			String query = 	"SELECT * " +
@@ -227,12 +236,14 @@ public class EventCollection {
 		return events.iterator();
 	}
 	
-	
 	public Iterator <Event> getTasksForThisDay (LocalDate date) {
 		List <Event> events = new ArrayList <Event> ();
 		
+		if(!ClinicDB.isOpen())
+			return events.iterator();
+		
 		try {
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			ResultSet rs;
 			
 			String query = 	"SELECT * " +
@@ -258,11 +269,14 @@ public class EventCollection {
 		return events.iterator();
 	}
 	
-	public Iterator <Event> getEventsForThisDay (LocalDate date) {
+	public Iterator <Event> getEventsForThisDay (LocalDate date) {	
 		List <Event> events = new ArrayList <Event> ();
 		
+		if(!ClinicDB.isOpen())
+			return events.iterator();
+		
 		try {
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			ResultSet rs;
 			
 			String query = 	"SELECT * " +
@@ -291,8 +305,11 @@ public class EventCollection {
 	public Iterator <Event> getEventsOnly () {
 		List <Event> events = new ArrayList <Event> ();
 		
+		if(!ClinicDB.isOpen())
+			return events.iterator();
+		
 		try {
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			ResultSet rs;
 			
 			String query = 	"SELECT * " +
@@ -318,8 +335,11 @@ public class EventCollection {
 	public Iterator <Event> getTasksOnly () {
 		List <Event> events = new ArrayList <Event> ();
 		
+		if(!ClinicDB.isOpen())
+			return events.iterator();
+		
 		try { 
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			ResultSet rs;
 			
 			String query = 	"SELECT * " +
@@ -345,8 +365,12 @@ public class EventCollection {
 	public Iterator <Event> getAllByMonth (Month m) {
 		List <Event> events = new ArrayList <Event> ();
 		
+		if(!ClinicDB.isOpen())
+			return events.iterator();
+		
+		
 		try {
-			Connection connect = connection.getActiveConnection();
+			Connection connect = ClinicDB.getActiveConnection();
 			ResultSet rs;
 			
 			String query = 	"SELECT * " +
@@ -374,7 +398,7 @@ public class EventCollection {
 	public Iterator <Event> getAll () {
 		List <Event> events = new ArrayList <Event> ();
 		
-		try (Connection connect = connection.getActiveConnection()) {
+		try (Connection connect = ClinicDB.getActiveConnection()) {
 			ResultSet rs;
 			
 			String query = 	"SELECT * " +
@@ -398,8 +422,11 @@ public class EventCollection {
 	}
 	
 	public int lastUpdatedID() {
+		if(!ClinicDB.isOpen())
+			return -1;
+		
 		int i = 0;
-		try (Connection connect = connection.getActiveConnection()) {
+		try (Connection connect = ClinicDB.getActiveConnection()) {
 			ResultSet rs;
 			
 			String query = 	"SELECT MAX( " + Event.TABLE + "." + Event.EVENT_ID + ") FROM " + Event.TABLE;
@@ -465,13 +492,5 @@ public class EventCollection {
 		for (EventObserver observer:observers) {
 			observer.update();
 		}
-	}
-	
-	public void register(EventObserver eventObserver) {
-		this.observers.add(eventObserver);
-	}
-	
-	public void unregister (EventObserver eventObserver) {
-		this.observers.remove(eventObserver);
 	}
 }

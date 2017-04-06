@@ -7,10 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.CheckBox;
 import javafx.scene.shape.Rectangle;
-import model.Event;
-import model.EventDetails;
-import model.Status;
-import model.TaskDetails;
+import model.calendar.Event;
+import model.calendar.EventDetails;
+import model.calendar.Status;
+import model.calendar.TaskDetails;
+import model.storage.ClinicDB;
 import model.storage.EventCollection;
 import javafx.scene.shape.Polygon;
 import javafx.scene.control.Alert;
@@ -30,7 +31,7 @@ public class PopupControl extends AnchorPane {
 	
 	public void setDeleteButton (EventCollection collections) {
 		deleteBtn.setOnAction(e -> {
-			collections.openDB();
+			ClinicDB.openConnection();
 			Alert alert = new Alert (AlertType.CONFIRMATION);
 			alert.setTitle("Delete Confirmation");
 			alert.setHeaderText(null);
@@ -39,7 +40,7 @@ public class PopupControl extends AnchorPane {
     		Optional <ButtonType> result = alert.showAndWait();
     		
     		if (result.get() == ButtonType.OK){
-    			boolean removed = collections.remove(event);
+    			boolean removed = collections.delete(event);
     			if(removed) {
     				alert = new Alert (AlertType.INFORMATION);
     				alert.setTitle("Delete Successful");
@@ -55,13 +56,13 @@ public class PopupControl extends AnchorPane {
     			}
     		} 
 
-			collections.closeDB();
+			ClinicDB.closeConnection();
 		});
 	}
 	
 	public void setDoneBox (EventCollection collections) {
 		doneBox.setOnAction(e -> {
-			collections.openDB();
+			ClinicDB.openConnection();
 			Alert alert = new Alert (AlertType.CONFIRMATION);
 			alert.setTitle("Mark as Done Confirmation");
 			alert.setHeaderText(null);
@@ -91,7 +92,7 @@ public class PopupControl extends AnchorPane {
     		
 			
 			
-			collections.closeDB();
+			ClinicDB.closeConnection();
 		});
 	}
 	public void setUserData (Event event) {

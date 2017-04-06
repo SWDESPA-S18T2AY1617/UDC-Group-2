@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="calendarViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#cac3e3" height="43.0" opacity="0.51" stroke="#ffffff00" strokeType="INSIDE" width="700.0">
+         <effect>
+            <Blend />
+         </effect>
+      </Rectangle>
+      <Label fx:id="label" alignment="CENTER" prefHeight="43.0" prefWidth="700.0" text="CALENDAR">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="bigCalendar" layoutX="61.0" layoutY="111.0" prefHeight="475.0" prefWidth="555.0">
+         <children>
+            <fx:include source="BigCalendarPane.fxml" />
+         </children></AnchorPane>
+      <Button fx:id="backButton" layoutX="87.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="110.0" text="&lt;&lt;&lt;" />
+      <Button fx:id="nextButton" layoutX="506.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="110.0" text="&gt;&gt;&gt;" />
+      <Label fx:id="yearLabel" layoutX="210.0" layoutY="59.0" prefHeight="31.0" prefWidth="98.0" text="Year">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="monthLabel" alignment="CENTER_RIGHT" layoutX="350.0" layoutY="59.0" prefHeight="31.0" prefWidth="144.0" text="Month">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

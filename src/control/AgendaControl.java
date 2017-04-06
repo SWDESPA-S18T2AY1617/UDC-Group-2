@@ -17,10 +17,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import model.Event;
-import model.EventDetails;
-import model.Status;
-import model.TaskDetails;
+import model.calendar.Event;
+import model.calendar.EventDetails;
+import model.calendar.Status;
+import model.calendar.TaskDetails;
+import model.storage.ClinicDB;
 import model.storage.EventCollection;
 import javafx.scene.layout.AnchorPane;
 
@@ -80,17 +81,19 @@ public class AgendaControl {
     public void setEvents (Iterator <Event> events) {
 		ObservableList<Event> items = FXCollections.observableArrayList();
 		
-		while(events.hasNext()){ 
-			Event e = events.next();
-				items.add(e);
-		}
-		
-		items.sort(new Comparator <Event> () {
-			@Override
-			public int compare(Event o1, Event o2) {
-				return o1.getDetails().getTimeStart().compareTo(o2.getDetails().getTimeStart());
+		if (events != null) {		
+			while(events.hasNext()){ 
+				Event e = events.next();
+					items.add(e);
 			}
-		});
+			
+			items.sort(new Comparator <Event> () {
+				@Override
+				public int compare(Event o1, Event o2) {
+					return o1.getDetails().getTimeStart().compareTo(o2.getDetails().getTimeStart());
+				}
+			});
+		}
 		
 		items = FXCollections.observableArrayList(items);
 		agendaList.setItems(FXCollections.observableArrayList());
@@ -107,7 +110,7 @@ public class AgendaControl {
     		if(!agendaList.getSelectionModel().isEmpty()){
 				Event e = agendaList.getSelectionModel().getSelectedItem();
 		     
-		    	collections.openDB();
+		    	ClinicDB.openConnection();
 		    	
 		    	if(e.getDetails() instanceof TaskDetails) {
 		    		((TaskDetails)e.getDetails()).setStatus(Status.DONE);
@@ -134,7 +137,7 @@ public class AgendaControl {
 		   			alert.setContentText("Selected item is an event not a task!");
 		   			alert.showAndWait();
 				}
-			    collections.closeDB();
+			    ClinicDB.closeConnection();
 			} else { 
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("No Tasks Selected");
@@ -156,9 +159,9 @@ public class AgendaControl {
     	    }
 			if(!agendaList.getSelectionModel().isEmpty() && agendaList.getSelectionModel().getSelectedItem().getDetails() instanceof TaskDetails){ 
 				Event e = agendaList.getSelectionModel().getSelectedItem();
-		    	collections.openDB();
+		    	ClinicDB.openConnection();
 		    	
-				if(collections.remove(e)){
+				if(collections.delete(e)){
 					Alert alert = new Alert(AlertType.ERROR);
         			alert.setTitle("Notification");
         			alert.setHeaderText("Look, a Notification");
@@ -171,7 +174,7 @@ public class AgendaControl {
         			alert.setContentText("Ooops, Task failed to be deleted!");
         			alert.showAndWait();
 				}			
-				collections.closeDB();
+				ClinicDB.closeConnection();
 			} else if(agendaList.getSelectionModel().getSelectedItem().getDetails() instanceof EventDetails){
 				Alert alert = new Alert(AlertType.ERROR);
     			alert.setTitle("Error Dialog");

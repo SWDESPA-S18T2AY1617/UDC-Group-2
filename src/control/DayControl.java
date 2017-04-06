@@ -3,7 +3,7 @@ import java.util.Iterator;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
-import model.Event;
+import model.calendar.Event;
 import model.storage.EventCollection;
 
 public class DayControl {

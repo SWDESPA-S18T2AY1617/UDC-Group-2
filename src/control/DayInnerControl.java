@@ -15,9 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Popup;
-import model.Details;
-import model.Event;
-import model.EventDetails;
+import model.calendar.Details;
+import model.calendar.Event;
+import model.calendar.EventDetails;
 import model.storage.EventCollection;
 
 public class DayInnerControl extends AnchorPane {
@@ -39,32 +39,33 @@ public class DayInnerControl extends AnchorPane {
 	}
 	
 	public void setDataEvents (Iterator <Event> itr) {
+		if (itr != null) {
+			schedule.getChildren().clear();
+				
+			List <Event> events = new ArrayList<Event>();
+			while(itr.hasNext()) {
+				events.add(itr.next());
+			}
+			
+			for (int i = 0; i < events.size(); i++) {
+				cells.add(new CellControl());
+				cells.get(i).setUserData(events.get(i));
+				schedule.getChildren().add(cells.get(i));
 		
-		schedule.getChildren().clear();
-			
-		List <Event> events = new ArrayList<Event>();
-		while(itr.hasNext()) {
-			events.add(itr.next());
-		}
+				cells.get(i).setLayoutX(0.0);			
 		
-		for (int i = 0; i < events.size(); i++) {
-			cells.add(new CellControl());
-			cells.get(i).setUserData(events.get(i));
-			schedule.getChildren().add(cells.get(i));
-
-			cells.get(i).setLayoutX(0.0);			
-
-			Details details = cells.get(i).getUserData().getDetails();
-			
-			float start = 0;
-			
-			start = details.getTimeStart().getHour()*60 + details.getTimeStart().getMinute();
-
-			cells.get(i).setLayoutY(start);
+				Details details = cells.get(i).getUserData().getDetails();
+				
+				float start = 0;
+				
+				start = details.getTimeStart().getHour()*60 + details.getTimeStart().getMinute();
+		
+				cells.get(i).setLayoutY(start);
+			}
+		
+			for (int i = 0; i < cells.size(); i++)
+				fixBounds (cells.get(i));
 		}
-	
-		for (int i = 0; i < cells.size(); i++)
-			fixBounds (cells.get(i));
 	}
 	
 	private void fixBounds (CellControl node) {

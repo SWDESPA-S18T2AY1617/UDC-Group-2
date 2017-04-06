@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="clientMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="bg" fitHeight="600.0" fitWidth="1100.0" pickOnBounds="true">
+         <image>
+            <Image url="@../res/img/Hospital.jpg" />
+         </image>
+      </ImageView>
+      <fx:include source="ClientToolBar.fxml" />
+      <StackPane layoutX="410.0" prefHeight="600.0" prefWidth="700.0">
+         <children>
+            <fx:include source="AppointmentViewPane.fxml" />
+            <fx:include source="WeekPane.fxml" />
+            <fx:include source="DayPane.fxml" />
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

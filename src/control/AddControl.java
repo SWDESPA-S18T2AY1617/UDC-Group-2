@@ -17,11 +17,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import model.Details;
-import model.Event;
-import model.EventDetails;
-import model.Status;
-import model.TaskDetails;
+import model.calendar.Details;
+import model.calendar.Event;
+import model.calendar.EventDetails;
+import model.calendar.Status;
+import model.calendar.TaskDetails;
+import model.storage.ClinicDB;
 import model.storage.EventCollection;
 
 public class AddControl {
@@ -45,7 +46,9 @@ public class AddControl {
         assert timeEndCmbBox != null : "fx:id=\"timeEndCmbBox\" was not injected: check your FXML file 'AddPane.fxml'.";
         assert saveBtn != null : "fx:id=\"saveBtn\" was not injected: check your FXML file 'AddPane.fxml'.";
         assert addLabel != null : "fx:id=\"addLabel\" was not injected: check your FXML file 'AddPane.fxml'.";
+        
         ObservableList<LocalTime> timeStart = FXCollections.observableArrayList();
+        ObservableList<LocalTime> timeEnd = FXCollections.observableArrayList();
         
         for (int i = 0; i < 24; i ++) {
         	timeStart.add(LocalTime.of(i, 0));
@@ -55,28 +58,25 @@ public class AddControl {
         timeStartCmbBox.setItems(timeStart);
         
         timeStartCmbBox.setOnAction(handler -> {
-        	ObservableList<LocalTime> timeEnd = FXCollections.observableArrayList();
-        	
-        	for (int i = timeStartCmbBox.getSelectionModel().getSelectedItem().getHour(); i < 24; i++) {
-        		if(i == timeStartCmbBox.getSelectionModel().getSelectedItem().getHour() && timeStartCmbBox.getSelectionModel().getSelectedItem().getMinute() == 0) {
-		    		timeEnd.add(LocalTime.of(i, 30));
-		    	} else if (timeStartCmbBox.getSelectionModel().getSelectedItem().getMinute() == 0){
-		    		timeEnd.add(LocalTime.of(i, 0));
-		    		timeEnd.add(LocalTime.of(i, 30));
-		    	} else if (timeStartCmbBox.getSelectionModel().getSelectedItem().getMinute() == 30 && i != timeStartCmbBox.getSelectionModel().getSelectedItem().getHour()) {
-		    		timeEnd.add(LocalTime.of(i, 0));
-		    		timeEnd.add(LocalTime.of(i, 30));
-		    	}
+        	timeEnd.clear();
+        	for (int i = timeStartCmbBox.getSelectionModel().getSelectedIndex() + 1; i < 48; i++) {
+            	timeEnd.add(timeStart.get(i));
         	}
-        	
-        	timeEndCmbBox.setItems(timeEnd);
         });
+        
+    	for (int i = 1; i < 48; i++) {
+        	timeEnd.add(timeStart.get(i));
+    	}
+    
+        timeEndCmbBox.setItems(timeEnd);
         
         clearFields();
     }
    
     private void setAddBtnAction (EventCollection collections) {
     	saveBtn.setOnAction(ex -> {
+    		ClinicDB.openConnection();
+    		
         	String title = titleTxtField.getText();
         	LocalDate date = datePick.getValue();
         	Color color = colorInput.getValue();
@@ -107,11 +107,10 @@ public class AddControl {
         	event.setDetails(details);
         	event.setTitle(title);
         	
-        	collections.openDB();
         	event.setId(collections.lastUpdatedID() + 1);
-        	collections.closeDB();
+        	ClinicDB.closeConnection();
         	
-        	collections.openDB();
+        	ClinicDB.openConnection();
         	boolean added = collections.add(event);
         	
         	if (added) {
@@ -127,9 +126,9 @@ public class AddControl {
 				alert.setContentText("There was an error in the database connection!");
         		alert.showAndWait();
         	}
-
+        	
     		clearFields();
-        	collections.closeDB();
+        	ClinicDB.closeConnection();
         }); 
     }
     
@@ -149,7 +148,8 @@ public class AddControl {
 	public void clearFields () {
 		if(timeStartCmbBox.getItems().size() != 0)
 			timeStartCmbBox.getSelectionModel().select(0);
-		timeEndCmbBox.getItems().clear();
+		if(timeEndCmbBox.getItems().size() != 0)
+			timeEndCmbBox.getSelectionModel().select(0);
 		datePick.setValue(LocalDate.now());
 		titleTxtField.clear();
 		colorInput.setValue(Color.WHITE);

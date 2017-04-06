@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#c8e3c3" height="43.0" opacity="0.51" stroke="#ffffff00" strokeType="INSIDE" width="700.0">
+         <effect>
+            <Blend />
+         </effect>
+      </Rectangle>
+      <Label fx:id="slotsLabel" alignment="CENTER" prefHeight="43.0" prefWidth="700.0" text="SLOTS">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="daySlots" layoutX="80.0" layoutY="59.0" prefHeight="520.0" prefWidth="527.0">
+         <children>
+            <fx:include source="DayInnerPane.fxml" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

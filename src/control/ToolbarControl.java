@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import model.CalendarObserver;
+import model.calendar.CalendarObserver;
 
 public class ToolbarControl extends CalendarObserver {
 

@@ -7,10 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import model.ModelGregorianCalendar;
+import model.calendar.ModelGregorianCalendar;
 import model.storage.EventCollection;
-import model.storage.EventDB;
 
 
 public class Main extends Application {
@@ -27,7 +25,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
 			
 			MainControl mainController = loader.getController();
-			EventCollection collections = new EventCollection (new EventDB());
+			EventCollection collections = new EventCollection ();
 			
 			mainController.setCalendarData(new ModelGregorianCalendar());
 			mainController.initializeController(collections);

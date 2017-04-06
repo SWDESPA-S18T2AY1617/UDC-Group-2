@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <fx:include source="FrontPane.fxml" />
+      <fx:include source="ClientStartPopupPane.fxml" />
+      <fx:include source="ClientRegisterPane.fxml" />
+      <fx:include source="LoginPopupPane.fxml" />
+   </children>
+</StackPane>
