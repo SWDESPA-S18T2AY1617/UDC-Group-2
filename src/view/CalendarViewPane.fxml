@@ -26,7 +26,7 @@
          </children></AnchorPane>
       <Button fx:id="backButton" layoutX="87.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="110.0" text="&lt;&lt;&lt;" />
       <Button fx:id="nextButton" layoutX="506.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="110.0" text="&gt;&gt;&gt;" />
-      <Label fx:id="yearLabel" layoutX="210.0" layoutY="59.0" prefHeight="31.0" prefWidth="98.0" text="Year">
+      <Label fx:id="yearLabel" layoutX="210.0" layoutY="59.0" prefHeight="31.0" prefWidth="44.0" text="Year">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
@@ -36,5 +36,6 @@
             <Font name="System Italic" size="18.0" />
          </font>
       </Label>
+      <ChoiceBox fx:id="yearChoiceBox" layoutX="264.0" layoutY="59.0" prefHeight="31.0" prefWidth="86.0" />
    </children>
 </AnchorPane>

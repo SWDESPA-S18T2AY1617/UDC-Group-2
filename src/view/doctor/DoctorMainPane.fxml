@@ -8,7 +8,7 @@
    <children>
       <ImageView fx:id="bg" fitHeight="600.0" fitWidth="1100.0">
          <image>
-            <Image url="@../res/img/Hospital.jpg" />
+            <Image url="@../../res/img/Hospital.jpg" />
          </image>
       </ImageView>
       <AnchorPane fx:id="toolBar" prefHeight="600.0" prefWidth="400.0">
@@ -18,10 +18,10 @@
       </AnchorPane>
       <StackPane fx:id="panes" layoutX="400.0" prefHeight="600.0" prefWidth="700.0">
          <children>
-            <fx:include source="CalendarViewPane.fxml" />
-            <fx:include source="AgendaViewPane.fxml" />
-            <fx:include source="DaySlotsViewPane.fxml" />
-            <fx:include source="WeekSlotsViewPane.fxml" />
+            <fx:include source="../CalendarViewPane.fxml" />
+            <fx:include source="../AgendaViewPane.fxml" />
+            <fx:include source="../DaySlotsViewPane.fxml" />
+            <fx:include source="../WeekSlotsViewPane.fxml" />
          </children>
       </StackPane>
    </children>

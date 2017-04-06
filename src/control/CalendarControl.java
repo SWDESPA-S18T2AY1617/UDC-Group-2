@@ -36,15 +36,7 @@ public class CalendarControl {
     		}
         }
     }
-    
-    public void selectedToggleProperty (ToolbarControl toolbarControl, MainControl maincontrol) {
-    	group.selectedToggleProperty().addListener((ov, oldVal, newVal) -> {
-    		if(group.getSelectedToggle() != null) {
-				toolbarControl.setDay();
-				maincontrol.update();
-			}
-    	});
-    }
+   
     
     public void setSelectedInput (int key) {
     	for (int i = 0; i < days.length; i++) {

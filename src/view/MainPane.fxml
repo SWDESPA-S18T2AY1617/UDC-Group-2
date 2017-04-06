@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
@@ -8,9 +9,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="frontPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="frontPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.MainLoaderControl">
    <children>
-      <ImageView fx:id="bg" fitHeight="600.0" fitWidth="1100.0" opacity="0.71" pickOnBounds="true">
+      <ImageView fx:id="bg" fitHeight="450.0" fitWidth="700.0" opacity="0.71" pickOnBounds="true">
          <image>
             <Image url="@../res/img/Hospital.jpg" />
          </image>
@@ -18,30 +19,51 @@
             <Cursor fx:constant="NONE" />
          </cursor>
       </ImageView>
-      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#d7dce0" height="175.0" layoutX="233.0" layoutY="196.0" opacity="0.59" stroke="#d7dce0" strokeLineCap="ROUND" width="634.0" />
-      <Button fx:id="secretaryButton" layoutX="290.0" layoutY="221.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" style="-fx-background-color: transparent;">
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#d7dce0" height="175.0" layoutX="33.0" layoutY="124.0" opacity="0.59" stroke="#d7dce0" strokeLineCap="ROUND" width="634.0" />
+      <Button fx:id="doctorButton" layoutX="275.0" layoutY="137.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 100;">
          <graphic>
-            <ImageView fx:id="secretaryIcon" fitHeight="129.0" fitWidth="104.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../res/img/Secretary1.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="doctorButton" layoutX="490.0" layoutY="221.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
-         <graphic>
-            <ImageView fx:id="doctorIcon" fitHeight="104.0" fitWidth="104.0" opacity="0.94" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="doctorIcon" fitHeight="104.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../res/img/Doctorr.png" />
                </image>
             </ImageView>
          </graphic>
+         <tooltip>
+            <Tooltip text="Doctor Login">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Tooltip>
+         </tooltip>
       </Button>
-      <Button fx:id="patientButton" layoutX="688.0" layoutY="221.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+      <Button fx:id="patientButton" layoutX="481.0" layoutY="137.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 150;">
          <graphic>
-            <ImageView fx:id="patientIcon" fitHeight="135.0" fitWidth="104.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="patientIcon" fitHeight="135.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../res/img/Patient.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <tooltip>
+            <Tooltip autoHide="true" text="Patient Login">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Tooltip>
+         </tooltip>
+      </Button>
+      <Button fx:id="secretaryButton" layoutX="62.0" layoutY="137.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 100;">
+         <tooltip>
+            <Tooltip text="Secretary Login">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Tooltip>
+         </tooltip>
+         <graphic>
+            <ImageView fx:id="secretaryIcon" fitHeight="135.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../res/img/Secretary1.png" />
                </image>
             </ImageView>
          </graphic>
