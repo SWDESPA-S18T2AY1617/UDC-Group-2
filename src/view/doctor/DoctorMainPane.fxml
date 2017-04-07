@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="doctorMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DoctorMainControl">
+<AnchorPane fx:id="doctorMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.doctor.DoctorMainControl">
    <children>
       <ImageView fx:id="bg" fitHeight="600.0" fitWidth="1100.0">
          <image>
@@ -13,18 +13,17 @@
       </ImageView>
       <AnchorPane fx:id="toolBar" prefHeight="600.0" prefWidth="400.0">
          <children>
-            <fx:include source="DoctorToolBarPane.fxml" />
+            <fx:include fx:id="doctorToolbar" source="DoctorToolBarPane.fxml" />
          </children>
       </AnchorPane>
       <StackPane fx:id="panes" layoutX="400.0" prefHeight="600.0" prefWidth="700.0">
          <children>
-            <fx:include source="../CalendarViewPane.fxml" />
-            <fx:include source="../AgendaViewPane.fxml" />
-            <fx:include source="../DaySlotsViewPane.fxml" />
-            <fx:include source="../WeekSlotsViewPane.fxml" />
-            <fx:include source="DoctorLoginPane.fxml" />
-            <fx:include source="DoctorRegisterPane.fxml" />
-            <fx:include source="DoctorStartPopupPane.fxml" />
+            <fx:include fx:id="agendaView" source="../AgendaViewPane.fxml" />
+            <fx:include fx:id="dayView" source="../DaySlotsViewPane.fxml" />
+            <fx:include fx:id="weekView" source="../WeekSlotsViewPane.fxml" />
+            <fx:include fx:id="loginView" source="DoctorLoginPane.fxml" />
+            <fx:include fx:id="registerView" source="DoctorRegisterPane.fxml" />
+            <fx:include fx:id="startupView" source="DoctorStartPopupPane.fxml" />
          </children>
       </StackPane>
    </children>

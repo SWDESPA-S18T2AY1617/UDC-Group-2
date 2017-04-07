@@ -16,7 +16,11 @@ public class DoctorCollection extends AccessObject <Doctor> {
 
 	private List <DoctorObserver> observers;
 	private PreparedStatement statement;
-		
+	
+	public DoctorCollection ()
+	{
+		observers = new ArrayList <DoctorObserver> ();
+	}
 	private void notifyAllObservers () {
 		for (DoctorObserver observer:observers) {
 			observer.update();
@@ -67,7 +71,7 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			String middle = rs.getString(Doctor.COL_MIDDLENAME);
 			String last = rs.getString(Doctor.COL_LASTNAME);
 			Color color = Color.valueOf(rs.getString(Doctor.COL_COLOR));
-			
+			String username = rs.getString(Doctor.COL_USERNAME);
 			doctor = new Doctor();
 			
 			doctor.setId(id);
@@ -77,6 +81,7 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			doctor.getName().setLast(last);
 			doctor.getName().setMiddle(middle);
 			doctor.setColor(color);
+			doctor.setUsername(username);
 			
 			
 		} catch (SQLException e) {
@@ -133,7 +138,7 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			
 			String query = 	"INSERT INTO " + 
 							Doctor.TABLE +
-							" VALUES (?, ?, ?, ?, ?, ?, ?)";
+							" VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			statement = connect.prepareStatement(query);
 			
@@ -144,6 +149,7 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			statement.setString(5, d.getName().getLast());
 			statement.setString(6, d.getColor().toString());
 			statement.setString(7, d.getDescription());
+			statement.setString(8, d.getUsername());
 			
 			statement.executeUpdate();
 			notifyAllObservers();
@@ -198,6 +204,42 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			statement = connect.prepareStatement(query);
 			
 			statement.setInt(1, id);
+			statement.executeUpdate();
+			
+			statement = connect.prepareStatement(query);
+			rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				doctor = toDoctor(rs);
+			}
+			
+			notifyAllObservers();
+			System.out.println("[" + getClass().getName() + "] SELECT SUCCESS!");
+			return doctor;
+		} catch (SQLException ev) {
+			System.out.println("[" + getClass().getName() + "] SELECT FAILED!");
+			return null;
+		}
+	}
+	
+	public Doctor get(String username, String password) {
+		if(!ClinicDB.isOpen())
+			return null;
+		
+		ResultSet rs;
+		Doctor doctor = null;
+		
+		try {
+			Connection connect = ClinicDB.getActiveConnection();
+			String query = 	"SELECT * FROM " + 
+							Doctor.TABLE +
+							" WHERE " + Doctor.COL_USERNAME + " = ? AND " + 
+							Doctor.COL_PASSWORD + " = ?";
+			
+			statement = connect.prepareStatement(query);
+			
+			statement.setString(1, username);
+			statement.setString(2, password);
 			statement.executeUpdate();
 			
 			statement = connect.prepareStatement(query);

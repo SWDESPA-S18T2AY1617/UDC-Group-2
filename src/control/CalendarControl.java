@@ -1,5 +1,7 @@
 package control;
 
+import control.doctor.DoctorMainControl;
+import control.doctor.DoctorToolbarControl;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -36,7 +38,6 @@ public class CalendarControl {
     		}
         }
     }
-   
     
     public void setSelectedInput (int key) {
     	for (int i = 0; i < days.length; i++) {
@@ -66,6 +67,14 @@ public class CalendarControl {
 	    } catch (IndexOutOfBoundsException ioe) {
 	    	return false;
 	    }
+    }
+    
+    public void selectedToggleProperty (DoctorToolbarControl toolbarControl, DoctorMainControl maincontrol) {
+    	group.selectedToggleProperty().addListener((ov, oldVal, newVal) -> {
+    		if(group.getSelectedToggle() != null) {
+				toolbarControl.setDay();
+			}
+    	});
     }
     
     public int getSelectedInput () {

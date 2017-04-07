@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import model.calendar.ModelGregorianCalendar;
+import model.storage.DoctorCollection;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
@@ -69,7 +71,10 @@ public class MainLoaderControl {
 		
 			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
 			
+			DoctorCollection collections = new DoctorCollection();
 			doctorControllers.add(loader.getController());
+			doctorControllers.get(doctorCount - 1).setCalendar(new ModelGregorianCalendar());
+			doctorControllers.get(doctorCount - 1).initializeUI(collections);
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Doctorr.png")));
 			stage.setTitle("Doctor Login no. " + doctorCount);

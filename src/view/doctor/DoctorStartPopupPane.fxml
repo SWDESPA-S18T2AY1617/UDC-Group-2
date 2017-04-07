@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="clientStartPopupPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="322.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="clientStartPopupPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="322.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.doctor.DoctorStartupControl">
    <children>
       <Rectangle fx:id="rectangleBottom" arcHeight="5.0" arcWidth="5.0" fill="#e4e7ea" height="137.0" layoutY="71.0" stroke="#e4e7ea" strokeType="INSIDE" width="322.0" />
       <Rectangle fx:id="rectangleTop" arcHeight="5.0" arcWidth="5.0" fill="#5fd8da" height="74.0" stroke="#5e9b9d" strokeType="INSIDE" width="322.0" />

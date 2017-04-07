@@ -25,7 +25,7 @@ public class Doctor {
 	public static final String COL_DESCRIPTION = "description";
 	
 	public boolean login (String username, String password) {
-		if(this.getUsername() == username && this.getPassword() == password)
+		if(this.getUsername().equals(username) && this.getPassword().equals(password))
 			return true;
 		else 
 			return false;

@@ -28,4 +28,8 @@ public class Name {
 	public void setFirst(String first) {
 		this.first = first;
 	}
+	
+	public String toString () {
+		return first + " " + middle.charAt(0) + ". " + last;
+	}
 }
