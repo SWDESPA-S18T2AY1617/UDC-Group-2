@@ -16,6 +16,10 @@ public class SecretaryCollection extends AccessObject <Secretary> {
 	private List <SecretaryObserver> observers;
 	private PreparedStatement statement;
 	
+	public SecretaryCollection () {
+		observers = new ArrayList <SecretaryObserver> ();
+	}
+	
 	private void notifyAllObservers () {
 		for (SecretaryObserver observer:observers) {
 			observer.update();
@@ -25,6 +29,7 @@ public class SecretaryCollection extends AccessObject <Secretary> {
 	public void unregister (SecretaryObserver o) {
 		this.observers.remove(o);
 	}
+	
 	public void register (SecretaryObserver o) {
 		this.observers.add(o);
 	}
