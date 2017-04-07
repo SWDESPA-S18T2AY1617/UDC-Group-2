@@ -26,6 +26,13 @@ public class AppointmentCollection extends AccessObject <Appointment> {
 		}
 	}
 	
+	public AppointmentCollection(){
+		doctorList = null;
+		clientList = null;
+		eventList = null;
+	}
+	
+	
 	public AppointmentCollection (DoctorCollection doctorList, ClientCollection clientList, EventCollection eventList) {
 		this.doctorList = doctorList;
 		this.clientList = clientList;
