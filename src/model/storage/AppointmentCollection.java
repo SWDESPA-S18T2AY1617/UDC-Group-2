@@ -9,8 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import model.calendar.Appointment;
-import model.user.Client;
-import model.user.Doctor;
+import model.calendar.Client;
+import model.calendar.Doctor;
 
 public class AppointmentCollection extends AccessObject <Appointment> {
 	private List <AppointmentObserver> observers;

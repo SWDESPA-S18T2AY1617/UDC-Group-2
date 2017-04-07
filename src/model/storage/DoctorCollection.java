@@ -9,8 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import javafx.scene.paint.Color;
-import model.user.Doctor;
-import model.user.Name;
+import model.calendar.Doctor;
+import model.calendar.Name;
 
 public class DoctorCollection extends AccessObject <Doctor> {
 

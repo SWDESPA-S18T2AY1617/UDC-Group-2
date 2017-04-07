@@ -1,8 +1,12 @@
 package control;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import control.client.ClientMainControl;
+import control.doctor.DoctorMainControl;
+import control.secretary.SecretaryMainControl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +41,10 @@ public class MainLoaderControl {
 		doctorCount = 0;
 		clientCount = 0;
 		secretaryCount = 0;
+
+		doctorControllers = new ArrayList <DoctorMainControl> ();
+		secretaryControllers = new ArrayList <SecretaryMainControl> ();
+		clientControllers = new ArrayList <ClientMainControl> ();
 		
 		doctorButton.setOnAction(event -> {
 			setDoctorStage();
@@ -61,6 +69,8 @@ public class MainLoaderControl {
 		
 			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
 			
+			doctorControllers.add(loader.getController());
+			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Doctorr.png")));
 			stage.setTitle("Doctor Login no. " + doctorCount);
 			stage.setResizable(false);
@@ -80,6 +90,8 @@ public class MainLoaderControl {
 			Scene scene = new Scene(loader.load(), 1090, 590);
 		
 			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
+			
+			clientControllers.add(loader.getController());
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Patient.png")));
 			stage.setTitle("Client Login no. " + clientCount);
@@ -101,6 +113,8 @@ public class MainLoaderControl {
 			Scene scene = new Scene(loader.load(), 1090, 590);
 		
 			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
+			
+			secretaryControllers.add(loader.getController());
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Secretary1.png")));
 			stage.setTitle("Secretary Login no. " + secretaryCount);

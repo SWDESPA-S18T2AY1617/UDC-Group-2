@@ -1,4 +1,4 @@
-package control;
+package control.secretary;
 
 public class SecretaryMainControl {
 

@@ -1,4 +1,4 @@
-package model.user;
+package model.calendar;
 
 public class Client {
 	private int id;

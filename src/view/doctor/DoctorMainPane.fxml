@@ -22,6 +22,9 @@
             <fx:include source="../AgendaViewPane.fxml" />
             <fx:include source="../DaySlotsViewPane.fxml" />
             <fx:include source="../WeekSlotsViewPane.fxml" />
+            <fx:include source="DoctorLoginPane.fxml" />
+            <fx:include source="DoctorRegisterPane.fxml" />
+            <fx:include source="DoctorStartPopupPane.fxml" />
          </children>
       </StackPane>
    </children>

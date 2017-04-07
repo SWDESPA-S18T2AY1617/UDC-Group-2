@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.user.Name;
-import model.user.Secretary;
+import model.calendar.Name;
+import model.calendar.Secretary;
 
 public class SecretaryCollection extends AccessObject <Secretary> {
 	

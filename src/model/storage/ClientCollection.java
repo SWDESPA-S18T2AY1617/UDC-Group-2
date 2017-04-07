@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.user.Client;
-
-import model.user.Doctor;
-import model.user.Name;
+import model.calendar.Client;
+import model.calendar.Doctor;
+import model.calendar.Name;
 
 public class ClientCollection extends AccessObject <Client> {
 	private List <ClientObserver> observers;

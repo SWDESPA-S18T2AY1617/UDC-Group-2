@@ -1,8 +1,5 @@
 package model.calendar;
 
-import model.user.Client;
-import model.user.Doctor;
-
 public class Appointment extends Event {
 	public static final String TABLE = "appointment";
 	public static final String COL_DOCID = "doc_id";

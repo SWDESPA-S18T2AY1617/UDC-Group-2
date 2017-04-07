@@ -1,5 +1,9 @@
-package control;
+package control.doctor;
 
+import control.AgendaControl;
+import control.CalendarControl;
+import control.DayControl;
+import control.WeekControl;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 

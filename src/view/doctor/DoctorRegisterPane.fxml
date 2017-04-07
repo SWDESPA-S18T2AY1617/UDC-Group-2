@@ -62,5 +62,11 @@
          </font>
       </Label>
       <TextField layoutX="108.0" layoutY="187.0" prefHeight="47.0" prefWidth="184.0" />
+      <ColorPicker layoutX="108.0" layoutY="313.0" prefHeight="25.0" prefWidth="184.0" />
+      <Label fx:id="passwordLabel2" layoutX="28.0" layoutY="317.0" text="Pick a color:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
