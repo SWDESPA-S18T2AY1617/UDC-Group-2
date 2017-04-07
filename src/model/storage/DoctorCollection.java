@@ -17,6 +17,9 @@ public class DoctorCollection extends AccessObject <Doctor> {
 	private List <DoctorObserver> observers;
 	private PreparedStatement statement;
 		
+	public DoctorCollection () {
+		observers = new ArrayList <DoctorObserver> ();
+	}
 	private void notifyAllObservers () {
 		for (DoctorObserver observer:observers) {
 			observer.update();
@@ -207,7 +210,6 @@ public class DoctorCollection extends AccessObject <Doctor> {
 				doctor = toDoctor(rs);
 			}
 			
-			notifyAllObservers();
 			System.out.println("[" + getClass().getName() + "] SELECT SUCCESS!");
 			return doctor;
 		} catch (SQLException ev) {

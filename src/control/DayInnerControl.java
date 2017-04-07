@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Popup;
+import model.calendar.Appointment;
 import model.calendar.Details;
 import model.calendar.Event;
 import model.calendar.EventDetails;
@@ -61,28 +62,6 @@ public class DayInnerControl extends AnchorPane {
 				start = details.getTimeStart().getHour()*60 + details.getTimeStart().getMinute();
 		
 				cells.get(i).setLayoutY(start);
-			}
-		
-			for (int i = 0; i < cells.size(); i++)
-				fixBounds (cells.get(i));
-		}
-	}
-	
-	private void fixBounds (CellControl node) {
-		List<CellControl> collided = new ArrayList <CellControl> ();
-		for (int i = 0; i < cells.size(); i++) {
-			if (cells.get(i) != node) {
-				if (node.getBoundsInParent().intersects(cells.get(i).getBoundsInParent())) {
-					collided.add(cells.get(i));
-				}
-			}
-		}
-		
-		if(!collided.isEmpty()) {
-			collided.add(node);
-			for (int i = 0; i < collided.size(); i++) {
-				collided.get(i).setSize(collided.get(i).getMaxHeight(), CellControl.DEF_WIDTH/(collided.size()));
-				collided.get(i).setLayoutX(i * CellControl.DEF_WIDTH/(collided.size()));
 			}
 		}
 	}
@@ -139,16 +118,22 @@ class CellControl extends AnchorPane {
 			} else {
 				timeEnd = timeStart.plusMinutes(30);
 				message = "TASK: ";
-			}
+			} 
 			
-			text.setText(message + " " + event.getTitle());
+			if(event instanceof Appointment) {
+				message = "APPOINTMENT: ";
+			}
 			
 			double height = (timeEnd.toSecondOfDay() - timeStart.toSecondOfDay())/DEF_HEIGHT;
 			double width = DEF_WIDTH;
+
+			text.setText(message + " " + event.getTitle());	
+			
+			
 			
 			setSize(height, width);
 			popupControl.setUserData(event);
-			popup.setAutoHide(true);	
+			popup.setAutoHide(true);
 		}
 	}
 	

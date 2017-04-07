@@ -26,14 +26,15 @@ public class AppointmentCollection extends AccessObject <Appointment> {
 		}
 	}
 	
-	public AppointmentCollection(){
+	public AppointmentCollection (){
+		observers = new ArrayList <AppointmentObserver> ();
 		doctorList = null;
 		clientList = null;
 		eventList = null;
 	}
 	
-	
 	public AppointmentCollection (DoctorCollection doctorList, ClientCollection clientList, EventCollection eventList) {
+		observers = new ArrayList <AppointmentObserver> ();
 		this.doctorList = doctorList;
 		this.clientList = clientList;
 		this.eventList = eventList;
@@ -77,14 +78,6 @@ public class AppointmentCollection extends AccessObject <Appointment> {
 		}	
 	
 		return appointments.iterator();
-	}
-
-	private Appointment toAppointment (ResultSet rs) throws SQLException {
-		Appointment appointment = ((Appointment)eventList.get(rs.getInt(Appointment.COL_ID)));
-		appointment.setClient(clientList.get(rs.getInt(Appointment.COL_CLIENTID)));
-		appointment.setDoctor(doctorList.get(rs.getInt(Appointment.COL_DOCID)));
-		
-		return appointment;
 	}
 
 	@Override
@@ -392,5 +385,14 @@ public class AppointmentCollection extends AccessObject <Appointment> {
 	}	
 		
 		return appointments.iterator();
+	}
+	
+
+	private Appointment toAppointment (ResultSet rs) throws SQLException {
+		Appointment appointment = ((Appointment)eventList.get(rs.getInt(Appointment.COL_ID)));
+		appointment.setClient(clientList.get(rs.getInt(Appointment.COL_CLIENTID)));
+		appointment.setDoctor(doctorList.get(rs.getInt(Appointment.COL_DOCID)));
+		
+		return appointment;
 	}
 }
