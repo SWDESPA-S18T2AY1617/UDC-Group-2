@@ -1,107 +1,93 @@
-import java.util.*; 
-import java.sql.*;
+package model.user;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import model.storage.*;
 
 public class Secretary {
-	private int sec_id;
+	private String username;
 	private String password;
-	private String first_name;
-	private String middle_name;
-	private String last_name;
+	private Name name;
+	private int id;
 	
-	private ArrayList<Doctor> doctors; 
+	private ArrayList<Doctor> doctors;
+	private AppointmentCollection appointmentCollection;
+	private ArrayList<model.calendar.Appointment> appointments; // appointments set by the secretary
 	
-	public Secretary(int sec_id, String password, String first_name, String middle_name, String last_name) {
-		setID(sec_id);
-		setPassword(password);
-		setFName(first_name);
-		setMName(middle_name);
-		setLName(last_name);
+	public static final String TABLE = "secretary";
+	public static final String COL_ID = "sec_id";
+	public static final String COL_PASSWORD = "password";
+	public static final String COL_FIRSTNAME = "first_name";
+	public static final String COL_MIDDLENAME = "middle_name";
+	public static final String COL_LASTNAME = "last_name";
+	public static final String COL_USERNAME = "username";
+	
+	public Secretary() {
 		doctors = new ArrayList<Doctor>();
+		appointments = new ArrayList<model.calendar.Appointment>();
 	}
 	
-	public setID(int sec_id) {
-		this.sec_id = sec_id;
+	public Name getName() {
+		return name;
 	}
 	
-	public setPassword(String password) {
-		this.password = password;
+	public void setName(Name name) {
+		this.name = name;
 	}
 	
-	public setFName(String first_name) {
-		this.first_name = first_name;
+	public int getId() {
+		return id;
 	}
 	
-	public setMName(String middle_name) {
-		this.middle_name = middle_name;
+	public void setId(int id) {
+		this.id = id;
 	}
 	
-	public setLName(String last_name) {
-		this.last_name = last_name;
+	public String getUsername() {
+		return username;
 	}
 	
-	public int getID() {
-		return sec_id;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public String getPassword() {
 		return password;
 	}
 	
-	public String getFName() {
-		return first_name;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
-	public String getMName() {
-		return middle_name;
-	}
-	
-	public String getLName() {
-		return last_name;
+	public void setAppCollection(AppointmentCollection appointmentCollection) {
+		this.appointmentCollection = appointmentCollection; 
 	}
 	
 	public void setDoctors(ArrayList<Doctor> doc) {
-		Iterator<Doctor> d = doctors.iterator();
+		Iterator<Doctor> d = doc.iterator();
 		
 		while(d.hasNext()) {
-			Doctor doc = d.next();
-			doctors.add(doc);
+			Doctor doctor = d.next();
+			doctors.add(doctor);
 		}
-	} 
+	}
 	
 	public void addDoctor(Doctor d) {
 		if(d != null)
-			doctos.add(d);
+			doctors.add(d);
 	}
 	
-	public boolean setsAppointment(Client client, Doctor doctor, Date timeSlot) {
-		Details details = new Details(timeSlot.getMonth(), timeSlot.getDay(), timeSlot.getMonth()); // to be edited
-		Appointment appointment = new Appointment(doctor, client, details, client.getLName() + " " + client.getFName()); // title? 
-		
-		for(int i = 0; i < doctors.size(); i++) { 
-			if(doctors.get(i).getID() == d.getID()) { // d.equals(doctors.get(i)) 
-				doctors.get(i).updateAppointment(appointment);
-				return true;
-			}
+	public boolean setAppointment(model.calendar.Appointment app) {
+		appointments.add(app);
+		return appointmentCollection.update(app);
+	}
+	
+	public boolean cancelAppointment(model.calendar.Appointment app) {
+		if(appointments.contains(app)) {
+			appointments.remove(app);
+			return appointmentCollection.delete(app);
 		}
 		
-		return false; 
-	}
-	
-	// can delete appointmet set by secretary only 
-	public void deleteAppointment() { // 
-		// db variable ---> setter (c or s)
-	}
-	
-	public Secretary toSecretary(ResultSet rs) throws SQLException{
-		Secretary sec;
-
-		sec = new Secretary(); 
-		sec.setID(rs.getString("sec_id"));
-		sec.setPassword(rs.getString("password"));
-		sec.setFName(rs.getString("first_name"));
-		sec.setMName(rs.getString("middle_name"));
-		sec.setLName(rs.getString("last_name"));
-
-		return sec;
+		return false;	
 	}
 }
