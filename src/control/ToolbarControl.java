@@ -86,6 +86,10 @@ public class ToolbarControl {
 		return occupied.isSelected();
 	}
 	
+	public boolean isAgenda () {
+		return agenda.isSelected();
+	}
+	
 	public boolean isFree () {
 		return free.isSelected();
 	}
@@ -138,6 +142,9 @@ public class ToolbarControl {
 	
 	@FXML
 	public void initialize () {
+		
+		occupied.setSelected(true);
+		free.setSelected(true);
 		
 		occupied.setOnAction(event -> {
 			parent.update();

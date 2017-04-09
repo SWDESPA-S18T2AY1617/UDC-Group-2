@@ -1,5 +1,8 @@
 package control;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Year;
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -8,7 +11,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -19,7 +25,6 @@ import model.storage.AppointmentCollection;
 import model.storage.ClientCollection;
 import model.storage.ClinicDB;
 import model.storage.EventCollection;
-import javafx.scene.control.ChoiceBox;
 
 public class PopupFreeSlotControl extends PopupControl {
 	@FXML private Button reserveButton;
@@ -28,10 +33,48 @@ public class PopupFreeSlotControl extends PopupControl {
 	@FXML private Rectangle rectangle;
 	@FXML private Polygon triangle;
 	@FXML private ChoiceBox <Client> clientList;
+	@FXML private ChoiceBox <LocalTime> timeStart;
+	@FXML private ChoiceBox <LocalTime> timeEnd;
 	@FXML private Text appointmentForWhat;
 	@FXML private Text reservedFor;
+	@FXML private AnchorPane doctor;
+	@FXML private DatePicker date;
+	@FXML private Button updateTime;
+	@FXML private AnchorPane client;
 	
 	private void setReserveButton (AppointmentCollection appointments, EventCollection events, ClientCollection clients, Client client) {
+		updateTime.setOnAction(update -> {
+			EventDetails details = new EventDetails();
+			details.setTimeEnd(timeEnd.getSelectionModel().getSelectedItem());
+			details.setTimeStart(timeStart.getSelectionModel().getSelectedItem());
+			details.setDayOfMonth(date.getValue().getDayOfMonth());
+			details.setYear(Year.of(date.getValue().getYear()));
+			details.setMonth(date.getValue().getMonth());
+			details.setColor(event.getDetails().getColor());
+			event.setDetails(details);
+			
+			ClinicDB.openConnection();
+			Alert alert;
+			if(events.update(event)) {
+				alert = new Alert (AlertType.INFORMATION);
+				alert.setTitle("Update Successful!");
+				alert.setHeaderText(null);
+				alert.setContentText("Successfully Updated!");
+				alert.showAndWait();
+			} else {
+				alert = new Alert (AlertType.ERROR);
+				alert.setTitle("Update Unsuccessful!");
+				alert.setHeaderText(null);
+				alert.setContentText("Database Error!");
+				alert.showAndWait();
+			}
+			
+			ClinicDB.closeConnection();
+			ClinicDB.openConnection();
+			appointments.update(event);
+			ClinicDB.closeConnection();
+		});
+		
 		reserveButton.setOnAction(reserve -> {
 			
 			if(client != null) {
@@ -113,7 +156,7 @@ public class PopupFreeSlotControl extends PopupControl {
 					alert.showAndWait();
 				}
 			}
-		});
+		});	
 	}
 	
 	@Override
@@ -128,6 +171,34 @@ public class PopupFreeSlotControl extends PopupControl {
 		rectangle.setFill(event.getDetails().getColor());
 		triangle.setFill(event.getDetails().getColor());
 		detailsText.setFill(event.getDetails().getColor().invert());
+		appointmentForWhat.setFill(event.getDetails().getColor().invert());
+		reservedFor.setFill(event.getDetails().getColor().invert());
+		
+		timeStart.getItems().clear();
+        for (int i = 0; i < 24; i ++) {
+        	timeStart.getItems().add(LocalTime.of(i, 0));
+        	timeStart.getItems().add(LocalTime.of(i, 30));
+    	}
+        
+        timeStart.getSelectionModel().select(event.getDetails().getTimeStart());
+        
+        timeStart.setOnAction(handler -> {
+        	timeEnd.getItems().clear();
+        	for (int i = timeStart.getSelectionModel().getSelectedIndex(); i < timeStart.getItems().size(); i++) {
+        		timeEnd.getItems().add(timeStart.getItems().get(i));
+        	}
+        });
+        
+        
+        timeStart.getSelectionModel().select(event.getDetails().getTimeStart());
+        
+        for (int i = timeStart.getSelectionModel().getSelectedIndex(); i < timeStart.getItems().size(); i++) {
+    		timeEnd.getItems().add(timeStart.getItems().get(i));
+    	}
+        
+        timeEnd.getSelectionModel().select(((EventDetails) event.getDetails()).getTimeEnd());
+        
+        date.setValue(LocalDate.of(event.getDetails().getYear().getValue(), event.getDetails().getMonth(), event.getDetails().getDayOfMonth()));
 	}
 
 	@Override
@@ -138,7 +209,12 @@ public class PopupFreeSlotControl extends PopupControl {
 			appointmentTitle.setVisible(false);
 			appointmentForWhat.setVisible(false);
 			reservedFor.setVisible(false);
+			this.client.setVisible(false);
+			this.doctor.setVisible(true);
 		} else {
+
+			this.client.setVisible(true);
+			this.doctor.setVisible(false);
 			clientList.getItems().clear();
 			ClinicDB.openConnection();
 			

@@ -120,12 +120,15 @@ public class AppointmentCollection extends AccessObject <Appointment> {
 		
 		try {
 			Connection connect = ClinicDB.getActiveConnection();
-			String query = 	"INSERT INTO VALUES (?, ?, ?)";
+			String query = 	"INSERT INTO " + Appointment.TABLE + " VALUES (?, ?, ?)";
 	
 			PreparedStatement statement = connect.prepareStatement(query);
 			
 			statement.setInt(1, e.getDoctor().getId());
-			statement.setInt(2, e.getClient().getId());
+			if(e.getClient() != null)
+				statement.setInt(2, e.getClient().getId());
+			else
+				statement.setNull(2, Types.INTEGER);
 			statement.setInt(3, e.getId());
 			
 			statement.executeUpdate();

@@ -52,13 +52,13 @@ public class AppointmentControl {
 					        	Text txtTime = new Text(time);
 					        	String message = "";
 					        	if(item.getClient() != null) {
-					        		message = item.getDoctor().getName().getLast() + " - " + item.getClient().getName().getLast() + " ";
+					        		message = item.getDoctor().getName().getLast() + " Client: " + item.getClient().getName() + " ";
 					        	} else {
-					        		message = item.getDoctor().getName().toString();
+					        		message = item.getDoctor().getName().toString() + " ";
 					        	}
 					        	
 					        	Text txtDoctor = new Text (message);
-					            Text txtTitle = new Text(item.getTitle());
+					            Text txtTitle = new Text(item.getTitle() + " ");
 					            Color color = item.getDetails().getColor();
 					            
 					            txtTime.setFill(color);
@@ -69,7 +69,7 @@ public class AppointmentControl {
 					            txtDoctor.setFont(Font.font(null, FontWeight.SEMI_BOLD, 16));
 					            txtTitle.setFont(Font.font(null, FontWeight.NORMAL, 16));
 					            
-					            HBox hbox = new HBox(txtTime, txtDoctor, txtTitle);
+					            HBox hbox = new HBox(txtTime, txtTitle, txtDoctor);
 					            setGraphic(hbox);
 					        }
 					 }

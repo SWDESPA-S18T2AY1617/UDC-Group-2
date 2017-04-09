@@ -17,7 +17,6 @@ import model.Appointment;
 import model.AppointmentObserver;
 import model.Doctor;
 import model.ModelGregorianCalendar;
-import model.storage.AppointmentCollection;
 import model.storage.ClinicDB;
 import model.storage.DoctorCollection;
 import model.storage.EventCollection;
@@ -42,7 +41,6 @@ public class DoctorMainControl extends AppointmentObserver {
     @FXML private ToolbarControl toolbarController;
     @FXML private DoctorAddControl addViewController;
     
-	private AppointmentCollection appointments;
 	private EventCollection events;
 	private DoctorCollection doctors;
 	private Doctor mainDoctor;
@@ -54,12 +52,21 @@ public class DoctorMainControl extends AppointmentObserver {
 		setToolbarPane();
 		setStartupVisible();
 		setAppointmentsPane();
+		setAddPane();
 	}
 	
-	public void setAppointments (AppointmentCollection appointments) {
-		this.appointments = appointments;
+	private void setAddPane () {
+		addViewController.setBackButton(event -> {
+			if (toolbarController.isAgenda()) {
+				setAgendaVisible();
+			} else {
+				if (toolbarController.isDay()) {
+					setDayVisible();
+				} else 
+					setWeekVisible();
+			}
+		});
 	}
-	
 	private void setAppointmentsPane() {
 		agendaViewController.setPlaceholder("No appointments!");
 		agendaViewController.cancelButtonVisibility(false);
@@ -210,7 +217,7 @@ public class DoctorMainControl extends AppointmentObserver {
 			List <Appointment> weekEvents = new ArrayList <Appointment> ();
 			
 			if(toolbarController.isFree()) {
-				Iterator <Appointment> events = appointments.getFreeAppointmentsOfDoctorThisDay(mainDoctor, mgc.selectedDate());
+				Iterator <Appointment> events = this.appointments.getFreeAppointmentsOfDoctorThisDay(mainDoctor, mgc.selectedDate());
 				
 				
 				while (events.hasNext()) {
@@ -250,6 +257,7 @@ public class DoctorMainControl extends AppointmentObserver {
 			
 			dayViewController.initializeButtons(appointments, events, null, null);
 			weekViewController.initializeButtons(appointments, events, null, null);
+			addViewController.addAppointment(mainDoctor, events, appointments, doctors);
 			weekViewController.setDateLabel(mgc.getWeek());
 			ClinicDB.closeConnection();
 		}

@@ -11,6 +11,11 @@
    <children>
       <AnchorPane layoutX="2.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0">
          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c3d1e3" height="323.0" layoutX="23.0" layoutY="157.0" opacity="0.51" stroke="#ffffff00" strokeType="INSIDE" width="551.0">
+               <effect>
+                  <Blend />
+               </effect>
+            </Rectangle>
             <Label layoutX="88.0" layoutY="200.0" text="Date:">
                <font>
                   <Font name="System Bold" size="18.0" />
@@ -28,14 +33,14 @@
             </Label>
             <ComboBox fx:id="timeStartCmbBox" layoutX="152.0" layoutY="247.0" prefHeight="25.0" prefWidth="71.0" />
             <ComboBox fx:id="timeEndCmbBox" layoutX="279.0" layoutY="248.0" prefHeight="25.0" prefWidth="71.0" />
-            <Button fx:id="addBtn" layoutX="414.0" layoutY="307.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="140.0" text="ADD" />
+            <Button fx:id="addBtn" layoutX="407.0" layoutY="418.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="140.0" text="ADD" />
             <DatePicker fx:id="startDate" layoutX="149.0" layoutY="197.0" prefHeight="32.0" prefWidth="210.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4c4cf" height="35.0" layoutX="-2.0" layoutY="-4.0" opacity="0.51" stroke="#ffffff00" strokeType="INSIDE" width="600.0">
                <effect>
                   <Blend />
                </effect>
             </Rectangle>
-            <Label fx:id="addLabel" alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="35.0" prefWidth="600.0" text="ADD">
+            <Label fx:id="addLabel" alignment="CENTER" layoutX="2.0" layoutY="-3.0" prefHeight="35.0" prefWidth="600.0" text="ADD">
                <font>
                   <Font size="24.0" />
                </font>
@@ -70,12 +75,13 @@
                   <Font size="15.0" />
                </font>
             </CheckBox>
-            <Label disable="true" layoutX="88.0" layoutY="362.0" text="Ends:">
+            <Label layoutX="88.0" layoutY="362.0" text="Ends:">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
             <DatePicker fx:id="endDate" disable="true" layoutX="152.0" layoutY="360.0" prefHeight="32.0" prefWidth="210.0" />
+            <Button fx:id="back" layoutX="89.0" layoutY="418.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="140.0" text="BACK" />
          </children>
       </AnchorPane>
    </children>

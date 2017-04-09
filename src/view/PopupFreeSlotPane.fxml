@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -10,6 +11,11 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="267.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.PopupFreeSlotControl">
    <children>
       <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="AQUA" height="246.0" layoutY="22.0" opacity="0.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+      <Label layoutX="7.0" layoutY="24.0" prefHeight="27.0" prefWidth="111.0" text="FREE SLOT">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
       <Polygon fx:id="triangle" fill="AQUA" layoutX="97.0" layoutY="22.0" opacity="0.9" scaleX="0.2" scaleY="0.2" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <points>
             <Double fx:value="-50.0" />
@@ -20,29 +26,43 @@
             <Double fx:value="-60.0" />
          </points>
       </Polygon>
-      <Label layoutX="14.0" layoutY="27.0" prefHeight="27.0" prefWidth="111.0" text="FREE SLOT">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Label>
+      <AnchorPane fx:id="doctor" layoutX="12.0" layoutY="61.0" prefHeight="163.0" prefWidth="178.0">
+         <children>
+            <DatePicker fx:id="date" layoutX="47.0" layoutY="83.0" prefHeight="25.0" prefWidth="120.0" />
+            <Label layoutX="11.0" layoutY="82.0" prefHeight="27.0" prefWidth="28.0" text="Date" />
+            <Label layoutX="14.0" layoutY="20.0" prefHeight="27.0" prefWidth="28.0" text="Time" />
+            <ChoiceBox fx:id="timeStart" layoutX="3.0" layoutY="47.0" prefHeight="25.0" prefWidth="72.0" />
+            <Label alignment="CENTER" layoutX="75.0" layoutY="46.0" prefHeight="27.0" prefWidth="28.0" text="-" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="timeEnd" layoutX="103.0" layoutY="47.0" prefHeight="25.0" prefWidth="72.0" />
+            <Button fx:id="updateTime" layoutX="42.0" layoutY="124.0" mnemonicParsing="false" text="Update Details" />
+         </children>
+      </AnchorPane>
       <Button fx:id="reserveButton" layoutX="45.0" layoutY="233.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="RESERVE" />
-      <TextField fx:id="appointmentTitle" layoutX="26.0" layoutY="139.0" />
-      <Text fx:id="detailsText" layoutX="11.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="178.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Text fx:id="appointmentForWhat" layoutX="23.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment for What?" textAlignment="CENTER" wrappingWidth="149.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <ChoiceBox fx:id="clientList" layoutX="20.0" layoutY="198.0" prefHeight="20.0" prefWidth="162.0" />
-      <Text fx:id="reservedFor" layoutX="54.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserved for?" textAlignment="CENTER" wrappingWidth="93.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
+      <AnchorPane fx:id="client" layoutX="8.0" layoutY="61.0" prefHeight="163.0" prefWidth="178.0" visible="false">
+         <children>
+            <Text fx:id="appointmentForWhat" layoutX="15.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment for What?" textAlignment="CENTER" wrappingWidth="149.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="reservedFor" layoutX="43.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserved for?" textAlignment="CENTER" wrappingWidth="93.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="appointmentTitle" layoutX="15.0" layoutY="77.0" />
+            <Text fx:id="detailsText" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="178.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="clientList" layoutX="8.0" layoutY="132.0" prefHeight="20.0" prefWidth="162.0" />
+         </children>
+      </AnchorPane>
    </children>
    <effect>
       <InnerShadow />
