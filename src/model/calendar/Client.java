@@ -32,6 +32,12 @@ public class Client {
 			return false;
 	}
 	
+	public boolean login (int id){
+		if(this.getId() == id)
+			return true;
+		else
+			return false;
+	}
 	public String getUsername() {
 		return username;
 	}
