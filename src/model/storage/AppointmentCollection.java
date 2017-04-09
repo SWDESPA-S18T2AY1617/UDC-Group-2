@@ -389,7 +389,7 @@ public class AppointmentCollection extends AccessObject <Appointment> {
 	
 
 	private Appointment toAppointment (ResultSet rs) throws SQLException {
-		Appointment appointment = ((Appointment)eventList.get(rs.getInt(Appointment.COL_ID)));
+		Appointment appointment = (Appointment)eventList.get(rs.getInt(Appointment.COL_ID));
 		appointment.setClient(clientList.get(rs.getInt(Appointment.COL_CLIENTID)));
 		appointment.setDoctor(doctorList.get(rs.getInt(Appointment.COL_DOCID)));
 		

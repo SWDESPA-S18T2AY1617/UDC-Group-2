@@ -25,36 +25,34 @@ public class DoctorLoginControl {
     		if(usernameText.getText() != null && passwordText.getText() != null)
     		{
     			ClinicDB.openConnection();
-    			if(ClinicDB.isOpen())
-    			{
-    				Iterator <Doctor> doctors = dc.getAll();
-    				while(doctors.hasNext())
-    				{	
-    					Doctor currDoc = doctors.next();
-    					if(currDoc.login(usernameText.getText(), passwordText.getText()))
-    					{
-    						Alert alert = new Alert(AlertType.INFORMATION);
-    		       			alert.setTitle("SUCCESSFUL LOGIN");
-    		       			alert.setHeaderText(null);
-    		       			alert.setContentText("Welcome " + currDoc.getName().toString() + "!");
-    		       			alert.showAndWait();
-    		       			
-    		       			dmc.setDayVisible();
-    		       			dmc.enableLogout();
-    		       			dmc.initializeComboBox(dc);
-    					}
-    					else
-    					{
-    						Alert alert = new Alert(AlertType.ERROR);
-    			   			alert.setTitle("TRY AGAIN");
-    			   			alert.setHeaderText(null);
-    			   			alert.setContentText("Invalid username and password.");
-    			   			alert.showAndWait();
-    					}
-    					
-    				}
-    				ClinicDB.closeConnection();
+				Iterator <Doctor> doctors = dc.getAll();
+				boolean found = false;
+				while(doctors.hasNext() && !found)
+				{	
+					Doctor currDoc = doctors.next();
+					if(currDoc.login(usernameText.getText(), passwordText.getText()))
+					{
+						Alert alert = new Alert(AlertType.INFORMATION);
+		       			alert.setTitle("SUCCESSFUL LOGIN");
+		       			alert.setHeaderText(null);
+		       			alert.setContentText("Welcome " + currDoc.getName().toString() + "!");
+		       			alert.showAndWait();
+		       			
+		       			dmc.setDayVisible();
+		       			dmc.enableLogout();
+		       			dmc.initializeComboBox(dc);
+		       			found = true;
+					}
     			}
+				if (!found)
+				{
+					Alert alert = new Alert(AlertType.ERROR);
+		   			alert.setTitle("TRY AGAIN");
+		   			alert.setHeaderText(null);
+		   			alert.setContentText("Invalid username and password.");
+		   			alert.showAndWait();
+				}
+				ClinicDB.closeConnection();
     			
     		}
     		else if (usernameText.getText() == null)

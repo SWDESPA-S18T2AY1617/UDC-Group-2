@@ -3,8 +3,9 @@ import java.util.Iterator;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import model.calendar.Appointment;
 import model.calendar.Event;
-import model.storage.EventCollection;
+import model.storage.AppointmentCollection;
 
 public class DayControl {
 	@FXML private AnchorPane dayInner;
@@ -15,11 +16,12 @@ public class DayControl {
 		 dayInnerController.initialize();
 	 }
 		
-	 public void setEvents (Iterator <Event> events) {
-		 dayInnerController.setDataEvents(events);
+	 public void setAppointments (Iterator <Appointment> appointments) {
+		 dayInnerController.setDataEvents(appointments);
 	 }
 	 
-	 public void initializeButtons (EventCollection collection) {
+	 public void initializeButtons (AppointmentCollection collection) {
 		 dayInnerController.initializeButtons(collection);
 	 }
+	
 }

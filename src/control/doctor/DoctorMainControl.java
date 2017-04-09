@@ -5,7 +5,10 @@ import control.DayControl;
 import control.WeekControl;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import model.calendar.Doctor;
 import model.calendar.ModelGregorianCalendar;
+import model.storage.AppointmentCollection;
+import model.storage.ClinicDB;
 import model.storage.DoctorCollection;
 
 public class DoctorMainControl {
@@ -41,12 +44,12 @@ public class DoctorMainControl {
     	registerViewController.clearFields();
     }
     
-    public void initializeUI (DoctorCollection collections) {
+    public void initializeUI (DoctorCollection collections, AppointmentCollection appCollections) {
     	startupViewController.initializeButtons(this);
     	loginViewController.initializeButtons(this, collections);
     	registerViewController.initializeButtons(this, collections);
-    	doctorToolbarController.initializeButtons(this, collections);
-//    	dayViewController.initializeButtons(collection);
+    	doctorToolbarController.initializeButtons(this, collections, appCollections);
+    	dayViewController.initializeButtons(appCollections);
     }
     
     public void setCalendar (ModelGregorianCalendar mgc) {
@@ -110,6 +113,18 @@ public class DoctorMainControl {
 	public void initializeComboBox(DoctorCollection dc) {
 		doctorToolbarController.initializeComboBox(dc);
 		
+	}
+
+	public void setDayAppointments(AppointmentCollection ac, Doctor doctor) {
+		ClinicDB.openConnection();
+//		dayViewController.setAppointments(ac.getAllOccupiedAppointments(doctor));
+		dayViewController.setAppointments(ac.getAll());
+		System.out.println("WHUT");
+		ClinicDB.closeConnection();
+	}
+	
+	public AgendaControl getAgendaControl () {
+		return agendaViewController;
 	}
     
 }

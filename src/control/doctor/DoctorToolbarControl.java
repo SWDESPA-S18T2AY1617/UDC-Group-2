@@ -24,6 +24,7 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.calendar.CalendarObserver;
 import model.calendar.Doctor;
+import model.storage.AppointmentCollection;
 import model.storage.ClinicDB;
 import model.storage.DoctorCollection;
 
@@ -46,7 +47,6 @@ public class DoctorToolbarControl extends CalendarObserver {
     
     @FXML private AnchorPane calendarView;
     @FXML private CalendarControl calendarViewController;
-
     @FXML 
     void initialize () {
     	checkDoc1.setSelected(true);
@@ -121,7 +121,7 @@ public class DoctorToolbarControl extends CalendarObserver {
     	ClinicDB.closeConnection();
     }
     
-    public void initializeButtons (DoctorMainControl dmc, DoctorCollection dc) {
+    public void initializeButtons (DoctorMainControl dmc, DoctorCollection dc, AppointmentCollection ac) {
     	
     	logoutBtn.setOnAction(event -> {
     		dmc.setStartupVisible();
@@ -144,10 +144,14 @@ public class DoctorToolbarControl extends CalendarObserver {
     	
     	slotsBtn.setOnAction(event -> {
     		dmc.setDayVisible();
+    		dmc.setDayAppointments(ac, doctorComboBox.getSelectionModel().getSelectedItem());
     	});
     	
     	agendaBtn.setOnAction(event -> {
     		dmc.setAgendaVisible();
+    		ClinicDB.openConnection();
+    		dmc.getAgendaControl().setEvents(ac.getAll());
+    		ClinicDB.closeConnection();
     	});
     	
     	

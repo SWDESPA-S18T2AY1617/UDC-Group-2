@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `clinic_db`.`doctor` (
   `last_name` VARCHAR(45) NOT NULL,
   `color` VARCHAR(45) NOT NULL,
   `description` VARCHAR(200) NOT NULL,
+  `username` VARCHAR(45) NOT NULL, 
   PRIMARY KEY (`doctor_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

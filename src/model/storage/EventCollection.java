@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javafx.scene.paint.Color;
+import model.calendar.Appointment;
 import model.calendar.Details;
 import model.calendar.Event;
 import model.calendar.EventDetails;
@@ -448,6 +449,7 @@ public class EventCollection extends AccessObject <Event> {
 	}
 	
 	private Event toEvent (ResultSet rs) {
+		
 		Event event = null;
 		Details details = null;
 		try {
@@ -458,17 +460,19 @@ public class EventCollection extends AccessObject <Event> {
 			LocalTime timeStart = rs.getTime(Event.EVENT_TIME_START).toLocalTime();
 			
 			LocalTime timeEnd = null;
-			if(rs.getTime(Event.EVENT_TIME_END) != null)
-				timeEnd = rs.getTime(Event.EVENT_TIME_END).toLocalTime();
-			Status status = Status.of(rs.getString(Event.EVENT_STATUS));
+//			if(rs.getTime(Event.EVENT_TIME_END) != null)
+			timeEnd = rs.getTime(Event.EVENT_TIME_END).toLocalTime();
+//			Status status = Status.of(rs.getString(Event.EVENT_STATUS));
 			
-			if (status == null) {
-				details = new EventDetails();
-				((EventDetails)details).setTimeEnd(timeEnd);
-			} else {
-				details = new TaskDetails();
-				((TaskDetails)details).setStatus(status);
-			}
+//			if (status == null) {
+//				details = new EventDetails();
+//				((EventDetails)details).setTimeEnd(timeEnd);
+//			} else {
+//				details = new TaskDetails();
+//				((TaskDetails)details).setStatus(status);
+//			}
+			details = new EventDetails();
+			details.setTimeEnd(timeEnd);
 			
 			details.setColor(color);
 			details.setMonth(date.getMonth());

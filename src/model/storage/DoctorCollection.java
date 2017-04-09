@@ -16,16 +16,11 @@ public class DoctorCollection extends AccessObject <Doctor> {
 
 	private List <DoctorObserver> observers;
 	private PreparedStatement statement;
-<<<<<<< HEAD
-	
-	public DoctorCollection ()
-	{
-=======
-		
+
 	public DoctorCollection () {
->>>>>>> 7e181a1078ce8c8b15f9ec88813d1d68b7208c3b
 		observers = new ArrayList <DoctorObserver> ();
 	}
+	
 	private void notifyAllObservers () {
 		for (DoctorObserver observer:observers) {
 			observer.update();

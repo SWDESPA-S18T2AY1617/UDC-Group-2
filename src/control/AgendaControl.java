@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import model.calendar.Appointment;
 import model.calendar.Event;
 import model.calendar.EventDetails;
 import model.calendar.Status;
@@ -26,7 +27,7 @@ import model.storage.EventCollection;
 import javafx.scene.layout.AnchorPane;
 
 public class AgendaControl {
-	@FXML private ListView <Event> agendaList;
+	@FXML private ListView <Appointment> agendaList;
     @FXML private Button removeButton;
     @FXML private Button doneButton;
 	@FXML private AnchorPane pane;
@@ -37,39 +38,38 @@ public class AgendaControl {
     	assert doneButton != null :"fx:id=\"doneButton\" was not injected: check your FXML file 'AgendaPane.fxml'.";
     	assert removeButton != null :"fx:id=\"removeButton\" was not injected: check your FXML file 'AgendaPane.fxml'.";
     	
-    	agendaList.setCellFactory(new Callback<ListView<Event>, ListCell<Event>>() {
+    	agendaList.setCellFactory(new Callback<ListView<Appointment>, ListCell<Appointment>>() {
 			
 			@Override
-			public ListCell<Event> call(ListView<Event> arg0) {
-				return new ListCell<Event>() {
+			public ListCell<Appointment> call(ListView<Appointment> arg0) {
+				return new ListCell<Appointment>() {
 					 @Override 
-					 protected void updateItem(Event item, boolean empty) {
+					 protected void updateItem(Appointment item, boolean empty) {
 						 super.updateItem(item, empty);
 					    	if (item == null || empty) {
 					            setText(null);
 					            setGraphic(null);
 					        } else {
 					        	String time = "";
-					        	if(item.getDetails() instanceof EventDetails )
-					    			time += item.getDetails().getTimeStart() +"  -  " +((EventDetails)item.getDetails()).getTimeEnd() + " "; 
-					    	    if(item.getDetails() instanceof TaskDetails)
-					    	    	time += item.getDetails().getTimeStart() +"	         ";
-					    	    
+					    		time += item.getDetails().getTimeStart() +"  -  " + item.getDetails().getTimeEnd() + " "; 
+//					    	    if(item.getDetails() instanceof TaskDetails)
+//					    	    	time += item.getDetails().getTimeStart() +"	         ";
+//					    	    
 					        	Text txtTime = new Text(time);
-					            Text txtTitle = new Text(item.getTitle());
+					            Text txtClient = new Text(item.getClient().getName().toString());
 					            Color color = item.getDetails().getColor();
 					            
 					            txtTime.setFill(color);
-					            txtTitle.setFill(color);
+					            txtClient.setFill(color);
 					            
-					            if (item.getDetails() instanceof TaskDetails)
-					            	if(((TaskDetails) item.getDetails()).getStatus() == Status.DONE)
-					            		txtTitle.setStyle("-fx-strikethrough: true");
+//					            if (item.getDetails() instanceof TaskDetails)
+//					            	if(((TaskDetails) item.getDetails()).getStatus() == Status.DONE)
+//					            		txtTitle.setStyle("-fx-strikethrough: true");
 					            	
 					            txtTime.setFont(Font.font(null, FontWeight.BOLD, 16));
-					            txtTitle.setFont(Font.font(null, FontWeight.NORMAL, 16));
+					            txtClient.setFont(Font.font(null, FontWeight.NORMAL, 16));
 					            
-					            HBox hbox = new HBox(txtTime, txtTitle);
+					            HBox hbox = new HBox(txtTime, txtClient);
 					            setGraphic(hbox);
 					        }
 					 }
@@ -78,12 +78,12 @@ public class AgendaControl {
 		});
     }
     
-    public void setEvents (Iterator <Event> events) {
-		ObservableList<Event> items = FXCollections.observableArrayList();
+    public void setEvents (Iterator <Appointment> events) {
+		ObservableList<Appointment> items = FXCollections.observableArrayList();
 		
 		if (events != null) {		
 			while(events.hasNext()){ 
-				Event e = events.next();
+				Appointment e = events.next();
 					items.add(e);
 			}
 			

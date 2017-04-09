@@ -13,6 +13,7 @@ public abstract class Details {
 	private Year year;
 	private Integer dayOfMonth;
 	private LocalTime timeStart;
+	private LocalTime timeEnd;
 
 	public Integer getDayOfMonth() {
 		return dayOfMonth;
@@ -25,13 +26,21 @@ public abstract class Details {
 	public Year getYear() {
 		return year;
 	}
-
+	
+	public LocalTime getTimeEnd() {
+		return timeEnd;
+	}
+	
 	public LocalTime getTimeStart() {
 		return timeStart;
 	}
 
 	public Color getColor() {
 		return color;
+	}
+	
+	public void setTimeEnd (LocalTime timeEnd) {
+		this.timeEnd = timeEnd;
 	}
 	
 	public void setDayOfMonth (int day) {

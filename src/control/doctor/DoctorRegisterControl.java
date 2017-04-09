@@ -64,7 +64,7 @@ public class DoctorRegisterControl {
 	    			System.out.println("Added");
 	    		ClinicDB.closeConnection();
 	    	}
-	    	dmc.setDayVisible();
+	    	dmc.setLoginVisible();
     	});
     	
     	bckBtn.setOnAction(event -> {

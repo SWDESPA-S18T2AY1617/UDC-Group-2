@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.calendar.ModelGregorianCalendar;
+import model.storage.AppointmentCollection;
 import model.storage.DoctorCollection;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -68,13 +69,15 @@ public class MainLoaderControl {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/doctor/DoctorMainPane.fxml"));
 			Scene scene = new Scene(loader.load(), 1090, 590);
-		
+			
 			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
 			
 			DoctorCollection collections = new DoctorCollection();
+			AppointmentCollection appCollections = new AppointmentCollection();
+			
 			doctorControllers.add(loader.getController());
 			doctorControllers.get(doctorCount - 1).setCalendar(new ModelGregorianCalendar());
-			doctorControllers.get(doctorCount - 1).initializeUI(collections);
+			doctorControllers.get(doctorCount - 1).initializeUI(collections, appCollections);
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Doctorr.png")));
 			stage.setTitle("Doctor Login no. " + doctorCount);
@@ -126,7 +129,6 @@ public class MainLoaderControl {
 			stage.setResizable(false);
 			stage.setScene(scene);
 			stage.show();
-			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
