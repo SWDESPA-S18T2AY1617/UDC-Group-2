@@ -28,26 +28,32 @@ public class PopupAppointmentControl extends PopupControl {
 	@FXML private Text text;
 	
 	private void setDeleteButton (AppointmentCollection apps, EventCollection events) {
-		ClinicDB.openConnection();
 		deleteBtn.setOnAction(e -> {
 			Alert alert = new Alert (AlertType.CONFIRMATION);
-			alert.setTitle("Delete Confirmation");
+			alert.setTitle("Cancel Confirmation");
 			alert.setHeaderText(null);
 			alert.setContentText("Are you sure you want to cancel this appointment?");
     		
     		Optional <ButtonType> result = alert.showAndWait();
   
+    		this.event.setClient(null);
+    		
     		if (result.get() == ButtonType.OK){
-    			boolean removed = apps.delete(this.event);
+    			ClinicDB.openConnection();
+    			boolean removed = apps.update(this.event);
+    			ClinicDB.closeConnection();
     			Event ev = this.event.getEvent();
         		ev.setTitle("FREE");
+        		
+        		ClinicDB.openConnection();
     			boolean another = events.update(ev);
+    			ClinicDB.closeConnection();
     			
     			if(removed && another) {
     				alert = new Alert (AlertType.INFORMATION);
     				alert.setTitle("Delete Successful");
     				alert.setHeaderText(null);
-    				alert.setContentText("Successfully deleted: " + event.getTitle());
+    				alert.setContentText("Successfully freed: " + event.getTitle());
     				alert.showAndWait();
     			} else {
     				alert = new Alert (AlertType.ERROR);
@@ -57,9 +63,7 @@ public class PopupAppointmentControl extends PopupControl {
     				alert.showAndWait();
     			}
     		} 
-		});
-
-		ClinicDB.closeConnection();
+		});		
 	}
 	
 	@Override

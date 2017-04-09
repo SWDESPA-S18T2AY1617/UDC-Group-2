@@ -1,5 +1,6 @@
 package control;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -24,9 +25,9 @@ import model.EventDetails;
 public class AppointmentControl {
 
 	@FXML private Button cancelButton;
-	@FXML private Button removeButton;
+	@FXML private Button reserveButton;
 	@FXML private ListView <Appointment> appointList;
-	
+
 	@FXML 
 	public void initialize () {
 		appointList.setCellFactory(new Callback<ListView<Appointment>, ListCell<Appointment>>() {
@@ -42,9 +43,11 @@ public class AppointmentControl {
 					            setGraphic(null);
 					        } else {
 					        	
-					        	String time = "";
+					        	String time = "" +  LocalDate.of(item.getDetails().getYear().getValue(), 
+					        			item.getDetails().getMonth(),
+					        			item.getDetails().getDayOfMonth()).getDayOfWeek().toString();
 					        	
-					        	time += item.getDetails().getTimeStart() +"  -  " +((EventDetails)item.getDetails()).getTimeEnd() + " "; 
+					        	time += " " + item.getDetails().getTimeStart() +"  -  " +((EventDetails)item.getDetails()).getTimeEnd() + " "; 
 					    	    
 					        	Text txtTime = new Text(time);
 					        	String message = "";
@@ -93,7 +96,7 @@ public class AppointmentControl {
 			items.sort(new Comparator <Appointment> () {
 				@Override
 				public int compare(Appointment o1, Appointment o2) {
-					return o1.getDetails().getTimeStart().compareTo(o2.getDetails().getTimeStart());
+					return o1.getDetails().getDayWeek().compareTo(o2.getDetails().getDayWeek()) + o1.getDetails().getTimeStart().compareTo(o2.getDetails().getTimeStart());
 				}
 			});
 		}
@@ -108,9 +111,13 @@ public class AppointmentControl {
 	}
 	
 	public void removeButtonVisibility (boolean value) {
-		removeButton.setVisible(value);
+		reserveButton.setVisible(value);
 	}
 
+	public void setReserveButton(EventHandler <ActionEvent> event) {
+		reserveButton.setOnAction(event);
+	}
+	
 	public void setCancelButton(EventHandler <ActionEvent> event) {
 		cancelButton.setOnAction(event);
 	}

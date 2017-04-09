@@ -96,14 +96,9 @@ public class SecretaryMainControl extends AppointmentObserver {
     		} 
 		});
 		
-		toolbarController.setDayAction(day -> {
-			setDayVisible();
-		});
+		toolbarController.setWeekOrDay(day, week, agenda);
 		
-		toolbarController.setWeekAction(week -> {
-			setWeekVisible();
-		});
-		
+		toolbarController.setAgendaOrCalendar(day, week, agenda);
 		toolbarController.setReservationAction(reserve -> {
 			update();
 		});

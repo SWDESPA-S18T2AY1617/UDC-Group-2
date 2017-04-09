@@ -1,6 +1,8 @@
 package model;
 
 import javafx.scene.paint.Color;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
@@ -52,6 +54,10 @@ public abstract class Details {
 
 	public void setTimeStart(LocalTime timeStart) {
 		this.timeStart = timeStart;
+	}
+	
+	public DayOfWeek getDayWeek () {
+		return LocalDate.of(year.getValue(), month, dayOfMonth).getDayOfWeek();
 	}
 
 	public String toString() {

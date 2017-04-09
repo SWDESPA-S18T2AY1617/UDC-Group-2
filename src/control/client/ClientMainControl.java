@@ -13,10 +13,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import model.Appointment;
 import model.AppointmentObserver;
 import model.Client;
+import model.Doctor;
 import model.Event;
 import model.ModelGregorianCalendar;
 import model.storage.ClientCollection;
@@ -99,18 +101,15 @@ public class ClientMainControl extends AppointmentObserver {
     		} 
 		});
 		
-		toolbarController.setDayAction(day -> {
-			setDayVisible();
-		});
+		toolbarController.setWeekOrDay(day, week, appointment);
 		
-		toolbarController.setWeekAction(week -> {
-			setWeekVisible();
-		});
+		toolbarController.setAgendaOrCalendar(day, week, appointment);
 		
 		toolbarController.setReservationAction(reserve -> {
 			update();
 		});
 		
+		setAppointmentsVisible();
 		
 		toolbarController.setDoctors(null);
 		toolbar.setDisable(true);
@@ -119,7 +118,7 @@ public class ClientMainControl extends AppointmentObserver {
 	public void setAppointmentsPane () {
 		appointmentController.setPlaceholder("No appointments!");
 		appointmentController.cancelButtonVisibility(true);
-		appointmentController.removeButtonVisibility(false);
+		
 		appointmentController.setCancelButton(event -> {
 			Appointment appointment = appointmentController.getListInput();
 			
@@ -131,19 +130,25 @@ public class ClientMainControl extends AppointmentObserver {
 				alert.setContentText("Are you sure you want to cancel this appointment?");
 	    		
 	    		Optional <ButtonType> result = alert.showAndWait();
-	    		
-	    		Event e = new Event ();
-	    		e.setId(appointment.getId());
+	    	
+	    		appointment.setClient(null);
 	    		
 	    		if (result.get() == ButtonType.OK){
-	    			boolean removed = appointments.delete(appointment);
-	    			boolean another = events.delete(e);
-	    			
+	    			ClinicDB.openConnection();
+	    			boolean removed = appointments.update(appointment);
+	    			ClinicDB.closeConnection();
+	    			Event ev = appointment.getEvent();
+	        		ev.setTitle("FREE");
+	        		
+	        		ClinicDB.openConnection();
+	    			boolean another = events.update(ev);
+	    			ClinicDB.closeConnection();
+					
 	    			if(removed && another) {
 	    				alert = new Alert (AlertType.INFORMATION);
 	    				alert.setTitle("Delete Successful");
 	    				alert.setHeaderText(null);
-	    				alert.setContentText("Successfully deleted: " + e.getTitle());
+	    				alert.setContentText("Successfully freed: " + appointment.getTitle());
 	    				alert.showAndWait();
 	    			} else {
 	    				alert = new Alert (AlertType.ERROR);
@@ -157,6 +162,43 @@ public class ClientMainControl extends AppointmentObserver {
 				ClinicDB.closeConnection();
 			} 
 		});
+		
+		appointmentController.setReserveButton(event -> {
+			Appointment appointment = appointmentController.getListInput();
+			appointment.setClient(mainClient);
+			
+			TextInputDialog dialog = new TextInputDialog("");
+			dialog.setTitle("Reservation Confirmation");
+			dialog.setHeaderText(null);
+			dialog.setContentText("Reservation for what?");
+
+			Optional<String> result = dialog.showAndWait();
+			
+			result.ifPresent(title -> {
+				appointment.setTitle(title);
+				ClinicDB.openConnection();
+				boolean updated = appointments.update(appointment);
+				ClinicDB.closeConnection();
+				ClinicDB.openConnection();
+				boolean updatedEvent = events.update(appointment.getEvent());
+				ClinicDB.closeConnection();
+				
+				Alert alert;
+				if(updated && updatedEvent) {
+					alert = new Alert (AlertType.INFORMATION);
+					alert.setTitle("Reservation Successful!");
+					alert.setHeaderText(null);
+					alert.setContentText("Successfully reserved: " + title);
+					alert.showAndWait();
+				} else {
+					alert = new Alert (AlertType.ERROR);
+					alert.setTitle("Database Error");
+					alert.setHeaderText(null);
+					alert.setContentText("There was an error in the database connection!");
+					alert.showAndWait();
+				}
+			});
+		});		
 	}
 	
 	public void setLoginVisible () {
@@ -229,7 +271,6 @@ public class ClientMainControl extends AppointmentObserver {
 		if(mainClient != null) {
 			ClinicDB.openConnection();
 			if(!toolbarController.reservationState()) {
-				appointmentController.setEvents(appointments.getAppointmentsOfClientThisDay(mainClient, mgc.selectedDate()));
 				dayController.setEvents(appointments.getAppointmentsOfClientThisDay(mainClient, mgc.selectedDate()));
 
 				List <Appointment> weekEvents = new ArrayList <Appointment> ();
@@ -242,21 +283,44 @@ public class ClientMainControl extends AppointmentObserver {
 				}
 				
 				weekController.setEvents(weekEvents.iterator());
-				appointmentController.cancelButtonVisibility(true);
-			} else {
-				appointmentController.setEvents(appointments.getFreeAppointmentsThisDay(mgc.selectedDate()));
-				dayController.setEvents(appointments.getFreeAppointmentsThisDay(mgc.selectedDate()));
+				
+				if(toolbarController.isDay())
+					appointmentController.setEvents(appointments.getAppointmentsOfClientThisDay(mainClient, mgc.selectedDate()));
+				else
+					appointmentController.setEvents(weekEvents.iterator());
 
+				appointmentController.cancelButtonVisibility(true);
+				appointmentController.removeButtonVisibility(false);
+			} else {
+				List <Doctor> doctors = toolbarController.getDoctorsInput();
+				List <Appointment> dayEvents = new ArrayList <Appointment> ();
 				List <Appointment> weekEvents = new ArrayList <Appointment> ();
 				
-				for (int i = 0; i < mgc.getWeek().size(); i++) {
-					Iterator <Appointment> tempEvents = appointments.getFreeAppointmentsThisDay(mgc.getWeek().get(i));
-					while(tempEvents.hasNext()) {
-						weekEvents.add(tempEvents.next());
+				for(int i = 0; i < doctors.size(); i++) {
+					Iterator <Appointment> events = appointments.getFreeAppointmentsOfDoctorThisDay(doctors.get(i), mgc.selectedDate());
+					
+					while (events.hasNext()) {
+						dayEvents.add(events.next());
 					}
+					
+					for (int j = 0; j < mgc.getWeek().size(); j++) {
+						Iterator <Appointment> tempEvents = appointments.getFreeAppointmentsOfDoctorThisDay(doctors.get(i), mgc.getWeek().get(j));
+						while(tempEvents.hasNext()) {
+							weekEvents.add(tempEvents.next());
+						}
+					}	
 				}
 				
+				if(toolbarController.isDay())
+					appointmentController.setEvents(dayEvents.iterator());
+				else
+					appointmentController.setEvents(weekEvents.iterator());
+				
 				weekController.setEvents(weekEvents.iterator());
+				dayController.setEvents(dayEvents.iterator());
+				
+				appointmentController.cancelButtonVisibility(false);
+				appointmentController.removeButtonVisibility(true);
 			}
 			
 			dayController.initializeButtons(appointments, events, mainClient);

@@ -16,6 +16,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -26,19 +29,16 @@ import javafx.util.Callback;
 import model.AppointmentObserver;
 import model.Doctor;
 import model.ModelGregorianCalendar;
-import javafx.scene.control.ToggleButton;
 
 public class ToolbarControl {
 	@FXML private Button todayButton;
 	@FXML private Button nextButton;
 	@FXML private Button prevButton;
-	@FXML private Button dayButton;
-	@FXML private Button weekButton;
 	@FXML private Button logoutButton;
-	@FXML private Button agendaDay;
-	@FXML private Button agendaWeek;
+	
 	@FXML private ListView <Doctor> doctorsCombobox;
 	@FXML private ComboBox <Year> yearCombobox;
+
 	@FXML private Label monthLabel;
 	@FXML private Label viewLabel;
 	@FXML private ToggleButton reservationButton;
@@ -47,12 +47,85 @@ public class ToolbarControl {
 	@FXML private AnchorPane toolBar;	
 	@FXML private CalendarControl calendarController;
 	
+	@FXML private RadioButton week;
+	@FXML private RadioButton day;
+	@FXML private RadioButton agenda;
+	@FXML private RadioButton calendarX;
+	@FXML private ToggleButton reservation;
+	
+	private ToggleGroup weekOrDay;
+	private ToggleGroup agendaOrCalendar;
+	
 	private ObservableList <Doctor> doctors;
 	private AppointmentObserver parent;
-	
 
+	public void setSecretaryViews () {
+		
+	}
+	
+	public void setClientViews () {
+		
+	}
+	
+	public void setWeekOrDay (AnchorPane day, AnchorPane week, AnchorPane agenda) {
+		weekOrDay.selectedToggleProperty().addListener((observed, oldT, newT) -> {
+			if(!agendaOrCalendar.getSelectedToggle().equals(this.agenda)) {
+				if (weekOrDay.getSelectedToggle().equals(this.day)) {
+					day.setVisible(true);
+					week.setVisible(false);
+					agenda.setVisible(false);
+				} else {
+					day.setVisible(false);
+					week.setVisible(true);
+					agenda.setVisible(false);
+				}
+			} else {
+				day.setVisible(false);
+				week.setVisible(false);
+				agenda.setVisible(true);
+			}
+			parent.update();
+		});
+	}
+	
+	public boolean isDay () {
+		return weekOrDay.getSelectedToggle().equals(day);
+	}
+	
+	public void setAgendaOrCalendar (AnchorPane day, AnchorPane week, AnchorPane agenda) {
+		agendaOrCalendar.selectedToggleProperty().addListener((observed, oldT, newT) -> {
+			if(!agendaOrCalendar.getSelectedToggle().equals(this.agenda)) {
+				if (weekOrDay.getSelectedToggle().equals(this.day)) {
+					day.setVisible(true);
+					week.setVisible(false);
+					agenda.setVisible(false);
+				} else {
+					day.setVisible(false);
+					week.setVisible(true);
+					agenda.setVisible(false);
+				}
+			} else {
+				day.setVisible(false);
+				week.setVisible(false);
+				agenda.setVisible(true);
+			}
+			parent.update();
+		});
+	}
+	
 	@FXML
 	public void initialize () {
+		
+		weekOrDay = new ToggleGroup();
+		weekOrDay.getToggles().addAll(day, week);
+		
+		agendaOrCalendar = new ToggleGroup();
+		agendaOrCalendar.getToggles().addAll(agenda, calendarX);
+		
+		
+		weekOrDay.selectToggle(day);
+		agendaOrCalendar.selectToggle(agenda);
+		
 		doctors = FXCollections.observableArrayList();
 		
 		doctorsCombobox.setCellFactory(new Callback<ListView<Doctor>, ListCell<Doctor>>() {
@@ -71,6 +144,8 @@ public class ToolbarControl {
 					        	Text txtDoctor = new Text (item.toString());
 					            Color color = item.getColor();
 					            
+					            box.setSelected(true);
+					            
 					            txtDoctor.setFill(color);
 
 					            txtDoctor.setFont(Font.font(null, FontWeight.BOLD, 12));
@@ -81,6 +156,8 @@ public class ToolbarControl {
 					            	} else {
 					            		doctors.remove(item);
 					            	}
+					            
+					            	parent.update();
 					            });
 					            
 					            HBox hbox = new HBox(box, txtDoctor);
@@ -140,33 +217,30 @@ public class ToolbarControl {
 		logoutButton.setOnAction(event);
 	}
 	
-	public void setDayAction (EventHandler<ActionEvent> event) {
-		dayButton.setOnAction(event);
-	}
-	
-	public void setWeekAction (EventHandler<ActionEvent> event) {
-		weekButton.setOnAction(event);
-	}
-	
 	public void setReservationAction (EventHandler <ActionEvent> event) {
-		reservationButton.setOnAction(event);
+		reservation.setOnAction(event);
 	}
 	
 	public boolean reservationState () {
-		return reservationButton.isSelected();
+		return reservation.isSelected();
 	}
 	
 	public void setDoctors (Iterator <Doctor> doctors) {
 		if(doctors == null) {
 			doctorsCombobox.setDisable(true);
 		} else {
+			this.doctors.clear();
 			doctorsCombobox.setItems(FXCollections.observableArrayList());
-			
 			while (doctors.hasNext()) {
-				doctorsCombobox.getItems().add(doctors.next());
+				Doctor doc = doctors.next();
+				doctorsCombobox.getItems().add(doc);
+				this.doctors.add(doc);		
 			}
+			
 			doctorsCombobox.setDisable(false);
 		}
+		
+		parent.update();
 	}
 
 	public void update() {

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
@@ -94,8 +95,10 @@ public class AppointmentCollection extends AccessObject <Appointment> {
 							" WHERE " + Appointment.COL_ID + " = ?";
 			
 			PreparedStatement statement = connect.prepareStatement(query);
-			
-			statement.setInt(1, e.getClient().getId());
+			if(e.getClient() == null)
+				statement.setNull(1, Types.INTEGER);
+			else
+				statement.setInt(1, e.getClient().getId());
 			statement.setInt(2, e.getDoctor().getId());
 			statement.setInt(3, e.getId());
 			
@@ -213,11 +216,9 @@ public class AppointmentCollection extends AccessObject <Appointment> {
 			String query = 	"SELECT * " +
 					" FROM " + 
 					Appointment.TABLE + " a, " +
-					Client.TABLE + " c," +
 					Doctor.TABLE + " d, " +
 					Event.TABLE + " e " +
 					"WHERE " + 	
-					"c." + Client.COL_ID + " = " + " a." + Appointment.COL_CLIENTID + " AND " +
 					"d." + Doctor.COL_ID + " = " + " a." + Appointment.COL_DOCID + " AND " +
 					"e." + Event.EVENT_ID + " = " + " a." + Appointment.COL_ID + " AND " +
 					" a." + Appointment.COL_DOCID + " = ? AND " +
@@ -244,7 +245,7 @@ public class AppointmentCollection extends AccessObject <Appointment> {
 		return appointments.iterator();
 	}
 	
-	public Iterator <Appointment> getFreeAppointmentsOfDoctorThisDay (Doctor doctor) {
+	public Iterator <Appointment> getFreeAppointmentsOfDoctorThisDay (Doctor doctor, LocalDate date) {
 		List <Appointment> appointments = new ArrayList <Appointment> ();
 		
 		if(!ClinicDB.isOpen())
@@ -257,25 +258,25 @@ public class AppointmentCollection extends AccessObject <Appointment> {
 			String query = 	"SELECT * " +
 					" FROM " + 
 					Appointment.TABLE + " a, " +
-					Client.TABLE + " c," +
 					Doctor.TABLE + " d, " +
 					Event.TABLE + " e " +
 					"WHERE " + 	
-					"c." + Client.COL_ID + " = " + " a." + Appointment.COL_CLIENTID + " AND " +
 					"d." + Doctor.COL_ID + " = " + " a." + Appointment.COL_DOCID + " AND " +
 					"e." + Event.EVENT_ID + " = " + " a." + Appointment.COL_ID + " AND " +
 					" a." + Appointment.COL_DOCID + " = ? AND " +
-					" a." + Appointment.COL_CLIENTID + " IS NULL";
+					" a." + Appointment.COL_CLIENTID + " IS NULL AND " + 
+					" e." + Event.EVENT_DATE + " = ?";
 			
 			
 			PreparedStatement statement = connect.prepareStatement(query);
 			
 			statement.setInt(1, doctor.getId());
+			statement.setDate(2, Date.valueOf(date));
 			
 			rs = statement.executeQuery();
 			
 			while(rs.next()) {
-				appointments.add(toAppointment(rs));
+				appointments.add(toFreeAppointment(rs));
 			}
 			
 			System.out.println("[" + getClass().getName() + "] SELECT SUCCESS!");
