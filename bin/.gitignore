@@ -1,4 +1,6 @@
 /application/
 /control/
 /debug/
+/config/
 /model/
+/view/
