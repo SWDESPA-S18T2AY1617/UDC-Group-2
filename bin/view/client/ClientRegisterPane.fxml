@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="359.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.client.ClientRegisterControl">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e7ea" height="249.0" layoutY="71.0" stroke="#e4e7ea" strokeType="INSIDE" width="359.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5e9b9d" height="74.0" stroke="#5e9b9d" strokeType="INSIDE" width="359.0" />
+      <ImageView fitHeight="55.0" fitWidth="74.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../res/img/Patient.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="95.0" layoutY="18.0" prefHeight="39.0" prefWidth="172.0" text="REGISTER" textFill="WHITE">
+         <font>
+            <Font name="Courier New Bold" size="23.0" />
+         </font>
+      </Label>
+      <Button fx:id="registerButton" layoutX="258.0" layoutY="275.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" text="REGISTER">
+         <font>
+            <Font name="Consolas" size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="38.0" layoutY="86.0" text="First Name">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="119.0" prefHeight="25.0" prefWidth="81.0" text="Middle Name">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="157.0" text="Last Name">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="44.0" layoutY="233.0" text="Password">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="firstNameText" layoutX="108.0" layoutY="82.0" prefHeight="25.0" prefWidth="184.0" />
+      <TextField fx:id="middleNameText" layoutX="108.0" layoutY="119.0" prefHeight="25.0" prefWidth="184.0" />
+      <TextField fx:id="lastNameText" layoutX="108.0" layoutY="153.0" prefHeight="25.0" prefWidth="184.0" />
+      <TextField fx:id="usernameText" layoutX="108.0" layoutY="191.0" prefHeight="25.0" prefWidth="184.0" />
+      <Label layoutX="42.0" layoutY="195.0" text="Username">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="passwordText" layoutX="108.0" layoutY="229.0" prefHeight="25.0" prefWidth="184.0" />
+      <Button fx:id="backButton" layoutX="14.0" layoutY="275.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" text="BACK">
+         <font>
+            <Font name="Consolas" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

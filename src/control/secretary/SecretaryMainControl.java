@@ -1,30 +1,24 @@
 package control.secretary;
 
-import java.io.IOException;
-
 import control.AgendaControl;
 import control.CalendarControl;
 import control.DayControl;
+import control.ToolbarControl;
 import control.WeekControl;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import model.ModelGregorianCalendar;
+import model.storage.SecretaryCollection;
 
 public class SecretaryMainControl {
 	
-	@FXML private AnchorPane calendarView;
-    @FXML private AnchorPane agendaView;
+	@FXML private AnchorPane agendaView;
     @FXML private AnchorPane dayView;
     @FXML private AnchorPane weekView;
-    
-    @FXML private Button registerButton;
-    @FXML private Button loginButton;
-    @FXML private Button setAppButton;
-    @FXML private Button rmvAppButton;
+    @FXML private AnchorPane secToolbar;
+    @FXML private AnchorPane loginView;
+    @FXML private AnchorPane registerView;
+    @FXML private AnchorPane startupView;
     
     @FXML private CalendarControl calendarViewController;
     @FXML private AgendaControl agendaViewController;
@@ -34,59 +28,63 @@ public class SecretaryMainControl {
     @FXML private SecretaryRegisterControl secRegisterController;
     @FXML private SecretaryLoginControl secLoginController;
     @FXML private SecretaryStartupControl secStartUpController;
-    
-    private ModelGregorianCalendar mgc;
-    
-    @FXML
-    public void initialize() {
-    	registerButton.setOnAction(event -> {
-			setSecRegStage();
-		});
-    	
-    	loginButton.setOnAction(event -> {
-			setSecLoginStage();
-		});
-    	
-    	// set/delete appointment stage
-    }
-    
-    private void setSecRegStage() {
-    	try {
-    		Stage stage = new Stage ();
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/view/secretary/SecretaryRegisterPane.fxml"));
-			Scene scene = new Scene(loader.load(), 1090, 590);
-		
-			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
-			secRegisterController = loader.getController();
-			
-			stage.setResizable(false);
-			stage.setScene(scene);
-			stage.show();
-    	} catch(IOException e) {
-    		e.printStackTrace();
-    	}
-    }
-    
-    private void setSecLoginStage() {
-    	try {
-    		Stage stage = new Stage ();
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/view/secretary/SecretaryLoginPane.fxml"));
-			Scene scene = new Scene(loader.load(), 1090, 590);
-		
-			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
-			secLoginController = loader.getController();
-			
-			stage.setResizable(false);
-			stage.setScene(scene);
-			stage.show();
-    	} catch(IOException e) {
-    		e.printStackTrace();
-    	}
-    }
+    @FXML private ToolbarControl secToolbarController; 
 
-	public void setCalendar(ModelGregorianCalendar modelGregorianCalendar) {
-		this.mgc = modelGregorianCalendar;
-	}
+    public void setCalendar (ModelGregorianCalendar mgc) {
+    	secToolbarController.setCalendar(mgc);
+    }
+    
+    public void setStartupVisible () {
+    	startupView.setVisible(true);
+    	agendaView.setVisible(false);
+    	weekView.setVisible(false);
+    	dayView.setVisible(false);
+    	loginView.setVisible(false);
+    	registerView.setVisible(false);
+    }
+    
+    public void setLoginVisible () {
+    	startupView.setVisible(false);
+    	agendaView.setVisible(false);
+    	weekView.setVisible(false);
+    	dayView.setVisible(false);
+    	loginView.setVisible(true);
+    	registerView.setVisible(false);
+    }
+    
+    public void setRegisterVisible () {
+    	startupView.setVisible(false);
+    	agendaView.setVisible(false);
+    	weekView.setVisible(false);
+    	dayView.setVisible(false);
+    	loginView.setVisible(false);
+    	registerView.setVisible(true);
+    }
+    
+    public void setAgendaVisible () {
+    	startupView.setVisible(false);
+    	agendaView.setVisible(true);
+    	weekView.setVisible(false);
+    	dayView.setVisible(false);
+    	loginView.setVisible(false);
+    	registerView.setVisible(false);
+    }
+    
+    public void setDayVisible () {
+    	startupView.setVisible(false);
+    	agendaView.setVisible(false);
+    	weekView.setVisible(false);
+    	dayView.setVisible(true);
+    	loginView.setVisible(false);
+    	registerView.setVisible(false);
+    }
+    
+    public void setWeekVisible () {
+    	startupView.setVisible(false);
+    	agendaView.setVisible(false);
+    	weekView.setVisible(true);
+    	dayView.setVisible(false);
+    	loginView.setVisible(false);
+    	registerView.setVisible(false);
+    }
 }
