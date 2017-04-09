@@ -39,14 +39,6 @@ public class SecretaryMainControl {
     
     @FXML
     public void initialize() {
-    	registerButton.setOnAction(event -> {
-			setSecRegStage();
-		});
-    	
-    	loginButton.setOnAction(event -> {
-			setSecLoginStage();
-		});
-    	
     	// set/delete appointment stage
     }
     
