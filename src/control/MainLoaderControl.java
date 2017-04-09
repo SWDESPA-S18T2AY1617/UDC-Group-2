@@ -85,8 +85,6 @@ public class MainLoaderControl {
 			
 			doctorControllers.add(0, loader.getController());
 			doctorControllers.get(0).setCalendar(new ModelGregorianCalendar());
-
-			
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Doctorr.png")));
 			stage.setTitle("Doctor Login no. " + doctorControllers.size());
