@@ -1,8 +1,8 @@
-package model.calendar;
+package model;
 
 public class Appointment extends Event {
 	public static final String TABLE = "appointment";
-	public static final String COL_DOCID = "doc_id";
+	public static final String COL_DOCID = "doctor_id";
 	public static final String COL_CLIENTID = "client_id";
 	public static final String COL_ID = "event_id";
 	
@@ -34,5 +34,13 @@ public class Appointment extends Event {
 		return super.toString() + 
 				"\nDOCTOR: " + getDoctor().toString() +
 				"\nPATIENT: " + getClient().toString();
+	}
+
+	public Event getEvent() {
+		Event event = new Event();
+		event.setId(getId());
+		event.setDetails(getDetails());
+		event.setTitle(getTitle());
+		return event;
 	}
 }

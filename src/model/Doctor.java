@@ -1,15 +1,11 @@
-package model.calendar;
+package model;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.scene.paint.Color;
 
-public class Doctor {
-	private int id;
-	private Name name;
-	private String username;
-	private String password;
+public class Doctor extends Person {
 	private Color color;
 	private String description;
 	private List <Appointment> appointments;
@@ -23,29 +19,6 @@ public class Doctor {
 	public static final String COL_LASTNAME = "last_name";
 	public static final String COL_COLOR = "color";
 	public static final String COL_DESCRIPTION = "description";
-	
-	public boolean login (String username, String password) {
-		if(this.getUsername() == username && this.getPassword() == password)
-			return true;
-		else 
-			return false;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public Color getColor() {
 		return color;
@@ -53,22 +26,6 @@ public class Doctor {
 
 	public void setColor(Color color) {
 		this.color = color;
-	}
-
-	public Name getName() {
-		return name;
-	}
-
-	public void setName(Name name) {
-		this.name = name;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getDescription() {
@@ -87,5 +44,7 @@ public class Doctor {
 		this.appointments = appointments;
 	}
 	
-	
+	public String toString () {
+		return "Dr. " + name.toString();
+	}
 }

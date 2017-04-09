@@ -1,12 +1,15 @@
-package model.calendar;
+package model;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 
 public class ModelGregorianCalendar extends GregorianCalendar {
 	private static final long serialVersionUID = 1L;
@@ -51,21 +54,36 @@ public class ModelGregorianCalendar extends GregorianCalendar {
 	
 	public List <LocalDate> getWeek () {
 		List <LocalDate> localWeek = new ArrayList <LocalDate> ();
+		List <LocalDate> remove = new ArrayList <LocalDate> ();
 		int count = get(DAY_OF_WEEK);
+		LocalDate date = selectedDate();
 		
-		while (count != 7) {
-			LocalDate date = selectedDate().plusDays(1);
+		do {
+			date = date.plusDays(1);
 			localWeek.add(date);
 			count ++;
-		}
-		
+		} while (count < 7);
+
+		date = selectedDate();
 		count = get(DAY_OF_WEEK);
-		while (count != 0) {
-			LocalDate date = selectedDate().minusDays(1);
+		
+		while (count > 0) {
+			date = date.minusDays(1);
 			localWeek.add(date);
 			count --;
 		}
 		
+		localWeek.add(selectedDate());
+		
+		Collections.sort(localWeek);
+		
+		for (LocalDate ld: localWeek) {
+			if(ld.getDayOfWeek() == DayOfWeek.SUNDAY || ld.getDayOfWeek() == DayOfWeek.SATURDAY) {
+				remove.add(ld);
+			}
+		}
+		
+		localWeek.removeAll(remove);
 		return localWeek;
 	}
 	

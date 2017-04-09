@@ -13,6 +13,6 @@ public abstract class AppointmentObserver {
 		update();
 	}
 	
-	public abstract void update();
+	public abstract void update ();
 
 }

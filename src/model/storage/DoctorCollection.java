@@ -9,41 +9,24 @@ import java.util.Iterator;
 import java.util.List;
 
 import javafx.scene.paint.Color;
-import model.calendar.Doctor;
-import model.calendar.Name;
+import model.Doctor;
+import model.Name;
 
 public class DoctorCollection extends AccessObject <Doctor> {
-
-	private List <DoctorObserver> observers;
-	private PreparedStatement statement;
-		
-	public DoctorCollection () {
-		observers = new ArrayList <DoctorObserver> ();
-	}
-	private void notifyAllObservers () {
-		for (DoctorObserver observer:observers) {
-			observer.update();
-		}
-	}
-	
-	public void unregister (DoctorObserver o) {
-		this.observers.remove(o);
-	}
-	
-	public void register (DoctorObserver o) {
-		this.observers.add(o);
-	}
-
 	@Override
 	public Iterator<Doctor> getAll() {
 		List <Doctor> doctors = new ArrayList <Doctor>();
 		
-		try (Connection connect = ClinicDB.getActiveConnection()) {
+		if(!ClinicDB.isOpen())
+			return doctors.iterator();
+		
+		try {
+			Connection connect = ClinicDB.getActiveConnection();
 			ResultSet rs;
 			
 			String query = 	"SELECT * " +
 							" FROM " + Doctor.TABLE;
-			
+			PreparedStatement statement;
 			statement = connect.prepareStatement(query);
 			rs = statement.executeQuery();
 			
@@ -81,7 +64,6 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			doctor.getName().setMiddle(middle);
 			doctor.setColor(color);
 			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -105,6 +87,7 @@ public class DoctorCollection extends AccessObject <Doctor> {
 							Doctor.COL_COLOR + " = ?," +
 							" WHERE " + Doctor.COL_ID + " = ?";
 			
+			PreparedStatement statement;
 			statement = connect.prepareStatement(query);
 			
 			statement.setInt(1, d.getId());
@@ -116,7 +99,6 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			statement.setString(7, d.getDescription());
 			
 			statement.executeUpdate();
-			notifyAllObservers();
 			System.out.println("[" + getClass().getName() + "] UPDATE SUCCESS!");
 			return true;
 		} catch (SQLException ev) {
@@ -138,6 +120,7 @@ public class DoctorCollection extends AccessObject <Doctor> {
 							Doctor.TABLE +
 							" VALUES (?, ?, ?, ?, ?, ?, ?)";
 			
+			PreparedStatement statement;
 			statement = connect.prepareStatement(query);
 			
 			statement.setInt(1, d.getId());
@@ -149,7 +132,6 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			statement.setString(7, d.getDescription());
 			
 			statement.executeUpdate();
-			notifyAllObservers();
 			System.out.println("[" + getClass().getName() + "] INSERT SUCCESS!");
 			return true;
 		} catch (SQLException ev) {
@@ -170,12 +152,12 @@ public class DoctorCollection extends AccessObject <Doctor> {
 							Doctor.TABLE +
 							" WHERE " + Doctor.COL_ID + " = ?";
 			
+			PreparedStatement statement;
 			statement = connect.prepareStatement(query);
 			
 			statement.setInt(1, d.getId());
 			statement.executeUpdate();
 			
-			notifyAllObservers();
 			System.out.println("[" + getClass().getName() + "] DELETE SUCCESS!");
 			return true;
 		} catch (SQLException ev) {
@@ -198,11 +180,8 @@ public class DoctorCollection extends AccessObject <Doctor> {
 							Doctor.TABLE +
 							" WHERE " + Doctor.COL_ID + " = ?";
 			
-			statement = connect.prepareStatement(query);
-			
-			statement.setInt(1, id);
-			statement.executeUpdate();
-			
+			PreparedStatement statement;
+
 			statement = connect.prepareStatement(query);
 			rs = statement.executeQuery();
 			

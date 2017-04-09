@@ -8,31 +8,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.calendar.Name;
-import model.calendar.Secretary;
+import model.Name;
+import model.Secretary;
 
 public class SecretaryCollection extends AccessObject <Secretary> {
-	
-	private List <SecretaryObserver> observers;
 	private PreparedStatement statement;
-	
-	public SecretaryCollection () {
-		observers = new ArrayList <SecretaryObserver> ();
-	}
-	
-	private void notifyAllObservers () {
-		for (SecretaryObserver observer:observers) {
-			observer.update();
-		}
-	}
-	
-	public void unregister (SecretaryObserver o) {
-		this.observers.remove(o);
-	}
-	
-	public void register (SecretaryObserver o) {
-		this.observers.add(o);
-	}
 	
 	@Override
 	public Iterator<Secretary> getAll() {
@@ -114,7 +94,6 @@ public class SecretaryCollection extends AccessObject <Secretary> {
 			statement.setString(6, s.getUsername());
 			
 			statement.executeUpdate();
-			notifyAllObservers();
 			System.out.println("[" + getClass().getName() + "] UPDATE SUCCESS!");
 			return true;
 		} catch (SQLException ev) {
@@ -146,7 +125,6 @@ public class SecretaryCollection extends AccessObject <Secretary> {
 			statement.setString(6, s.getUsername());
 			
 			statement.executeUpdate();
-			notifyAllObservers();
 			System.out.println("[" + getClass().getName() + "] INSERT SUCCESS!");
 			return true;
 		} catch (SQLException ev) {
@@ -171,7 +149,7 @@ public class SecretaryCollection extends AccessObject <Secretary> {
 			
 			statement.setInt(1, s.getId());
 			statement.executeUpdate();
-			notifyAllObservers();
+			
 			System.out.println("[" + getClass().getName() + "] DELETE SUCCESS!");
 			return true;
 		} catch (SQLException ev) {

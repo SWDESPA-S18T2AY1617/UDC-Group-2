@@ -16,11 +16,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import javafx.scene.paint.Color;
-import model.calendar.Details;
-import model.calendar.Event;
-import model.calendar.EventDetails;
-import model.calendar.Status;
-import model.calendar.TaskDetails;
+import model.Details;
+import model.Event;
+import model.EventDetails;
+import model.Status;
+import model.TaskDetails;
 
 public class EventCollection extends AccessObject <Event> {
 	private List <EventObserver> observers;

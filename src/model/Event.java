@@ -1,4 +1,4 @@
-package model.calendar;
+package model;
 
 public class Event {
 	private Details details;
@@ -6,7 +6,7 @@ public class Event {
 	private int id;
 	
 	public static final String TABLE = "events";
-	public static final String EVENT_ID = "id";
+	public static final String EVENT_ID = "event_id";
 	public static final String EVENT_COLOR = "color";
 	public static final String EVENT_DATE = "date";
 	public static final String EVENT_STATUS = "status";

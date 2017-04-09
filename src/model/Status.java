@@ -1,4 +1,4 @@
-package model.calendar;
+package model;
 
 public enum Status {
 	DONE, PENDING;

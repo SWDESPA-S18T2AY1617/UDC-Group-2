@@ -7,10 +7,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="loginPopUpPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="216.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.client.ClientLoginControl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="216.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.client.ClientLoginControl">
    <children>
-      <Rectangle fx:id="rectangleBottom" arcHeight="5.0" arcWidth="5.0" fill="#e4e7ea" height="150.0" layoutY="69.0" stroke="#e4e7ea" strokeType="INSIDE" width="321.0" />
-      <Rectangle fx:id="rectangleTop" arcHeight="5.0" arcWidth="5.0" fill="#5e9b9d" height="74.0" stroke="#5e9b9d" strokeType="INSIDE" width="321.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4e7ea" height="150.0" layoutY="69.0" stroke="#e4e7ea" strokeType="INSIDE" width="321.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5e9b9d" height="74.0" stroke="#5e9b9d" strokeType="INSIDE" width="321.0" />
       <ImageView fitHeight="55.0" fitWidth="74.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../res/img/Patient.png" />
@@ -21,7 +21,7 @@
             <Font name="Courier New Bold" size="23.0" />
          </font>
       </Label>
-      <Label fx:id="passwordLabel" layoutX="42.0" layoutY="136.0" text="Password">
+      <Label layoutX="42.0" layoutY="136.0" text="Password">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -32,7 +32,7 @@
          </font>
       </Button>
       <TextField fx:id="userName" layoutX="107.0" layoutY="96.0" prefHeight="25.0" prefWidth="184.0" />
-      <Label fx:id="passwordLabel1" layoutX="41.0" layoutY="100.0" text="Username">
+      <Label layoutX="41.0" layoutY="100.0" text="Username">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

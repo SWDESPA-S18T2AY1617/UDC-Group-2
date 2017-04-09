@@ -1,4 +1,4 @@
-package model.calendar;
+package model;
 
 public abstract class CalendarObserver {
 	protected ModelGregorianCalendar mgc;

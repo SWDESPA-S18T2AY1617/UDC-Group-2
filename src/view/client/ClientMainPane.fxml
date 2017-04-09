@@ -4,22 +4,22 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="clientMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.client.ClientMainControl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.client.ClientMainControl">
    <children>
-      <ImageView fx:id="bg" fitHeight="600.0" fitWidth="1100.0" pickOnBounds="true">
+      <ImageView fitHeight="600.0" fitWidth="1100.0" pickOnBounds="true">
          <image>
             <Image url="@../../res/img/Hospital.jpg" />
          </image>
       </ImageView>
-      <fx:include source="ClientToolBar.fxml" />
+      <fx:include fx:id = "toolbar" source="../ToolBarPane.fxml" />
       <StackPane layoutX="410.0" prefHeight="600.0" prefWidth="700.0">
          <children>
             <fx:include fx:id = "appointment" source="../AppointmentViewPane.fxml" />
             <fx:include fx:id = "week" source="../WeekPane.fxml" />
             <fx:include fx:id = "day" source="../DayPane.fxml" />
-            <fx:include fx:id = "clientLogin" source="ClientLoginPane.fxml" />
-            <fx:include fx:id = "clientRegister" source="ClientRegisterPane.fxml" />
-            <fx:include fx:id = "clientStart" source="ClientStartPopupPane.fxml" />
+            <fx:include fx:id = "login" source="ClientLoginPane.fxml" />
+            <fx:include fx:id = "register" source="ClientRegisterPane.fxml" />
+            <fx:include fx:id = "start" source="ClientStartPopupPane.fxml" />
          </children>
       </StackPane>
    </children>

@@ -6,50 +6,55 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="weekPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.WeekControl">
    <children>
-      <Rectangle fx:id="rectangleTop" arcHeight="5.0" arcWidth="5.0" fill="#133554" height="55.0" opacity="0.85" stroke="#144675" strokeType="INSIDE" width="639.0" />
-      <Rectangle fx:id="rectangleBottom" arcHeight="5.0" arcWidth="5.0" fill="#a4a9ae" height="380.0" layoutY="54.0" opacity="0.5" stroke="#cacdd0" strokeType="INSIDE" width="639.0" />
-      <Label fx:id="weekLabel" layoutX="241.0" layoutY="9.0" text="W E E K" textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#133554" height="55.0" opacity="0.85" stroke="#144675" strokeType="INSIDE" width="639.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a4a9ae" height="380.0" layoutY="54.0" opacity="0.5" stroke="#cacdd0" strokeType="INSIDE" width="639.0" />
+      <Label layoutX="241.0" layoutY="9.0" text="W E E K" textFill="WHITE">
          <font>
             <Font name="MS UI Gothic" size="35.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="slots" layoutX="17.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane layoutX="17.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <fx:include fx:id = "weekInnerView" source="WeekInnerPane.fxml" />
+            <fx:include fx:id="weekInner" source="WeekInnerPane.fxml" />
          </children>
       </AnchorPane>
-      <Rectangle fx:id="days" arcHeight="5.0" arcWidth="5.0" fill="#e53251" height="30.0" layoutX="85.0" layoutY="62.0" stroke="#e53251" strokeType="INSIDE" width="521.0" />
-      <Rectangle fx:id="time" arcHeight="5.0" arcWidth="5.0" fill="#e53251" height="30.0" layoutX="16.0" layoutY="62.0" stroke="#e53251" strokeType="INSIDE" width="64.0" />
-      <Label fx:id="timeLabel" layoutX="28.0" layoutY="62.0" prefHeight="30.0" prefWidth="43.0" text="T I M E " textAlignment="CENTER" textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e53251" height="30.0" layoutX="85.0" layoutY="62.0" stroke="#e53251" strokeType="INSIDE" width="521.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e53251" height="30.0" layoutX="16.0" layoutY="62.0" stroke="#e53251" strokeType="INSIDE" width="64.0" />
+      <Label layoutX="28.0" layoutY="62.0" prefHeight="30.0" prefWidth="43.0" text="T I M E " textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MS UI Gothic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="monLabel" layoutX="113.0" layoutY="62.0" prefHeight="30.0" prefWidth="43.0" text="M O N" textFill="WHITE">
+      <Label layoutX="113.0" layoutY="62.0" prefHeight="30.0" prefWidth="43.0" text="M O N" textFill="WHITE">
          <font>
             <Font name="MS UI Gothic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="tueLabel" layoutX="220.0" layoutY="62.0" prefHeight="30.0" prefWidth="43.0" text="T U E" textFill="WHITE">
+      <Label layoutX="220.0" layoutY="62.0" prefHeight="30.0" prefWidth="43.0" text="T U E" textFill="WHITE">
          <font>
             <Font name="MS UI Gothic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="wedLabel" layoutX="320.0" layoutY="62.0" prefHeight="30.0" prefWidth="32.0" text="W E D" textFill="WHITE">
+      <Label layoutX="320.0" layoutY="62.0" prefHeight="30.0" prefWidth="32.0" text="W E D" textFill="WHITE">
          <font>
             <Font name="MS UI Gothic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="thuLabel" layoutX="430.0" layoutY="62.0" prefHeight="30.0" prefWidth="32.0" text="T H U" textFill="WHITE">
+      <Label layoutX="430.0" layoutY="62.0" prefHeight="30.0" prefWidth="32.0" text="T H U" textFill="WHITE">
          <font>
             <Font name="MS UI Gothic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="friLabel" layoutX="538.0" layoutY="62.0" prefHeight="30.0" prefWidth="32.0" text="F R I" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="538.0" layoutY="62.0" prefHeight="30.0" prefWidth="32.0" text="F R I" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="MS UI Gothic" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="datesLabel" layoutX="355.0" layoutY="401.0" prefHeight="26.0" prefWidth="268.0" text="Date">
+         <font>
+            <Font name="Calibri" size="22.0" />
          </font>
       </Label>
    </children>

@@ -55,7 +55,7 @@ public class ClinicDB {
 		}
 	}
 		
-	public static Connection getActiveConnection () {
+	public static synchronized Connection getActiveConnection () {
 		return connection;
 	}
 	

@@ -1,4 +1,4 @@
-package model.calendar;
+package model;
 
 public class TaskDetails extends Details {
 	private Status status;

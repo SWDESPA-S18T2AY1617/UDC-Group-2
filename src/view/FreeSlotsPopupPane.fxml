@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="freeSlotsPopupPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.PopupControl">
+<AnchorPane fx:id="freeSlotsPopupPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.PopupAppointmentControl">
    <children>
       <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="AQUA" height="209.0" layoutY="22.0" opacity="0.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
       <Polygon fx:id="triangle" fill="AQUA" layoutX="97.0" layoutY="22.0" opacity="0.9" scaleX="0.2" scaleY="0.2" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">

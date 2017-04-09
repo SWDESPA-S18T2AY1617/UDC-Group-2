@@ -1,4 +1,4 @@
-package model.calendar;
+package model;
 
 import java.time.LocalTime;
 

@@ -1,4 +1,4 @@
-package model.calendar;
+package model;
 
 import javafx.scene.paint.Color;
 import java.time.LocalDate;

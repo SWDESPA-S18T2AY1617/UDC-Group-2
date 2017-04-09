@@ -1,4 +1,4 @@
-package model.calendar;
+package model;
 
 public class Name {
 	private String first;
@@ -27,5 +27,9 @@ public class Name {
 	
 	public void setFirst(String first) {
 		this.first = first;
+	}
+	
+	public String toString () {
+		return last + ", " + first + " " +  middle.charAt(0) + ".";
 	}
 }
