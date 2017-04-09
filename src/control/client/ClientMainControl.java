@@ -46,11 +46,13 @@ public class ClientMainControl extends AppointmentObserver {
 
 	private EventCollection events;
 	private DoctorCollection doctors;
+	private ClientCollection clients;
 	private Client mainClient;
 	
 	private ModelGregorianCalendar mgc;
 	
 	public void setClients(ClientCollection clients) {
+		this.clients = clients;
 		loginController.setEvents(this, clients);
 		registerController.setEvents(this, clients);
 	}
@@ -86,6 +88,7 @@ public class ClientMainControl extends AppointmentObserver {
 	}
 	
 	public void setToolbarPane () {
+		toolbarController.setClientViews();
 		toolbarController.setParent(this);
 		toolbarController.setLogoutAction(logout -> {
 			Alert alert = new Alert (AlertType.CONFIRMATION);
@@ -323,8 +326,8 @@ public class ClientMainControl extends AppointmentObserver {
 				appointmentController.removeButtonVisibility(true);
 			}
 			
-			dayController.initializeButtons(appointments, events, mainClient);
-			weekController.initializeButtons(appointments, events, mainClient);
+			dayController.initializeButtons(appointments, events, clients, mainClient);
+			weekController.initializeButtons(appointments, events, clients, mainClient);
 			weekController.setDateLabel(mgc.getWeek());
 			
 			ClinicDB.closeConnection();
@@ -334,7 +337,7 @@ public class ClientMainControl extends AppointmentObserver {
 	public void setEvents(EventCollection events) {
 		this.events = events;
 		
-		dayController.initializeButtons(appointments, events, mainClient);
-		weekController.initializeButtons(appointments, events, mainClient);
+		dayController.initializeButtons(appointments, events, clients, mainClient);
+		weekController.initializeButtons(appointments, events, clients, mainClient);
 	}
 }

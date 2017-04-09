@@ -18,7 +18,7 @@
       </AnchorPane>
       <StackPane layoutX="400.0" prefHeight="600.0" prefWidth="700.0">
          <children>
-            <fx:include source="../AgendaViewPane.fxml" />
+            <fx:include source="../AppointmentViewPane.fxml" />
             <fx:include source="../DaySlotsViewPane.fxml" />
             <fx:include source="../WeekSlotsViewPane.fxml" />
             <fx:include source="DoctorLoginPane.fxml" />

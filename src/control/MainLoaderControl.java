@@ -138,6 +138,7 @@ public class MainLoaderControl {
 			secretaryControllers.get(0).setDoctors(doctors);
 			secretaryControllers.get(0).setEvents(events);
 			secretaryControllers.get(0).setSecretaries(secretaries);
+			secretaryControllers.get(0).setClients(clients);
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Secretary1.png")));
 			stage.setTitle("Secretary Login no. " + secretaryControllers.size());

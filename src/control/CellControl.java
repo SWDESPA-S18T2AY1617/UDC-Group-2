@@ -16,6 +16,7 @@ import model.Client;
 import model.Event;
 import model.EventDetails;
 import model.storage.AppointmentCollection;
+import model.storage.ClientCollection;
 import model.storage.EventCollection;
 
 class CellControl extends AnchorPane {
@@ -34,7 +35,6 @@ class CellControl extends AnchorPane {
 		text = new Label();
 		
 		text.setAlignment(Pos.CENTER);
-		text.setWrapText(true);
 		text.setFont(Font.font(null, FontWeight.NORMAL, 10));
 		
 		
@@ -74,17 +74,26 @@ class CellControl extends AnchorPane {
 	
 		if (event != null) {
 			this.event = event;
-			setStyle("-fx-background-color: #" + event.getDetails().getColor().toString().substring(2));
 			Color color = event.getDetails().getColor();
-			color.invert();
-			text.setTextFill(color.invert());
+			String message = "";
+			
+			if(event.getClient() == null) {
+				setStyle("-fx-background-color: #" + event.getDetails().getColor().toString().substring(2));
+				text.setTextFill(color.invert());
+				message = "FREE - ";
+			} else {
+				setStyle("-fx-background-color: #" + color.invert().toString().substring(2));
+				message = "OCCUPIED - ";
+				text.setTextFill(color);
+			}
+			
+			message += event.getDoctor().getName().getLast().toUpperCase();
 			
 			LocalTime timeStart = event.getDetails().getTimeStart();
 			LocalTime timeEnd = null;
 			
 			timeEnd = ((EventDetails)event.getDetails()).getTimeEnd();
-			
-			String message = event.getTitle();
+		
 			
 			double height = (timeEnd.toSecondOfDay() - timeStart.toSecondOfDay())/DEF_HEIGHT;
 			double width = DEF_WIDTH;
@@ -101,9 +110,9 @@ class CellControl extends AnchorPane {
 		setMaxSize(width, height);
 		setMinSize(width, height);
 
-		text.setMaxSize(width, height);
-		text.setMinSize(width, height);
 		text.setPrefSize(width, height);
+		text.setMaxSize(width, height);  
+		text.setMinSize(width, height);  
 	}
 	
 	public Event getUserData () {
@@ -119,7 +128,7 @@ class CellControl extends AnchorPane {
 		});
 	}
 
-	public void initializeButtons(AppointmentCollection appointments, EventCollection events, Client client) {
-		popupControl.initializeButtons(appointments, events, client);
+	public void initializeButtons(AppointmentCollection appointments, EventCollection events, ClientCollection clients, Client client) {
+		popupControl.initializeButtons(appointments, events, clients, client);
 	}
 } 

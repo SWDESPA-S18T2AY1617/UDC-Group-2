@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import model.Appointment;
 import model.Client;
 import model.storage.AppointmentCollection;
+import model.storage.ClientCollection;
 import model.storage.EventCollection;
 
 public class DayControl {
@@ -21,7 +22,7 @@ public class DayControl {
 		 dayInnerController.setDataEvents(events);
 	 }
 	 
-	 public void initializeButtons (AppointmentCollection collection, EventCollection events, Client client) {
-		 dayInnerController.initializeButtons(collection, events, client);
+	 public void initializeButtons (AppointmentCollection collection, EventCollection events, ClientCollection clients, Client client) {
+		 dayInnerController.initializeButtons(collection, events, clients, client);
 	 }
 }

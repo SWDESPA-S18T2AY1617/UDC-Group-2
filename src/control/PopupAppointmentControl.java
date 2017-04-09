@@ -16,6 +16,7 @@ import model.Client;
 import model.Event;
 import model.EventDetails;
 import model.storage.AppointmentCollection;
+import model.storage.ClientCollection;
 import model.storage.ClinicDB;
 import model.storage.EventCollection;
 
@@ -85,7 +86,11 @@ public class PopupAppointmentControl extends PopupControl {
 	}
 
 	@Override
-	public void initializeButtons(AppointmentCollection appointments, EventCollection events, Client client) {
+	public void initializeButtons(AppointmentCollection appointments, EventCollection events, ClientCollection clients, Client client) {
+		if(client == null)
+			deleteBtn.setVisible(false);
+		else
+			deleteBtn.setVisible(true);
 		setDeleteButton(appointments, events);
 	}
 }

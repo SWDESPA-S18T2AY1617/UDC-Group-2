@@ -7,10 +7,10 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.PopupFreeSlotControl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="267.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.PopupFreeSlotControl">
    <children>
-      <Rectangle fx:id = "rectangle" arcHeight="5.0" arcWidth="5.0" fill="AQUA" height="209.0" layoutY="22.0" opacity="0.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-      <Polygon fx:id = "triangle" fill="AQUA" layoutX="97.0" layoutY="22.0" opacity="0.9" scaleX="0.2" scaleY="0.2" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="AQUA" height="246.0" layoutY="22.0" opacity="0.9" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+      <Polygon fx:id="triangle" fill="AQUA" layoutX="97.0" layoutY="22.0" opacity="0.9" scaleX="0.2" scaleY="0.2" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <points>
             <Double fx:value="-50.0" />
             <Double fx:value="40.0" />
@@ -25,14 +25,20 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="reserveButton" layoutX="45.0" layoutY="161.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="RESERVE" />
-      <TextField fx:id="appointmentTitle" layoutX="26.0" layoutY="119.0" />
+      <Button fx:id="reserveButton" layoutX="45.0" layoutY="233.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="RESERVE" />
+      <TextField fx:id="appointmentTitle" layoutX="26.0" layoutY="139.0" />
       <Text fx:id="detailsText" layoutX="11.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="178.0">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Text layoutX="38.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment for?" textAlignment="CENTER" wrappingWidth="124.0">
+      <Text layoutX="23.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment for What?" textAlignment="CENTER" wrappingWidth="149.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="clientList" layoutX="20.0" layoutY="198.0" prefHeight="20.0" prefWidth="162.0" />
+      <Text layoutX="54.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserverd for" textAlignment="CENTER" wrappingWidth="93.0">
          <font>
             <Font size="14.0" />
          </font>

@@ -11,6 +11,7 @@ import model.Appointment;
 import model.Client;
 import model.Details;
 import model.storage.AppointmentCollection;
+import model.storage.ClientCollection;
 import model.storage.EventCollection;
 
 public class WeekInnerControl {
@@ -28,10 +29,10 @@ public class WeekInnerControl {
 	}
 
 	
-	public void initializeButtons (AppointmentCollection appointments, EventCollection events, Client client) {
+	public void initializeButtons (AppointmentCollection appointments, EventCollection events, ClientCollection clients, Client client) {
 		if (cells != null) {
 			for (CellControl cell: cells) {
-				cell.initializeButtons(appointments, events, client);
+				cell.initializeButtons(appointments, events, clients, client);
 			}
 		}
 	}

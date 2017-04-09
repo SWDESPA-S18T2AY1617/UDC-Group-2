@@ -113,7 +113,7 @@ public class SecretaryCollection extends AccessObject <Secretary> {
 			
 			String query = 	"INSERT INTO " + 
 							Secretary.TABLE +
-							" VALUES (?, ?, ?, ?, ?)";
+							" VALUES (?, ?, ?, ?, ?, ?)";
 			
 			statement = connect.prepareStatement(query);
 			

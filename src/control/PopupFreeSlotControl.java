@@ -1,5 +1,6 @@
 package control;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import javafx.fxml.FXML;
@@ -15,8 +16,10 @@ import model.Appointment;
 import model.Client;
 import model.EventDetails;
 import model.storage.AppointmentCollection;
+import model.storage.ClientCollection;
 import model.storage.ClinicDB;
 import model.storage.EventCollection;
+import javafx.scene.control.ChoiceBox;
 
 public class PopupFreeSlotControl extends PopupControl {
 	@FXML private Button reserveButton;
@@ -24,10 +27,17 @@ public class PopupFreeSlotControl extends PopupControl {
 	@FXML private Text detailsText;
 	@FXML private Rectangle rectangle;
 	@FXML private Polygon triangle;
+	@FXML private ChoiceBox <Client> clientList;
 	
-	private void setReserveButton (AppointmentCollection appointments, EventCollection events, Client client) {
+	private void setReserveButton (AppointmentCollection appointments, EventCollection events, ClientCollection clients, Client client) {
 		reserveButton.setOnAction(reserve -> {
-			event.setClient(client);
+			
+			if(client != null) {
+				event.setClient(client);
+			} else {
+				event.setClient(clientList.getSelectionModel().getSelectedItem());
+			}
+
 			event.setTitle(appointmentTitle.getText());
 			
 			if(event.getClient() != null) {
@@ -89,7 +99,29 @@ public class PopupFreeSlotControl extends PopupControl {
 	}
 
 	@Override
-	public void initializeButtons(AppointmentCollection appointments, EventCollection events, Client client) {
-		setReserveButton(appointments, events, client);
+	public void initializeButtons(AppointmentCollection appointments, EventCollection events, ClientCollection clients, Client client) {
+		clientList.getItems().clear();
+		ClinicDB.openConnection();
+		for(Iterator<Client> itr = clients.getAll(); itr.hasNext(); ) {
+			clientList.getItems().add(itr.next());
+		}
+		ClinicDB.closeConnection();
+		
+		if (clientList.getItems().size() != 0) {
+			clientList.getSelectionModel().select(0);
+			
+			if(client != null) {
+
+				for (int i = 0; i < clientList.getItems().size(); i++) {
+					if(clientList.getItems().get(i).getId() == client.getId())
+						clientList.getSelectionModel().select(i);
+				}
+				
+				clientList.setDisable(true);
+			}
+		
+		}
+		
+		setReserveButton(appointments, events, clients, client);
 	}
 }

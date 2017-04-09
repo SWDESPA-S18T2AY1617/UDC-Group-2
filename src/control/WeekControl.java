@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import model.Appointment;
 import model.Client;
 import model.storage.AppointmentCollection;
+import model.storage.ClientCollection;
 import model.storage.EventCollection;
 import javafx.scene.control.Label;
 
@@ -27,8 +28,8 @@ public class WeekControl {
 		 weekInnerController.setDataEvents(events);
 	 }
 	 
-	 public void initializeButtons (AppointmentCollection collection, EventCollection events, Client client) {
-		 weekInnerController.initializeButtons(collection, events, client);
+	 public void initializeButtons (AppointmentCollection appointments, EventCollection events, ClientCollection clients, Client client) {
+		weekInnerController.initializeButtons(appointments, events, clients, client);
 	 }
 
 	public void setDateLabel(List<LocalDate> week) {

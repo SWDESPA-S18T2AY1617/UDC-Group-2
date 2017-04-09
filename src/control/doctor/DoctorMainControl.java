@@ -1,6 +1,6 @@
 package control.doctor;
 
-import control.AgendaControl;
+import control.AppointmentControl;
 import control.CalendarControl;
 import control.DayControl;
 import control.ToolbarControl;
@@ -24,7 +24,7 @@ public class DoctorMainControl extends AppointmentObserver {
     
     @FXML private ToolbarControl toolbarController;
     @FXML private CalendarControl calendarViewController;
-    @FXML private AgendaControl agendaViewController;
+    @FXML private AppointmentControl agendaViewController;
     @FXML private DayControl dayViewController;
     @FXML private WeekControl weekViewController;
     

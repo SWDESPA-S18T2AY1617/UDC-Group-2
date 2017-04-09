@@ -41,7 +41,6 @@ public class ToolbarControl {
 
 	@FXML private Label monthLabel;
 	@FXML private Label viewLabel;
-	@FXML private ToggleButton reservationButton;
 	
 	@FXML private AnchorPane calendar;
 	@FXML private AnchorPane toolBar;	
@@ -58,13 +57,24 @@ public class ToolbarControl {
 	
 	private ObservableList <Doctor> doctors;
 	private AppointmentObserver parent;
+	@FXML private RadioButton occupied;
+	@FXML private RadioButton free;
 
 	public void setSecretaryViews () {
-		
+		reservation.setVisible(false);
 	}
 	
 	public void setClientViews () {
-		
+		occupied.setVisible(false);
+		free.setVisible(false);
+	}
+	
+	public boolean isOccupied () {
+		return occupied.isSelected();
+	}
+	
+	public boolean isFree () {
+		return free.isSelected();
 	}
 	
 	public void setWeekOrDay (AnchorPane day, AnchorPane week, AnchorPane agenda) {
@@ -116,6 +126,13 @@ public class ToolbarControl {
 	@FXML
 	public void initialize () {
 		
+		occupied.setOnAction(event -> {
+			parent.update();
+		});
+		
+		free.setOnAction(event -> {
+			parent.update();
+		});
 		weekOrDay = new ToggleGroup();
 		weekOrDay.getToggles().addAll(day, week);
 		
