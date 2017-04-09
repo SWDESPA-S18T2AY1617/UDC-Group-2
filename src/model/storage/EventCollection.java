@@ -488,6 +488,34 @@ public class EventCollection extends AccessObject <Event> {
 		return event;
 	}
 	
+	public boolean isOverlapping (LocalDate date, LocalTime timeStart, LocalTime timeEnd) {
+		try (Connection connect = ClinicDB.getActiveConnection()) {
+			ResultSet rs;
+			
+			String query = 	"SELECT * " +
+							" FROM " + Event.TABLE + " WHERE " + 
+							Event.EVENT_DATE + " = ? AND " + 
+							Event.EVENT_TIME_START + 
+							" < ? AND ? < " + Event.EVENT_TIME_END; 
+			
+			statement = connect.prepareStatement(query);
+			
+			statement.setDate(1, Date.valueOf(date));
+			statement.setTime(2, Time.valueOf(timeEnd));
+			statement.setTime(3, Time.valueOf(timeStart));
+			
+			rs = statement.executeQuery();
+
+			System.out.println("[" + getClass().getName() + "] SELECT SUCCESS!");
+			return rs.next();
+			
+		} catch (SQLException e) {
+			System.out.println("[" + getClass().getName() + "] SELECT FAILED!");
+			e.printStackTrace();
+			return false;
+		}	
+	}
+	
 	private void notifyAllObservers () {
 		for (EventObserver observer:observers) {
 			observer.update();

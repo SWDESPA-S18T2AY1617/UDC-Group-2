@@ -52,6 +52,7 @@ public class DoctorAddControl {
         	timeStartCmbBox.getItems().add(LocalTime.of(i, 0));
         	timeStartCmbBox.getItems().add(LocalTime.of(i, 30));
         }
+        
         timeStartCmbBox.getItems().remove(LocalTime.of(23, 30));
         timeStartCmbBox.setOnAction(handler -> {
         	timeEndCmbBox.getItems().clear();
@@ -65,6 +66,7 @@ public class DoctorAddControl {
         for (int i = 1; i < timeStartCmbBox.getItems().size(); i++) {
     		timeEndCmbBox.getItems().add(timeStartCmbBox.getItems().get(i));
     	}
+        
         timeEndCmbBox.getItems().add(LocalTime.of(23, 30));
 
 	}
@@ -82,7 +84,6 @@ public class DoctorAddControl {
     		details.setYear(Year.of(date.getYear()));
     		details.setColor(doc.getColor());
     		
-    		
     		Appointment app = new Appointment();
     		app.setClient(null);
     		app.setDoctor(doc);
@@ -93,14 +94,52 @@ public class DoctorAddControl {
     		ClinicDB.closeConnection();
     		
     		app.setTitle("FREE");
-    		
     		ClinicDB.openConnection();
-    		events.add(app.getEvent());
-    		ClinicDB.closeConnection();
+    		if(!events.isOverlapping(date, app.getDetails().getTimeStart(), ((EventDetails) app.getDetails()).getTimeEnd())) {
+    			ClinicDB.closeConnection();
+    			
+    			ClinicDB.openConnection();
+    			if(events.add(app.getEvent())) {
+            		Alert alert = new Alert (AlertType.INFORMATION);
+        			alert.setTitle("Free Slot/s Created!");
+        			alert.setHeaderText(null);
+        			alert.setContentText("Created Free Slot/s for " + date + " ");
+        			alert.showAndWait();
+            		ClinicDB.closeConnection();
+            		
+            		ClinicDB.openConnection();
+		        		if(appointments.add(app)) {
+		            		alert = new Alert (AlertType.INFORMATION);
+		        			alert.setTitle("Free Slot/s Created!");
+		        			alert.setHeaderText(null);
+		        			alert.setContentText("Created Free Slot/s for " + date);
+		        			alert.showAndWait();
+		        		} else {
+		            		alert = new Alert (AlertType.ERROR);
+		        			alert.setTitle("DB Error!");
+		        			alert.setHeaderText(null);
+		        			alert.setContentText("Failed to created Free Slot/s for " + date);
+		        			alert.showAndWait();
+		        		}
+            		ClinicDB.closeConnection();
+            		
+        		} else {
+            		Alert alert = new Alert (AlertType.ERROR);
+        			alert.setTitle("DB Error!");
+        			alert.setHeaderText(null);
+        			alert.setContentText("Failed to created Free Slot/s for " + date);
+        			alert.showAndWait();
+        		}
+
+    		} else {
+    			ClinicDB.closeConnection();
+    			Alert alert = new Alert (AlertType.ERROR);
+    			alert.setTitle("Overlapping Appointments!");
+    			alert.setHeaderText(null);
+    			alert.setContentText("Cannot create schedule due to overlapping appointments!");
+    			alert.showAndWait();
+    		}
     		
-    		ClinicDB.openConnection();
-    		appointments.add(app);
-    		ClinicDB.closeConnection();
     		
     		if (rptCheck.isSelected()) {
     			LocalDate dateEnd = endDate.getValue();
@@ -115,14 +154,14 @@ public class DoctorAddControl {
     					fCheck.isSelected() && dateDay == 5) {
     					
     					details = new EventDetails();
-    					
-    					details.setTimeStart(app.getDetails().getTimeStart());
-    		    		details.setTimeEnd(((EventDetails) app.getDetails()).getTimeEnd());
+    		    		
+    		    		details.setTimeStart(timeStartCmbBox.getSelectionModel().getSelectedItem());
+    		    		details.setTimeEnd(timeEndCmbBox.getSelectionModel().getSelectedItem());
     		    		details.setDayOfMonth(date.getDayOfMonth());
     		    		details.setMonth(date.getMonth());
     		    		details.setYear(Year.of(date.getYear()));
     		    		details.setColor(doc.getColor());
-    					
+    		    		
     		    		app = new Appointment();
     		    		app.setClient(null);
     		    		app.setDoctor(doc);
@@ -133,24 +172,54 @@ public class DoctorAddControl {
     		    		ClinicDB.closeConnection();
     		    		
     		    		app.setTitle("FREE");
-    		    		
     		    		ClinicDB.openConnection();
-    		    		events.add(app.getEvent());
-    		    		ClinicDB.closeConnection();
-    		    		
-    		    		ClinicDB.openConnection();
-    		    		appointments.add(app);
-    		    		ClinicDB.closeConnection();
+    		    		if(events.isOverlapping(date, app.getDetails().getTimeStart(), ((EventDetails) app.getDetails()).getTimeEnd())) {
+    		    			ClinicDB.closeConnection();
+    		    			
+    		    			ClinicDB.openConnection();
+    		    			if(events.add(app.getEvent())) {
+    		            		Alert alert = new Alert (AlertType.INFORMATION);
+    		        			alert.setTitle("Free Slot/s Created!");
+    		        			alert.setHeaderText(null);
+    		        			alert.setContentText("Created Free Slot/s for " + date + " ");
+    		        			alert.showAndWait();
+    		            		ClinicDB.closeConnection();
+    		            		
+    		            		ClinicDB.openConnection();
+    				        		if(appointments.add(app)) {
+    				            		alert = new Alert (AlertType.INFORMATION);
+    				        			alert.setTitle("Free Slot/s Created!");
+    				        			alert.setHeaderText(null);
+    				        			alert.setContentText("Created Free Slot/s for " + date);
+    				        			alert.showAndWait();
+    				        		} else {
+    				            		alert = new Alert (AlertType.ERROR);
+    				        			alert.setTitle("DB Error!");
+    				        			alert.setHeaderText(null);
+    				        			alert.setContentText("Failed to created Free Slot/s for " + date);
+    				        			alert.showAndWait();
+    				        		}
+    		            		ClinicDB.closeConnection();
+    		            		
+    		        		} else {
+    		            		Alert alert = new Alert (AlertType.ERROR);
+    		        			alert.setTitle("DB Error!");
+    		        			alert.setHeaderText(null);
+    		        			alert.setContentText("Failed to created Free Slot/s for " + date);
+    		        			alert.showAndWait();
+    		        		}
+
+    		    		} else {
+    		    			ClinicDB.closeConnection();
+    		    			Alert alert = new Alert (AlertType.ERROR);
+    		    			alert.setTitle("Overlapping Appointments!");
+    		    			alert.setHeaderText(null);
+    		    			alert.setContentText("Cannot create schedule due to overlapping appointments!");
+    		    			alert.showAndWait();
+    		    		}
     				}
     			}
     		}
-    		
-    		Alert alert = new Alert (AlertType.INFORMATION);
-			alert.setTitle("Free Slot/s Created!");
-			alert.setHeaderText(null);
-			alert.setContentText("Created Free Slot/s for " + doc.getUsername());
-			alert.showAndWait();
-    		
     	});
     }
 	public void setBackButton(EventHandler <ActionEvent> event) {

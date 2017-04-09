@@ -55,24 +55,32 @@ public class PopupFreeSlotControl extends PopupControl {
 			
 			ClinicDB.openConnection();
 			Alert alert;
-			if(events.update(event)) {
-				alert = new Alert (AlertType.INFORMATION);
-				alert.setTitle("Update Successful!");
-				alert.setHeaderText(null);
-				alert.setContentText("Successfully Updated!");
-				alert.showAndWait();
+			
+			if(!events.isOverlapping(date.getValue(), timeStart.getSelectionModel().getSelectedItem(), timeEnd.getSelectionModel().getSelectedItem())) {
+				if(events.update(event)) {
+					alert = new Alert (AlertType.INFORMATION);
+					alert.setTitle("Update Successful!");
+					alert.setHeaderText(null);
+					alert.setContentText("Successfully Updated!");
+					alert.showAndWait();
+				} else {
+					alert = new Alert (AlertType.ERROR);
+					alert.setTitle("Overlapping Appointments!");
+	    			alert.setHeaderText(null);
+	    			alert.setContentText("Cannot create schedule due to overlapping appointments!");
+	    			alert.showAndWait();
+				}
+				
+				ClinicDB.closeConnection();
+				ClinicDB.openConnection();
+				appointments.update(event);
+				ClinicDB.closeConnection();
 			} else {
-				alert = new Alert (AlertType.ERROR);
-				alert.setTitle("Update Unsuccessful!");
-				alert.setHeaderText(null);
-				alert.setContentText("Database Error!");
-				alert.showAndWait();
+				
 			}
 			
-			ClinicDB.closeConnection();
-			ClinicDB.openConnection();
-			appointments.update(event);
-			ClinicDB.closeConnection();
+			
+			
 		});
 		
 		reserveButton.setOnAction(reserve -> {

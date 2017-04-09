@@ -283,8 +283,8 @@ public class SecretaryMainControl extends AppointmentObserver {
 
 				Optional<String> titleResult = dialog.showAndWait();
 				
-				titleResult.ifPresent(title -> {
-					appointment.setTitle(title);
+				titleResult.ifPresent(getTitle -> {
+					appointment.setTitle(getTitle);
 					ClinicDB.openConnection();
 					boolean updated = appointments.update(appointment);
 					ClinicDB.closeConnection();
@@ -297,7 +297,7 @@ public class SecretaryMainControl extends AppointmentObserver {
 						alert = new Alert (AlertType.INFORMATION);
 						alert.setTitle("Reservation Successful!");
 						alert.setHeaderText(null);
-						alert.setContentText("Successfully reserved: " + title);
+						alert.setContentText("Successfully reserved: " + getTitle);
 						alert.showAndWait();
 					} else {
 						alert = new Alert (AlertType.ERROR);

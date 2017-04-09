@@ -118,6 +118,7 @@ public class DoctorMainControl extends AppointmentObserver {
     	registerView.setVisible(false);
     	addView.setVisible(false);
     	
+    	toolbar.setDisable(true);
     	update();
     }
     
@@ -130,6 +131,7 @@ public class DoctorMainControl extends AppointmentObserver {
     	registerView.setVisible(false);
     	addView.setVisible(false);
     	
+    	toolbar.setDisable(true);
     	update();
     }
     
@@ -142,6 +144,7 @@ public class DoctorMainControl extends AppointmentObserver {
     	registerView.setVisible(true);
     	addView.setVisible(false);
     	
+    	toolbar.setDisable(true);
     	update();
     }
     
@@ -154,6 +157,7 @@ public class DoctorMainControl extends AppointmentObserver {
     	registerView.setVisible(false);
     	addView.setVisible(false);
     	
+    	toolbar.setDisable(false);
     	update();
     }
     
@@ -165,6 +169,9 @@ public class DoctorMainControl extends AppointmentObserver {
     	loginView.setVisible(false);
     	registerView.setVisible(false);
     	addView.setVisible(false);
+    	
+    	toolbar.setDisable(false);
+    	update();
     }
     
     public void setWeekVisible () {
@@ -176,6 +183,7 @@ public class DoctorMainControl extends AppointmentObserver {
     	registerView.setVisible(false);
     	addView.setVisible(false);
     	
+    	toolbar.setDisable(false);
     	update();
     }
     
@@ -188,6 +196,7 @@ public class DoctorMainControl extends AppointmentObserver {
     	registerView.setVisible(false);
     	addView.setVisible(true);
     	
+    	toolbar.setDisable(true);
     	update();
 	}
 
