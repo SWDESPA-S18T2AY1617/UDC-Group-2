@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS `clinic_db`.`client` (
   `first_name` VARCHAR(45) NOT NULL,
   `middle_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`client_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

@@ -20,6 +20,7 @@ public class DoctorMainControl {
     @FXML private AnchorPane loginView;
     @FXML private AnchorPane registerView;
     @FXML private AnchorPane startupView;
+    @FXML private AnchorPane addView;
     
     @FXML private AgendaControl agendaViewController;
     @FXML private DayControl dayViewController;
@@ -28,6 +29,7 @@ public class DoctorMainControl {
     @FXML private DoctorLoginControl loginViewController;
     @FXML private DoctorRegisterControl registerViewController;
     @FXML private DoctorStartupControl startupViewController;
+    @FXML private DoctorAddControl addViewController;
     
     @FXML
     void initialize () {
@@ -49,7 +51,7 @@ public class DoctorMainControl {
     	loginViewController.initializeButtons(this, collections);
     	registerViewController.initializeButtons(this, collections);
     	doctorToolbarController.initializeButtons(this, collections, appCollections);
-    	dayViewController.initializeButtons(appCollections);
+    	dayViewController.initializeButtons(appCollections, null, null);
     }
     
     public void setCalendar (ModelGregorianCalendar mgc) {
@@ -63,6 +65,7 @@ public class DoctorMainControl {
     	dayView.setVisible(false);
     	loginView.setVisible(false);
     	registerView.setVisible(false);
+    	addView.setVisible(false);
     }
     
     public void setLoginVisible () {
@@ -72,6 +75,7 @@ public class DoctorMainControl {
     	dayView.setVisible(false);
     	loginView.setVisible(true);
     	registerView.setVisible(false);
+    	addView.setVisible(false);
     }
     
     public void setRegisterVisible () {
@@ -81,6 +85,7 @@ public class DoctorMainControl {
     	dayView.setVisible(false);
     	loginView.setVisible(false);
     	registerView.setVisible(true);
+    	addView.setVisible(false);
     }
     
     public void setAgendaVisible () {
@@ -90,6 +95,7 @@ public class DoctorMainControl {
     	dayView.setVisible(false);
     	loginView.setVisible(false);
     	registerView.setVisible(false);
+    	addView.setVisible(false);
     }
     
     public void setDayVisible () {
@@ -99,6 +105,7 @@ public class DoctorMainControl {
     	dayView.setVisible(true);
     	loginView.setVisible(false);
     	registerView.setVisible(false);
+    	addView.setVisible(false);
     }
     
     public void setWeekVisible () {
@@ -108,17 +115,23 @@ public class DoctorMainControl {
     	dayView.setVisible(false);
     	loginView.setVisible(false);
     	registerView.setVisible(false);
+    	addView.setVisible(false);
     }
-
-	public void initializeComboBox(DoctorCollection dc) {
-		doctorToolbarController.initializeComboBox(dc);
-		
+    
+    public void setAddSlotsVisible() {
+    	startupView.setVisible(false);
+    	agendaView.setVisible(false);
+    	weekView.setVisible(false);
+    	dayView.setVisible(false);
+    	loginView.setVisible(false);
+    	registerView.setVisible(false);
+    	addView.setVisible(true);
 	}
 
-	public void setDayAppointments(AppointmentCollection ac, Doctor doctor) {
+	public void setDayAppointments(AppointmentCollection ac) {
 		ClinicDB.openConnection();
 //		dayViewController.setAppointments(ac.getAllOccupiedAppointments(doctor));
-		dayViewController.setAppointments(ac.getAll());
+		dayViewController.setDocAppointments(ac.getAll());
 		System.out.println("WHUT");
 		ClinicDB.closeConnection();
 	}
@@ -126,5 +139,7 @@ public class DoctorMainControl {
 	public AgendaControl getAgendaControl () {
 		return agendaViewController;
 	}
+
+	
     
 }

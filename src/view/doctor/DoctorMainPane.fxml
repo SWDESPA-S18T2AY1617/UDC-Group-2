@@ -24,6 +24,7 @@
             <fx:include fx:id="loginView" source="DoctorLoginPane.fxml" />
             <fx:include fx:id="registerView" source="DoctorRegisterPane.fxml" />
             <fx:include fx:id="startupView" source="DoctorStartPopupPane.fxml" />
+            <fx:include fx:id="addView" source="DoctorAddPane.fxml" />
          </children>
       </StackPane>
    </children>

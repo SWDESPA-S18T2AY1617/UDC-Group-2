@@ -40,7 +40,7 @@ public class DoctorLoginControl {
 		       			
 		       			dmc.setDayVisible();
 		       			dmc.enableLogout();
-		       			dmc.initializeComboBox(dc);
+		       			
 		       			found = true;
 					}
     			}

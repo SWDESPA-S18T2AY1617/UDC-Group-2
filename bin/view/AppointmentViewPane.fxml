@@ -7,25 +7,20 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="appointmentViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.AppointmentViewControl">
+<AnchorPane fx:id="agendaViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#e4c4cf" height="43.0" opacity="0.51" stroke="#ffffff00" strokeType="INSIDE" width="700.0">
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#e3dec3" height="43.0" opacity="0.51" stroke="#ffffff00" strokeType="INSIDE" width="700.0">
          <effect>
             <Blend />
          </effect>
       </Rectangle>
-      <Label fx:id="label" alignment="CENTER" prefHeight="43.0" prefWidth="700.0" text="APPOINTMENTS">
+      <Label fx:id="label" alignment="CENTER" prefHeight="43.0" prefWidth="700.0" text="AGENDA">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       <ListView fx:id="appointList" layoutX="34.0" layoutY="51.0" prefHeight="417.0" prefWidth="630.0" />
-      <Button fx:id="cancelButton" layoutX="34.0" layoutY="499.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="245.0" text=" Cancel ">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="removeButton" layoutX="419.0" layoutY="499.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="245.0" text="Remove Cancelled">
+      <Button fx:id="removeButton" layoutX="227.0" layoutY="500.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="245.0" text="Remove Done">
          <font>
             <Font size="18.0" />
          </font>

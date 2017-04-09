@@ -1,5 +1,7 @@
 package control;
 
+import java.time.Year;
+
 import control.doctor.DoctorMainControl;
 import control.doctor.DoctorToolbarControl;
 import javafx.fxml.FXML;
@@ -7,12 +9,19 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import model.calendar.CalendarObserver;
+import model.calendar.ModelGregorianCalendar;
 
-public class CalendarControl {
+public class CalendarControl extends CalendarObserver{
 
 	@FXML private GridPane calendarGrid;
 	private ToggleButton [][] days;
 	private ToggleGroup group;
+	private ToolbarControl parent;
+    
+	public void setParent (ToolbarControl control) {
+		this.parent = control;
+	}
 	
     @FXML
     public void initialize () {
@@ -89,7 +98,34 @@ public class CalendarControl {
     	
     	return i;
     }
+
+	@Override
+	public void update () {
+		if(mgc != null) {
+			int [][] items = new int [6][7];
+			
+			for(int i = 0; i < items.length; i++) {
+				for(int j = 0; j < items[i].length; j++) {
+					items[i][j] = 0;
+				}
+			}    	
+			
+			for(int i = 1; i <= mgc.dayOfMonthBound(); i++) {
+				items 	[(i + mgc.selectedDate().withDayOfMonth(1).getDayOfWeek().getValue() - 1)/7]
+						[(i + mgc.selectedDate().withDayOfMonth(1).getDayOfWeek().getValue() - 1)%7] 
+								= i;
+			}
+			
+			setData(items);
+			setSelectedInput(mgc.selectedDate().getDayOfMonth());
+			
+			parent.selectYear(Year.of(mgc.selectedDate().getYear()));
+			parent.setMonthLabel(mgc.selectedDate().getMonth().toString());
+			parent.update();
+		}
+	}
 }
+
 
 class GridCell {
 	private int x;

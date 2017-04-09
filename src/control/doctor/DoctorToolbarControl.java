@@ -37,42 +37,39 @@ public class DoctorToolbarControl extends CalendarObserver {
     @FXML private Label monthLabel;
     @FXML private Button slotsBtn;
     @FXML private Button agendaBtn;
-    @FXML private ComboBox <Doctor> doctorComboBox;
+ //   @FXML private ComboBox <Doctor> doctorComboBox;
     @FXML private Button todayBtn;
-    @FXML private CheckBox checkDoc2;
-    @FXML private CheckBox checkDoc3;
     @FXML private RadioButton weekRBtn;
-    @FXML private CheckBox checkDoc1;
     @FXML private Button nextBtn;
+    @FXML private Button dayBtn;
     
     @FXML private AnchorPane calendarView;
     @FXML private CalendarControl calendarViewController;
     @FXML 
     void initialize () {
-    	checkDoc1.setSelected(true);
     	dayRBtn.setSelected(true);
-    	doctorComboBox.setCellFactory( new Callback<ListView<Doctor>, ListCell<Doctor>>() {
-    		
-    		public ListCell<Doctor> call(ListView<Doctor> arg0) {
-				return new ListCell<Doctor>() {
-					 @Override 
-					 protected void updateItem(Doctor item, boolean empty) {
-						 super.updateItem(item, empty);
-					    	if (item == null || empty) {
-					            setText(null);
-					            setGraphic(null);
-					        } else {
-					        	Text docName = new Text(item.getName().toString());
-					            	
-					            docName.setFont(Font.font(null, FontWeight.NORMAL, 12));
-					            
-					            HBox hbox = new HBox(docName);
-					            setGraphic(hbox);
-					        }
-					 }
-				};
-			}
-		});
+//    	doctorComboBox.setCellFactory( new Callback<ListView<Doctor>, ListCell<Doctor>>() {
+//    		
+//    		public ListCell<Doctor> call(ListView<Doctor> arg0) {
+//				return new ListCell<Doctor>() {
+//					 @Override 
+//					 protected void updateItem(Doctor item, boolean empty) {
+//						 super.updateItem(item, empty);
+//					    	if (item == null || empty) {
+//					            setText(null);
+//					            setGraphic(null);
+//					        } else {
+//					        	Text docName = new Text(item.getName().toString());
+//					            	
+//					            docName.setFont(Font.font(null, FontWeight.NORMAL, 12));
+//					            
+//					            HBox hbox = new HBox(docName);
+//					            setGraphic(hbox);
+//					        }
+//					 }
+//				};
+//			}
+//		});
     }
     
     public void setDay () {
@@ -108,18 +105,18 @@ public class DoctorToolbarControl extends CalendarObserver {
     	calendarViewController.setSelectedInput(mgc.selectedDate().getDayOfMonth());
 	}
     
-    public void initializeComboBox (DoctorCollection dc)
-    {
-    	ClinicDB.openConnection();
-    	Iterator <Doctor> doctors = dc.getAll();
-    	ObservableList<Doctor> items = FXCollections.observableArrayList();
-    	while(doctors.hasNext())
-    	{
-    		items.add(doctors.next());
-    	}
-    	doctorComboBox.setItems(items);
-    	ClinicDB.closeConnection();
-    }
+//    public void initializeComboBox (DoctorCollection dc)
+//    {
+//    	ClinicDB.openConnection();
+//    	Iterator <Doctor> doctors = dc.getAll();
+//    	ObservableList<Doctor> items = FXCollections.observableArrayList();
+//    	while(doctors.hasNext())
+//    	{
+//    		items.add(doctors.next());
+//    	}
+//    	doctorComboBox.setItems(items);
+//    	ClinicDB.closeConnection();
+//    }
     
     public void initializeButtons (DoctorMainControl dmc, DoctorCollection dc, AppointmentCollection ac) {
     	
@@ -142,18 +139,22 @@ public class DoctorToolbarControl extends CalendarObserver {
 //			mainViewController.update();
        });
     	
-    	slotsBtn.setOnAction(event -> {
+    	dayBtn.setOnAction(event -> {
     		dmc.setDayVisible();
-    		dmc.setDayAppointments(ac, doctorComboBox.getSelectionModel().getSelectedItem());
+    		dmc.setDayAppointments(ac);
     	});
     	
     	agendaBtn.setOnAction(event -> {
     		dmc.setAgendaVisible();
     		ClinicDB.openConnection();
+//    		dmc.getAgendaControl().setEvents(ac.getAllOccupiedAppointments(doctor));
     		dmc.getAgendaControl().setEvents(ac.getAll());
     		ClinicDB.closeConnection();
     	});
     	
+    	slotsBtn.setOnAction(event -> {
+    		dmc.setAddSlotsVisible();
+    	});
     	
     }
 

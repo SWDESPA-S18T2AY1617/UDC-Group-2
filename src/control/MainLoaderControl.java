@@ -9,41 +9,56 @@ import control.doctor.DoctorMainControl;
 import control.secretary.SecretaryMainControl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.calendar.ModelGregorianCalendar;
 import model.storage.AppointmentCollection;
+import model.storage.ClientCollection;
 import model.storage.DoctorCollection;
+import model.storage.EventCollection;
+import model.storage.SecretaryCollection;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 public class MainLoaderControl {
-	@FXML private AnchorPane frontPane;
-	@FXML private ImageView bg;
-	@FXML private Rectangle rectangle;
-	@FXML private Button doctorButton;
-	@FXML private ImageView doctorIcon;
-	@FXML private Button patientButton;
-	@FXML private ImageView patientIcon;
-	@FXML private Button secretaryButton;
-	@FXML private ImageView secretaryIcon;
 	
-	private static int doctorCount;
-	private static int clientCount;
-	private static int secretaryCount;
+	@FXML private Button doctorButton;
+	@FXML private Button patientButton;
+	@FXML private Button secretaryButton;
+	
 	
 	private List <DoctorMainControl> doctorControllers;
 	private List <SecretaryMainControl> secretaryControllers;
 	private List <ClientMainControl> clientControllers;
 	
+	private AppointmentCollection appointments;
+	private ClientCollection clients;
+	private DoctorCollection doctors;
+	private SecretaryCollection secretaries;
+	private EventCollection events;
+	
+	public void setEvents (EventCollection events) {
+		this.events = events;
+	}
+
+	public void setAppointments(AppointmentCollection appointments) {
+		this.appointments = appointments;
+	}
+	
+	public void setClients(ClientCollection clients) {
+		this.clients = clients;
+	}
+
+	public void setDoctors(DoctorCollection doctors) {
+		this.doctors = doctors;
+	}
+
+	public void setSecretaries(SecretaryCollection secretaries) {
+		this.secretaries = secretaries;
+	}
+	
 	@FXML
 	private void initialize () {
-		doctorCount = 0;
-		clientCount = 0;
-		secretaryCount = 0;
 
 		doctorControllers = new ArrayList <DoctorMainControl> ();
 		secretaryControllers = new ArrayList <SecretaryMainControl> ();
@@ -64,7 +79,6 @@ public class MainLoaderControl {
 	
 	private void setDoctorStage () {
 		try {
-			doctorCount ++;
 			Stage stage = new Stage ();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/doctor/DoctorMainPane.fxml"));
@@ -75,12 +89,12 @@ public class MainLoaderControl {
 			DoctorCollection collections = new DoctorCollection();
 			AppointmentCollection appCollections = new AppointmentCollection();
 			
-			doctorControllers.add(loader.getController());
-			doctorControllers.get(doctorCount - 1).setCalendar(new ModelGregorianCalendar());
-			doctorControllers.get(doctorCount - 1).initializeUI(collections, appCollections);
+			doctorControllers.add(0, loader.getController());
+			doctorControllers.get(0).setCalendar(new ModelGregorianCalendar());
+			doctorControllers.get(0).initializeUI(collections, appCollections);
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Doctorr.png")));
-			stage.setTitle("Doctor Login no. " + doctorCount);
+			stage.setTitle("Doctor Login no. " + doctorControllers.size());
 			stage.setResizable(false);
 			stage.setScene(scene);
 			stage.show();
@@ -91,7 +105,6 @@ public class MainLoaderControl {
 	
 	private void setClientStage () {
 		try {
-			clientCount ++;
 			Stage stage = new Stage ();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/client/ClientMainPane.fxml"));
@@ -99,10 +112,15 @@ public class MainLoaderControl {
 		
 			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
 			
-			clientControllers.add(loader.getController());
+			clientControllers.add(0, loader.getController());
+			clientControllers.get(0).setCalendar(new ModelGregorianCalendar());
+			clientControllers.get(0).setClients(clients);
+			clientControllers.get(0).setDoctors(doctors);
+			clientControllers.get(0).setAppointments(appointments);
+			clientControllers.get(0).setEvents(events);
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Patient.png")));
-			stage.setTitle("Client Login no. " + clientCount);
+			stage.setTitle("Client Login no. " + clientControllers.size());
 			stage.setResizable(false);
 			stage.setScene(scene);
 			stage.show();
@@ -114,7 +132,6 @@ public class MainLoaderControl {
 	
 	private void setSecretaryStage () {
 		try {
-			secretaryCount ++;
 			Stage stage = new Stage ();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/secretary/SecretaryMainPane.fxml"));
@@ -122,17 +139,18 @@ public class MainLoaderControl {
 		
 			scene.getStylesheets().add(getClass().getResource("/config/style-config.css").toExternalForm());
 			
-			secretaryControllers.add(loader.getController());
+			secretaryControllers.add(0, loader.getController());
+			secretaryControllers.get(0).setCalendar(new ModelGregorianCalendar());
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Secretary1.png")));
-			stage.setTitle("Secretary Login no. " + secretaryCount);
+			stage.setTitle("Secretary Login no. " + secretaryControllers.size());
 			stage.setResizable(false);
 			stage.setScene(scene);
 			stage.show();
+			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
 }
