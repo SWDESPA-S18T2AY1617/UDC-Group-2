@@ -16,19 +16,20 @@ public class ClientLoginControl {
 
 	@FXML private Button loginButton;
 	@FXML private Button backButton;
-    @FXML private PasswordField passwordText;
-    @FXML private TextField usernameText;
+    //@FXML private PasswordField passwordText;
+    //@FXML private TextField usernameText;
+    @FXML private TextField idText;
     
     public void initializeButtons(ClientMainControl clientMainController, ClientCollection clientCollections) {
     	loginButton.setOnAction(event -> {
-    		if(usernameText.getText() != null && passwordText.getText() != null) {
+    		if(idText.getText() != null) {
     			ClinicDB.openConnection();
     			if(ClinicDB.isOpen()) {
     				Iterator<Client> client = clientCollections.getAll();
     				
     				while(client.hasNext()) {
     					Client c = client.next();
-    					if(c.login(usernameText.getText(), passwordText.getText())) {
+    					if(c.login(Integer.parseInt(idText.getText()))) {
     						Alert alert = new Alert(AlertType.INFORMATION);
     		       			alert.setTitle("SUCCESSFUL LOGIN");
     		       			alert.setHeaderText(null);
@@ -44,7 +45,7 @@ public class ClientLoginControl {
     						Alert alert = new Alert(AlertType.ERROR);
     			   			alert.setTitle("TRY AGAIN");
     			   			alert.setHeaderText(null);
-    			   			alert.setContentText("Invalid username and password.");
+    			   			alert.setContentText("Invalid ID.");
     			   			alert.showAndWait();
     					}
     				}
@@ -52,14 +53,14 @@ public class ClientLoginControl {
     			}
     		}
     		
-    		else if(usernameText.getText() == null) {
+    		else if(idText.getText() == null) {
     			Alert alert = new Alert(AlertType.ERROR);
 	   			alert.setTitle("FILL UP ALL FIELDS");
 	   			alert.setHeaderText(null);
-	   			alert.setContentText("Please enter a username.");
+	   			alert.setContentText("Please enter ID.");
 	   			alert.showAndWait();
     		}
-    		
+    		/*
     		else {
     			Alert alert = new Alert(AlertType.ERROR);
 	   			alert.setTitle("FILL UP ALL FIELDS");
@@ -67,6 +68,7 @@ public class ClientLoginControl {
 	   			alert.setContentText("Please enter pasword.");
 	   			alert.showAndWait();
     		}
+    		*/
     	});
     	
     	backButton.setOnAction(event -> {
@@ -76,7 +78,8 @@ public class ClientLoginControl {
     }
     
     public void clearFields () {
-    	usernameText.clear();
-    	passwordText.clear();
+    	idText.clear();
+    	//usernameText.clear();
+    	//passwordText.clear();
     }
 }
