@@ -54,11 +54,12 @@
             </Label>
             <RadioButton fx:id="week" layoutX="189.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="98.0" text="Week" />
             <RadioButton fx:id="day" layoutX="76.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="79.0" text="Day" />
-            <RadioButton fx:id="agenda" layoutX="76.0" layoutY="20.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="79.0" text="Agenda" />
-            <RadioButton fx:id="calendarX" layoutX="189.0" layoutY="20.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="98.0" text="Calendar" />
-            <ToggleButton fx:id="reservation" layoutX="122.0" layoutY="47.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="RESERVE" />
-            <RadioButton fx:id="occupied" layoutX="76.0" layoutY="42.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="79.0" text="Occupied" />
-            <RadioButton fx:id="free" layoutX="189.0" layoutY="42.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="79.0" text="Free" />
+            <RadioButton fx:id="agenda" layoutX="76.0" layoutY="17.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="79.0" text="Agenda" />
+            <RadioButton fx:id="calendarX" layoutX="189.0" layoutY="18.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="98.0" text="Calendar" />
+            <ToggleButton fx:id="reservation" layoutX="117.0" layoutY="51.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="RESERVE" />
+            <RadioButton fx:id="occupied" layoutX="76.0" layoutY="36.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="79.0" text="Occupied" />
+            <RadioButton fx:id="free" layoutX="189.0" layoutY="36.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="79.0" text="Free" />
+            <Button fx:id="addSlots" layoutX="125.0" layoutY="57.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="ADD SLOT" />
          </children>
       </AnchorPane>
    </children>

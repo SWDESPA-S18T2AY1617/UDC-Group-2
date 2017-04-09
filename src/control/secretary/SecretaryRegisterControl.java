@@ -23,6 +23,7 @@ public class SecretaryRegisterControl {
 	public void setEvents (SecretaryMainControl parent, SecretaryCollection Secretaries) {
 		backButton.setOnAction(event -> {
 			parent.setStartupVisible();
+			clearFields();
 		});
 		
 		registerButton.setOnAction(event -> {
@@ -52,6 +53,7 @@ public class SecretaryRegisterControl {
 					alert.setHeaderText(null);
 					alert.setContentText("Please login your details!");
 	        		alert.showAndWait();
+	        		clearFields();
 				} else {
 					Alert alert = new Alert (AlertType.ERROR);
 					alert.setTitle("Database error!");
@@ -69,7 +71,14 @@ public class SecretaryRegisterControl {
         		alert.showAndWait();
 			}
 		});
-		
-		
 	}
+	
+    public void clearFields () {
+    	passwordText.clear();
+    	firstNameText.clear();
+    	middleNameText.clear();
+    	lastNameText.clear();
+    	usernameText.clear();
+    	
+    }
 }

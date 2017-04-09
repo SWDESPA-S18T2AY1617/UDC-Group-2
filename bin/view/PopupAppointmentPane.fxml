@@ -26,7 +26,7 @@
           <Double fx:value="-60.0" />
         </points>
       </Polygon>
-      <Button fx:id="deleteBtn" layoutX="66.0" layoutY="192.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="Cancel" />
+      <Button fx:id="deleteBtn" layoutX="66.0" layoutY="192.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" text="CANCEL" />
       <Text fx:id="text" layoutX="4.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="192.0">
          <font>
             <Font name="System Bold Italic" size="16.0" />

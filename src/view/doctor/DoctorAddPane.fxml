@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.doctor.DoctorAddControl">
+   <children>
+      <AnchorPane layoutX="2.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="88.0" layoutY="200.0" text="Date:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="85.0" layoutY="246.0" text="Time:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="toLabel" layoutX="242.0" layoutY="246.0" text="to">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="timeStartCmbBox" layoutX="152.0" layoutY="247.0" prefHeight="25.0" prefWidth="71.0" />
+            <ComboBox fx:id="timeEndCmbBox" layoutX="279.0" layoutY="248.0" prefHeight="25.0" prefWidth="71.0" />
+            <Button fx:id="addBtn" layoutX="414.0" layoutY="307.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="140.0" text="ADD" />
+            <DatePicker fx:id="startDate" layoutX="149.0" layoutY="197.0" prefHeight="32.0" prefWidth="210.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e4c4cf" height="35.0" layoutX="-2.0" layoutY="-4.0" opacity="0.51" stroke="#ffffff00" strokeType="INSIDE" width="600.0">
+               <effect>
+                  <Blend />
+               </effect>
+            </Rectangle>
+            <Label fx:id="addLabel" alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="35.0" prefWidth="600.0" text="ADD">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="rptCheck" layoutX="217.0" layoutY="290.0" mnemonicParsing="false" text="Repeat">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="mCheck" disable="true" layoutX="89.0" layoutY="323.0" mnemonicParsing="false" text="M">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="tCheck" disable="true" layoutX="151.0" layoutY="323.0" mnemonicParsing="false" prefHeight="3.0" prefWidth="36.0" text="T">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="wCheck" disable="true" layoutX="214.0" layoutY="323.0" mnemonicParsing="false" text="W">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="hCheck" disable="true" layoutX="282.0" layoutY="323.0" mnemonicParsing="false" text="H">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="fCheck" disable="true" layoutX="342.0" layoutY="323.0" mnemonicParsing="false" text="F">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </CheckBox>
+            <Label disable="true" layoutX="88.0" layoutY="362.0" text="Ends:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="endDate" disable="true" layoutX="152.0" layoutY="360.0" prefHeight="32.0" prefWidth="210.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

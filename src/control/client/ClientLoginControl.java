@@ -17,9 +17,15 @@ public class ClientLoginControl {
 	@FXML private PasswordField passwordField;
 	@FXML private TextField userName;
 
+    public void clearFields () {
+    	userName.clear();
+    	passwordField.clear();
+    }
+    
 	public void setEvents (ClientMainControl parent, ClientCollection clients) {
 		backButton.setOnAction(event -> {
 			parent.setStartVisible();
+			clearFields();
 		});
 		
 		loginButton.setOnAction(event -> {
@@ -51,6 +57,8 @@ public class ClientLoginControl {
 				alert.setContentText("Please complete all fields!");
         		alert.showAndWait();
 			}
+			
+			clearFields();
 		});
 	}
 	

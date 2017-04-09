@@ -32,13 +32,13 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Text layoutX="23.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment for What?" textAlignment="CENTER" wrappingWidth="149.0">
+      <Text fx:id="appointmentForWhat" layoutX="23.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment for What?" textAlignment="CENTER" wrappingWidth="149.0">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
       <ChoiceBox fx:id="clientList" layoutX="20.0" layoutY="198.0" prefHeight="20.0" prefWidth="162.0" />
-      <Text layoutX="54.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserverd for" textAlignment="CENTER" wrappingWidth="93.0">
+      <Text fx:id="reservedFor" layoutX="54.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserved for?" textAlignment="CENTER" wrappingWidth="93.0">
          <font>
             <Font size="14.0" />
          </font>

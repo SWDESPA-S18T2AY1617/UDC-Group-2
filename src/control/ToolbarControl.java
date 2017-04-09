@@ -51,20 +51,33 @@ public class ToolbarControl {
 	@FXML private RadioButton agenda;
 	@FXML private RadioButton calendarX;
 	@FXML private ToggleButton reservation;
-	
 	private ToggleGroup weekOrDay;
 	private ToggleGroup agendaOrCalendar;
 	
-	private ObservableList <Doctor> doctors;
+	private ObservableList <Doctor> doctorsList;
 	private AppointmentObserver parent;
+	
 	@FXML private RadioButton occupied;
 	@FXML private RadioButton free;
+	@FXML private Button addSlots;
+	@FXML private AnchorPane doctors;
 
+	public void setDoctorsView() {
+		reservation.setVisible(false);
+		doctors.setVisible(false);
+	}
+	
+	public void setAddSlots (EventHandler<ActionEvent> event) {
+		addSlots.setOnAction(event);
+	}
+	
 	public void setSecretaryViews () {
 		reservation.setVisible(false);
+		addSlots.setVisible(false);
 	}
 	
 	public void setClientViews () {
+		addSlots.setVisible(false);
 		occupied.setVisible(false);
 		free.setVisible(false);
 	}
@@ -133,6 +146,7 @@ public class ToolbarControl {
 		free.setOnAction(event -> {
 			parent.update();
 		});
+		
 		weekOrDay = new ToggleGroup();
 		weekOrDay.getToggles().addAll(day, week);
 		
@@ -143,7 +157,7 @@ public class ToolbarControl {
 		weekOrDay.selectToggle(day);
 		agendaOrCalendar.selectToggle(agenda);
 		
-		doctors = FXCollections.observableArrayList();
+		doctorsList = FXCollections.observableArrayList();
 		
 		doctorsCombobox.setCellFactory(new Callback<ListView<Doctor>, ListCell<Doctor>>() {
 			
@@ -169,9 +183,9 @@ public class ToolbarControl {
 					            
 					            box.setOnAction(event -> {
 					            	if(box.isSelected()) {
-					            		doctors.add(item);
+					            		doctorsList.add(item);
 					            	} else {
-					            		doctors.remove(item);
+					            		doctorsList.remove(item);
 					            	}
 					            
 					            	parent.update();
@@ -189,7 +203,7 @@ public class ToolbarControl {
 	}
 	
 	public ObservableList <Doctor> getDoctorsInput () {
-		return doctors;
+		return doctorsList;
 	}
 	public void setParent (AppointmentObserver parent) {
 		this.parent = parent;
@@ -200,7 +214,7 @@ public class ToolbarControl {
 		
 		yearCombobox.setItems(FXCollections.observableArrayList());
 		
-		for (int i = 1930; i < LocalDate.now().getYear(); i++) 
+		for (int i = 1990; i < LocalDate.now().getYear() + 40; i++) 
 			yearCombobox.getItems().add(Year.of(i));
 		
 		nextButton.setOnAction(event -> {
@@ -246,12 +260,12 @@ public class ToolbarControl {
 		if(doctors == null) {
 			doctorsCombobox.setDisable(true);
 		} else {
-			this.doctors.clear();
+			this.doctorsList.clear();
 			doctorsCombobox.setItems(FXCollections.observableArrayList());
 			while (doctors.hasNext()) {
 				Doctor doc = doctors.next();
 				doctorsCombobox.getItems().add(doc);
-				this.doctors.add(doc);		
+				this.doctorsList.add(doc);		
 			}
 			
 			doctorsCombobox.setDisable(false);

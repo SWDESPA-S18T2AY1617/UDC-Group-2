@@ -80,7 +80,6 @@ public class SecretaryMainControl extends AppointmentObserver {
 		setAppointmentsPane();
 		setStart();
 		
-		
 		setStartupVisible();
 	}
 
@@ -120,7 +119,7 @@ public class SecretaryMainControl extends AppointmentObserver {
 		toolbarController.setReservationAction(reserve -> {
 			update();
 		});
-		
+
 		setAgendaVisible();
 		
 		toolbarController.setDoctors(null);

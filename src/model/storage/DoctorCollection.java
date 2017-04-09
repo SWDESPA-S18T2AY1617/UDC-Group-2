@@ -53,6 +53,7 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			String middle = rs.getString(Doctor.COL_MIDDLENAME);
 			String last = rs.getString(Doctor.COL_LASTNAME);
 			Color color = Color.valueOf(rs.getString(Doctor.COL_COLOR));
+			String username = rs.getString(Doctor.COL_USERNAME);
 			
 			doctor = new Doctor();
 			
@@ -63,6 +64,7 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			doctor.getName().setLast(last);
 			doctor.getName().setMiddle(middle);
 			doctor.setColor(color);
+			doctor.setUsername(username);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -85,18 +87,21 @@ public class DoctorCollection extends AccessObject <Doctor> {
 							Doctor.COL_MIDDLENAME + " = ?," +
 							Doctor.COL_LASTNAME + " = ?," +
 							Doctor.COL_COLOR + " = ?," +
+							Doctor.COL_DESCRIPTION + " = ?," +
+							Doctor.COL_USERNAME + " = ?" +
 							" WHERE " + Doctor.COL_ID + " = ?";
 			
 			PreparedStatement statement;
 			statement = connect.prepareStatement(query);
 			
-			statement.setInt(1, d.getId());
-			statement.setString(2, d.getPassword());
-			statement.setString(3, d.getName().getFirst());
-			statement.setString(4, d.getName().getMiddle());
-			statement.setString(5, d.getName().getLast());
-			statement.setString(6, d.getColor().toString());
+			statement.setInt(9, d.getId());
+			statement.setString(1, d.getPassword());
+			statement.setString(2, d.getName().getFirst());
+			statement.setString(3, d.getName().getMiddle());
+			statement.setString(4, d.getName().getLast());
+			statement.setString(5, d.getColor().toString());
 			statement.setString(7, d.getDescription());
+			statement.setString(8, d.getUsername());
 			
 			statement.executeUpdate();
 			System.out.println("[" + getClass().getName() + "] UPDATE SUCCESS!");
@@ -118,7 +123,7 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			
 			String query = 	"INSERT INTO " + 
 							Doctor.TABLE +
-							" VALUES (?, ?, ?, ?, ?, ?, ?)";
+							" VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement statement;
 			statement = connect.prepareStatement(query);
@@ -130,6 +135,7 @@ public class DoctorCollection extends AccessObject <Doctor> {
 			statement.setString(5, d.getName().getLast());
 			statement.setString(6, d.getColor().toString());
 			statement.setString(7, d.getDescription());
+			statement.setString(8,  d.getUsername());
 			
 			statement.executeUpdate();
 			System.out.println("[" + getClass().getName() + "] INSERT SUCCESS!");

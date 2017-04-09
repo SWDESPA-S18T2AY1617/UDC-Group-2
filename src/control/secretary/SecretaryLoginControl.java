@@ -16,9 +16,15 @@ public class SecretaryLoginControl {
 	@FXML private PasswordField passwordField;
 	@FXML private TextField userName;
 
+   public void clearFields () {
+    	userName.clear();
+    	passwordField.clear();
+    }
+	   
 	public void setEvents (SecretaryMainControl parent, SecretaryCollection secretaries) {
 		backButton.setOnAction(event -> {
 			parent.setStartupVisible();
+			clearFields();
 		});
 		
 		loginButton.setOnAction(event -> {
@@ -50,6 +56,7 @@ public class SecretaryLoginControl {
 				alert.setContentText("Please complete all fields!");
         		alert.showAndWait();
 			}
+			clearFields();
 		});
 	}
 }

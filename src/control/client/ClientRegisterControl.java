@@ -2,10 +2,10 @@ package control.client;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import model.Client;
 import model.Name;
 import model.storage.ClientCollection;
@@ -24,6 +24,7 @@ public class ClientRegisterControl {
 	public void setEvents (ClientMainControl parent, ClientCollection clients) {
 		backButton.setOnAction(event -> {
 			parent.setStartVisible();
+			clearFields();
 		});
 		
 		registerButton.setOnAction(event -> {
@@ -53,6 +54,7 @@ public class ClientRegisterControl {
 					alert.setHeaderText(null);
 					alert.setContentText("Please login your details!");
 	        		alert.showAndWait();
+	        		clearFields();
 				} else {
 					Alert alert = new Alert (AlertType.ERROR);
 					alert.setTitle("Database error!");
@@ -71,5 +73,13 @@ public class ClientRegisterControl {
 			}
 		});
 	}
+	
+    public void clearFields () {
+    	passwordText.clear();
+    	firstNameText.clear();
+    	middleNameText.clear();
+    	lastNameText.clear();
+    	usernameText.clear();
+    }
 
 }
