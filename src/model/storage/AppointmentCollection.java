@@ -13,6 +13,7 @@ import java.util.List;
 
 import javafx.scene.paint.Color;
 import model.Appointment;
+import model.AppointmentObserver;
 import model.Client;
 import model.Doctor;
 import model.Event;

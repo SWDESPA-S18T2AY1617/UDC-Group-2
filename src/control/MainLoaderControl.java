@@ -134,6 +134,10 @@ public class MainLoaderControl {
 			
 			secretaryControllers.add(0, loader.getController());
 			secretaryControllers.get(0).setCalendar(new ModelGregorianCalendar());
+			secretaryControllers.get(0).setAppointments(appointments);
+			secretaryControllers.get(0).setDoctors(doctors);
+			secretaryControllers.get(0).setEvents(events);
+			secretaryControllers.get(0).setSecretaries(secretaries);
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/res/img/Secretary1.png")));
 			stage.setTitle("Secretary Login no. " + secretaryControllers.size());

@@ -1,11 +1,13 @@
-package model.storage;
+package model;
+
+import model.storage.AppointmentCollection;
 
 public abstract class AppointmentObserver {
-	protected AppointmentCollection collections;
+	protected AppointmentCollection appointments;
 	
-	public void setEvents (AppointmentCollection collections) {
+	public void setAppointments (AppointmentCollection collections) {
 		
-		this.collections = collections;
+		this.appointments = collections;
 		if (collections !=  null) {
 			collections.register(this);
 		}

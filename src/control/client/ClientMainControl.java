@@ -15,11 +15,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import model.Appointment;
+import model.AppointmentObserver;
 import model.Client;
 import model.Event;
 import model.ModelGregorianCalendar;
-import model.storage.AppointmentCollection;
-import model.storage.AppointmentObserver;
 import model.storage.ClientCollection;
 import model.storage.ClinicDB;
 import model.storage.DoctorCollection;
@@ -43,17 +42,11 @@ public class ClientMainControl extends AppointmentObserver {
 	@FXML private DayControl dayController;
 	@FXML private ToolbarControl toolbarController;
 
-	private AppointmentCollection appointments;
 	private EventCollection events;
 	private DoctorCollection doctors;
 	private Client mainClient;
 	
 	private ModelGregorianCalendar mgc;
-
-	public void setAppointments(AppointmentCollection appointments) {
-		this.appointments = appointments;
-		appointments.register(this);
-	}
 	
 	public void setClients(ClientCollection clients) {
 		loginController.setEvents(this, clients);

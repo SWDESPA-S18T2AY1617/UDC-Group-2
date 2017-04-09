@@ -23,9 +23,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import model.AppointmentObserver;
 import model.Doctor;
 import model.ModelGregorianCalendar;
-import model.storage.AppointmentObserver;
 import javafx.scene.control.ToggleButton;
 
 public class ToolbarControl {

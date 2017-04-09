@@ -188,4 +188,62 @@ public class SecretaryCollection extends AccessObject <Secretary> {
 		
 		return sec;
 	}
+
+	public Secretary get(String u, String p) {
+		if(!ClinicDB.isOpen())
+			return null;
+
+		Secretary sec = null;
+		
+		try (Connection connect = ClinicDB.getActiveConnection()) {
+			ResultSet rs;
+			
+			String query = 	"SELECT * " +
+							" FROM " + Secretary.TABLE + 
+							" WHERE " + Secretary.COL_USERNAME + " = ? AND" +
+							" " + Secretary.COL_PASSWORD + " = ?";
+			
+			statement = connect.prepareStatement(query);
+			
+			statement.setString(1, u);
+			statement.setString(2, p);
+			rs = statement.executeQuery();
+			
+			if(rs.next())
+				sec = toSecretary(rs);
+			
+			System.out.println("[" + getClass().getName() + "] SELECT SUCCESS!");
+		} catch (SQLException e) {
+			System.out.println("[" + getClass().getName() + "] SELECT FAILED!");
+			e.printStackTrace();
+		}
+		
+		return sec;
+	}
+
+	public int lastUpdatedID() {
+		if(!ClinicDB.isOpen())
+			return -1;
+		
+		int i = 0;
+		try (Connection connect = ClinicDB.getActiveConnection()) {
+			ResultSet rs;
+			
+			String query = 	"SELECT MAX( " + Secretary.TABLE + "." + Secretary.COL_ID + ") FROM " + Secretary.TABLE;
+			
+			statement = connect.prepareStatement(query);
+			rs = statement.executeQuery();
+			
+			if(rs.next())
+				i = rs.getInt(1);
+
+			System.out.println("[" + getClass().getName() + "] SELECT SUCCESS!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("[" + getClass().getName() + "] SELECT FAILED!");
+			return 0;
+		}
+		
+		return i;
+	}
 }
