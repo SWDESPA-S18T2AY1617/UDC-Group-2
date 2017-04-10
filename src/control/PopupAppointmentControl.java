@@ -64,6 +64,7 @@ public class PopupAppointmentControl extends PopupControl {
     				alert.showAndWait();
     			}
     		} 
+    		setUserData(event);
 		});		
 	}
 	

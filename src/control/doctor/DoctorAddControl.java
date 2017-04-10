@@ -173,7 +173,7 @@ public class DoctorAddControl {
     		    		
     		    		app.setTitle("FREE");
     		    		ClinicDB.openConnection();
-    		    		if(events.isOverlapping(date, app.getDetails().getTimeStart(), ((EventDetails) app.getDetails()).getTimeEnd())) {
+    		    		if(!events.isOverlapping(date, app.getDetails().getTimeStart(), ((EventDetails) app.getDetails()).getTimeEnd())) {
     		    			ClinicDB.closeConnection();
     		    			
     		    			ClinicDB.openConnection();

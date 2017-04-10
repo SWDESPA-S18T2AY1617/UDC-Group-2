@@ -57,6 +57,8 @@ public class PopupFreeSlotControl extends PopupControl {
 			Alert alert;
 			
 			if(!events.isOverlapping(date.getValue(), timeStart.getSelectionModel().getSelectedItem(), timeEnd.getSelectionModel().getSelectedItem())) {
+				ClinicDB.closeConnection();
+				ClinicDB.openConnection();
 				if(events.update(event)) {
 					alert = new Alert (AlertType.INFORMATION);
 					alert.setTitle("Update Successful!");
@@ -65,9 +67,9 @@ public class PopupFreeSlotControl extends PopupControl {
 					alert.showAndWait();
 				} else {
 					alert = new Alert (AlertType.ERROR);
-					alert.setTitle("Overlapping Appointments!");
+					alert.setTitle("DB Error!");
 	    			alert.setHeaderText(null);
-	    			alert.setContentText("Cannot create schedule due to overlapping appointments!");
+	    			alert.setContentText("There was an error in the SQL!");
 	    			alert.showAndWait();
 				}
 				
@@ -76,11 +78,15 @@ public class PopupFreeSlotControl extends PopupControl {
 				appointments.update(event);
 				ClinicDB.closeConnection();
 			} else {
-				
+				alert = new Alert (AlertType.ERROR);
+				alert.setTitle("Overlapping Appointments!");
+    			alert.setHeaderText(null);
+    			alert.setContentText("Cannot create schedule due to overlapping appointments!");
+    			alert.showAndWait();
 			}
 			
 			
-			
+			setUserData(event);
 		});
 		
 		reserveButton.setOnAction(reserve -> {
@@ -90,7 +96,7 @@ public class PopupFreeSlotControl extends PopupControl {
 			} else {
 				event.setClient(clientList.getSelectionModel().getSelectedItem());
 			}
-			
+					
 			if (clients == null) {
 				ClinicDB.openConnection();
 				Alert alert = new Alert (AlertType.CONFIRMATION);
@@ -164,6 +170,8 @@ public class PopupFreeSlotControl extends PopupControl {
 					alert.showAndWait();
 				}
 			}
+			
+			setUserData(event);
 		});	
 	}
 	
@@ -181,29 +189,9 @@ public class PopupFreeSlotControl extends PopupControl {
 		detailsText.setFill(event.getDetails().getColor().invert());
 		appointmentForWhat.setFill(event.getDetails().getColor().invert());
 		reservedFor.setFill(event.getDetails().getColor().invert());
-		
-		timeStart.getItems().clear();
-        for (int i = 0; i < 24; i ++) {
-        	timeStart.getItems().add(LocalTime.of(i, 0));
-        	timeStart.getItems().add(LocalTime.of(i, 30));
-    	}
-        
+
         timeStart.getSelectionModel().select(event.getDetails().getTimeStart());
-        
-        timeStart.setOnAction(handler -> {
-        	timeEnd.getItems().clear();
-        	for (int i = timeStart.getSelectionModel().getSelectedIndex(); i < timeStart.getItems().size(); i++) {
-        		timeEnd.getItems().add(timeStart.getItems().get(i));
-        	}
-        });
-        
-        
-        timeStart.getSelectionModel().select(event.getDetails().getTimeStart());
-        
-        for (int i = timeStart.getSelectionModel().getSelectedIndex(); i < timeStart.getItems().size(); i++) {
-    		timeEnd.getItems().add(timeStart.getItems().get(i));
-    	}
-        
+          
         timeEnd.getSelectionModel().select(((EventDetails) event.getDetails()).getTimeEnd());
         
         date.setValue(LocalDate.of(event.getDetails().getYear().getValue(), event.getDetails().getMonth(), event.getDetails().getDayOfMonth()));
@@ -219,6 +207,26 @@ public class PopupFreeSlotControl extends PopupControl {
 			reservedFor.setVisible(false);
 			this.client.setVisible(false);
 			this.doctor.setVisible(true);
+			
+			timeStart.getItems().clear();
+	        for (int i = 0; i < 24; i ++) {
+	        	timeStart.getItems().add(LocalTime.of(i, 0));
+	        	timeStart.getItems().add(LocalTime.of(i, 30));
+	    	}
+	        
+	        timeStart.setOnAction(handler -> {
+	        	timeEnd.getItems().clear();
+	        	for (int i = timeStart.getSelectionModel().getSelectedIndex(); i < timeStart.getItems().size(); i++) {
+	        		timeEnd.getItems().add(timeStart.getItems().get(i));
+	        	}
+	        });
+	        
+	        timeStart.getSelectionModel().select(event.getDetails().getTimeStart());
+	        
+	        for (int i = timeStart.getSelectionModel().getSelectedIndex(); i < timeStart.getItems().size(); i++) {
+	    		timeEnd.getItems().add(timeStart.getItems().get(i));
+	    	}
+	        
 		} else {
 
 			this.client.setVisible(true);
