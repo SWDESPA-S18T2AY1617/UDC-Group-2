@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.ModelGregorianCalendar;
 import model.storage.AppointmentCollection;
@@ -34,6 +36,7 @@ public class MainLoaderControl {
 	private DoctorCollection doctors;
 	private SecretaryCollection secretaries;
 	private EventCollection events;
+	private AudioClip backgroundMusic;
 	
 	public void setEvents (EventCollection events) {
 		this.events = events;
@@ -61,6 +64,11 @@ public class MainLoaderControl {
 		secretaryControllers = new ArrayList <SecretaryMainControl> ();
 		clientControllers = new ArrayList <ClientMainControl> ();
 		
+        backgroundMusic = new AudioClip(getClass().getResource("/res/bg-hospital.wav").toExternalForm());
+        backgroundMusic.setVolume(0.5f);
+        backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
+        backgroundMusic.play();
+        
 		doctorButton.setOnAction(event -> {
 			setDoctorStage();
 		});
